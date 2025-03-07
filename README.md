@@ -10,5 +10,5 @@ DB_HOST=localhost
 DB_NAME=TFT_db
 DB_USER=您的數據庫用戶名
 DB_PASSWORD=您的數據庫密碼
-## 4. 創建MySQL數據庫：`CREATE DATABASE TFT_db;`
-## 5. 運行設置腳本：`python setup.py`
+4. 創建MySQL數據庫：`CREATE DATABASE TFT_db;`
+5. 運行設置腳本：`python setup.py`
