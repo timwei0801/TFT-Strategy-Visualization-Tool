@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>陣容推薦 - TFT戰術推薦系統</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/recommendation.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>TFT戰術推薦視覺化系統</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">首頁</a></li>
+                    <li><a href="recommendation.html" class="active">陣容推薦</a></li>
+                    <li><a href="#">數據分析</a></li>
+                    <li><a href="#">關於</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="recommendation-container">
+            <div class="container">
+                <h2>陣容推薦系統</h2>
+                <p>選擇你當前已有的英雄，我們將為你推薦最佳的陣容組合。</p>
+                
+                <div class="recommendation-interface">
+                    <div class="selection-panel">
+                        <h3>英雄選擇</h3>
+                        <div class="search-box">
+                            <input type="text" id="champion-search" placeholder="搜尋英雄...">
+                        </div>
+                        <div class="champion-grid" id="champion-list">
+                            <!-- 英雄列表將通過JavaScript動態生成 -->
+                            <div class="champion-placeholder">載入中...</div>
+                        </div>
+                    </div>
+                    
+                    <div class="selected-panel">
+                        <h3>已選擇的英雄</h3>
+                        <div class="selected-champions" id="selected-champions">
+                            <p class="empty-message">尚未選擇任何英雄</p>
+                        </div>
+                        <div class="active-traits" id="active-traits">
+                            <h4>已激活特質</h4>
+                            <div class="traits-container">
+                                <!-- 特質將通過JavaScript動態生成 -->
+                            </div>
+                        </div>
+                        <button id="get-recommendations" class="btn-primary">獲取推薦陣容</button>
+                    </div>
+                </div>
+                
+                <div class="recommendations-results" id="recommendations-results" style="display: none;">
+                    <h3>推薦陣容</h3>
+                    <div class="results-tabs">
+                        <button class="tab-btn active" data-tab="comp1">推薦陣容 1</button>
+                        <button class="tab-btn" data-tab="comp2">推薦陣容 2</button>
+                        <button class="tab-btn" data-tab="comp3">推薦陣容 3</button>
+                    </div>
+                    <div class="tab-content active" id="comp1">
+                        <div class="recommended-comp">
+                            <h4>最佳陣容 1</h4>
+                            <div class="comp-details">
+                                <div class="comp-champions">
+                                    <!-- 推薦英雄將通過JavaScript動態生成 -->
+                                </div>
+                                <div class="comp-traits">
+                                    <!-- 推薦陣容特質將通過JavaScript動態生成 -->
+                                </div>
+                                <div class="comp-stats">
+                                    <p><strong>勝率:</strong> <span>58.2%</span></p>
+                                    <p><strong>使用率:</strong> <span>12.5%</span></p>
+                                    <p><strong>平均名次:</strong> <span>3.4</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content" id="comp2">
+                        <!-- 類似comp1的結構，將通過JavaScript動態生成 -->
+                        <p>載入中...</p>
+                    </div>
+                    <div class="tab-content" id="comp3">
+                        <!-- 類似comp1的結構，將通過JavaScript動態生成 -->
+                        <p>載入中...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 TFT戰術推薦視覺化系統</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/recommendation.js"></script>
+</body>
+</html>

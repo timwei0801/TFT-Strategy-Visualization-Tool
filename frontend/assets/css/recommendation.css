@@ -1,0 +1,237 @@
+/* 陣容推薦頁面特定樣式 */
+.recommendation-container {
+    padding: 40px 0;
+    background-color: #f8f9fa;
+}
+
+.recommendation-interface {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.selection-panel, .selected-panel {
+    flex: 1;
+    min-width: 300px;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.search-box {
+    margin-bottom: 20px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.champion-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+    gap: 10px;
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.champion-item {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.champion-item:hover {
+    transform: scale(1.1);
+}
+
+.champion-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.champion-cost {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: gold;
+    padding: 2px 5px;
+    font-size: 0.8rem;
+    border-top-left-radius: 5px;
+}
+
+.selected-champions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+    min-height: 80px;
+}
+
+.empty-message {
+    width: 100%;
+    text-align: center;
+    color: #888;
+    padding: 20px 0;
+}
+
+.selected-champion {
+    position: relative;
+    width: 70px;
+    height: 70px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.selected-champion img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.remove-champion {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 20px;
+    height: 20px;
+    background-color: #ff4757;
+    color: #fff;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 20px;
+    font-size: 0.7rem;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.active-traits {
+    margin-bottom: 20px;
+}
+
+.traits-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.trait-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 8px;
+    background-color: #f1f1f1;
+    border-radius: 15px;
+    font-size: 0.9rem;
+}
+
+.trait-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.trait-active-1 { background-color: #90caf9; }
+.trait-active-2 { background-color: #80deea; }
+.trait-active-3 { background-color: #a5d6a7; }
+.trait-active-4 { background-color: #ffcc80; }
+.trait-active-5 { background-color: #ef9a9a; }
+
+#get-recommendations {
+    width: 100%;
+}
+
+.recommendations-results {
+    margin-top: 40px;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.results-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.tab-btn {
+    padding: 10px 15px;
+    background-color: #f1f1f1;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.tab-btn.active {
+    background-color: #4b7bec;
+    color: #fff;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.recommended-comp {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.comp-details {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.comp-champions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.comp-champion {
+    position: relative;
+    width: 70px;
+    height: 70px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.comp-champion img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.comp-traits {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+@media (max-width: 768px) {
+    .comp-details {
+        grid-template-columns: 1fr;
+    }
+}
