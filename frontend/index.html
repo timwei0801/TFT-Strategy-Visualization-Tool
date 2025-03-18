@@ -3,58 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TFT戰術推薦系統</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <title>TFT戰術推薦視覺化系統</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
     <header>
-        <div class="container">
-            <h1>TFT戰術推薦視覺化系統</h1>
-            <nav>
-                <ul>
-                    <li><a href="#" class="active">首頁</a></li>
-                    <li><a href="#">陣容推薦</a></li>
-                    <li><a href="#">數據分析</a></li>
-                    <li><a href="#">關於</a></li>
-                </ul>
-            </nav>
-        </div>
+        <h1>TFT戰術推薦視覺化系統</h1>
+        <p>基於S13賽季高端玩家對局資料</p>
     </header>
 
-    <main>
-        <section class="hero">
-            <div class="container">
-                <h2>根據你的英雄推薦最佳戰術陣容</h2>
-                <p>從高端玩家數據中學習，提供最佳陣容組合與發展路徑</p>
-                <button class="btn-primary">開始使用</button>
+    <main class="container">
+        <div class="board-section">
+            <h2>棋盤配置</h2>
+            <div class="hexagon-board" id="hexBoard">
+                <!-- 六角形格子將通過JS動態生成 -->
             </div>
-        </section>
+        </div>
 
-        <section class="features">
-            <div class="container">
-                <h2>功能特色</h2>
-                <div class="feature-grid">
-                    <div class="feature-card">
-                        <h3>個人化陣容推薦</h3>
-                        <p>根據你當前擁有的英雄，智能推薦最佳陣容組合</p>
-                    </div>
-                    <div class="feature-card">
-                        <h3>視覺化數據展示</h3>
-                        <p>直觀展示英雄協同、特質激活和裝備推薦</p>
-                    </div>
-                    <div class="feature-card">
-                        <h3>高端玩家數據分析</h3>
-                        <p>從宗師、大師和王者級別玩家的數據中學習</p>
-                    </div>
-                </div>
+        <div class="champions-section">
+            <h2>英雄選擇</h2>
+            <div id="championsGrid" class="champions-grid">
+                <!-- 英雄將通過JS動態生成 -->
+                <p>英雄列表載入中...</p>
             </div>
-        </section>
+        </div>
+
+        <div class="recommendation-section">
+            <h2>陣容推薦</h2>
+            <p class="placeholder">請在棋盤上放置英雄以獲取推薦</p>
+        </div>
     </main>
 
     <footer>
-        <div class="container">
-            <p>&copy; 2025 TFT戰術推薦視覺化系統</p>
-        </div>
+        <p>TFT戰術推薦視覺化系統 - S13賽季資料</p>
     </footer>
 
     <script src="assets/js/main.js"></script>

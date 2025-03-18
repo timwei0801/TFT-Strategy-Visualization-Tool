@@ -1,0 +1,747 @@
+[
+    {
+        "placement": 5,
+        "level": 10,
+        "traits": [
+            {
+                "name": "TFT13_Ambassador",
+                "num_units": 1,
+                "tier_current": 1,
+                "tier_total": 2
+            },
+            {
+                "name": "TFT13_FormSwapper",
+                "num_units": 4,
+                "tier_current": 2,
+                "tier_total": 2
+            },
+            {
+                "name": "TFT13_Pugilist",
+                "num_units": 2,
+                "tier_current": 1,
+                "tier_total": 4
+            },
+            {
+                "name": "TFT13_Sorcerer",
+                "num_units": 2,
+                "tier_current": 1,
+                "tier_total": 3
+            },
+            {
+                "name": "TFT13_Warband",
+                "num_units": 8,
+                "tier_current": 3,
+                "tier_total": 4
+            },
+            {
+                "name": "TFT13_Watcher",
+                "num_units": 2,
+                "tier_current": 1,
+                "tier_total": 3
+            }
+        ],
+        "champions": [
+            {
+                "character_id": "TFT13_Darius",
+                "tier": 1,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Draven",
+                "tier": 1,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Vladimir",
+                "tier": 2,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Rell",
+                "tier": 1,
+                "items": []
+            },
+            {
+                "character_id": "tft13_swain",
+                "tier": 2,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Gangplank",
+                "tier": 2,
+                "items": []
+            },
+            {
+                "character_id": "tft13_elise",
+                "tier": 1,
+                "items": []
+            },
+            {
+                "character_id": "tft13_elise",
+                "tier": 1,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Ambessa",
+                "tier": 2,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Jayce",
+                "tier": 2,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Mordekaiser",
+                "tier": 1,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_JayceSummon",
+                "tier": 2,
+                "items": []
+            }
+        ]
+    },
+    {
+        "placement": 1,
+        "level": 10,
+        "traits": [
+            {
+                "name": "TFT13_MachineHerald",
+                "num_units": 1,
+                "tier_current": 1,
+                "tier_total": 1
+            },
+            {
+                "name": "TFT13_Rebel",
+                "num_units": 10,
+                "tier_current": 4,
+                "tier_total": 4
+            },
+            {
+                "name": "TFT13_Sorcerer",
+                "num_units": 2,
+                "tier_current": 1,
+                "tier_total": 3
+            },
+            {
+                "name": "TFT13_Titan",
+                "num_units": 2,
+                "tier_current": 1,
+                "tier_total": 3
+            }
+        ],
+        "champions": [
+            {
+                "character_id": "TFT13_Irelia",
+                "tier": 1,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Vex",
+                "tier": 2,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Akali",
+                "tier": 1,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Sett",
+                "tier": 1,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Ezreal",
+                "tier": 2,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Illaoi",
+                "tier": 2,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Zoe",
+                "tier": 2,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Jayce",
+                "tier": 2,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_LeBlanc",
+                "tier": 2,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_LeBlanc",
+                "tier": 2,
+                "items": []
+            },
+            {
+                "character_id": "tft13_jinx",
+                "tier": 3,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Viktor",
+                "tier": 2,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_JayceSummon",
+                "tier": 2,
+                "items": []
+            }
+        ]
+    },
+    {
+        "placement": 2,
+        "level": 10,
+        "traits": [
+            {
+                "name": "TFT13_BloodHunter",
+                "num_units": 1,
+                "tier_current": 1,
+                "tier_total": 1
+            },
+            {
+                "name": "TFT13_FormSwapper",
+                "num_units": 4,
+                "tier_current": 2,
+                "tier_total": 2
+            },
+            {
+                "name": "TFT13_HighRoller",
+                "num_units": 1,
+                "tier_current": 1,
+                "tier_total": 1
+            },
+            {
+                "name": "TFT13_JunkerKing",
+                "num_units": 1,
+                "tier_current": 1,
+                "tier_total": 1
+            },
+            {
+                "name": "TFT13_Pugilist",
+                "num_units": 8,
+                "tier_current": 4,
+                "tier_total": 4
+            },
+            {
+                "name": "TFT13_Scrap",
+                "num_units": 4,
+                "tier_current": 2,
+                "tier_total": 4
+            },
+            {
+                "name": "TFT13_Warband",
+                "num_units": 3,
+                "tier_current": 1,
+                "tier_total": 4
+            }
+        ],
+        "champions": [
+            {
+                "character_id": "TFT13_Draven",
+                "tier": 2,
+                "items": []
+            },
+            {
+                "character_id": "tft13_swain",
+                "tier": 2,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Gangplank",
+                "tier": 3,
+                "items": []
+            },
+            {
+                "character_id": "tft13_elise",
+                "tier": 2,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Corki",
+                "tier": 2,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Vi",
+                "tier": 2,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Jayce",
+                "tier": 2,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Mordekaiser",
+                "tier": 2,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Lieutenant",
+                "tier": 3,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Rumble",
+                "tier": 2,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Warwick",
+                "tier": 1,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_JayceSummon",
+                "tier": 2,
+                "items": []
+            }
+        ]
+    },
+    {
+        "placement": 3,
+        "level": 9,
+        "traits": [
+            {
+                "name": "TFT13_Ambusher",
+                "num_units": 5,
+                "tier_current": 4,
+                "tier_total": 4
+            },
+            {
+                "name": "TFT13_BloodHunter",
+                "num_units": 1,
+                "tier_current": 1,
+                "tier_total": 1
+            },
+            {
+                "name": "TFT13_Crime",
+                "num_units": 4,
+                "tier_current": 2,
+                "tier_total": 4
+            },
+            {
+                "name": "TFT13_HighRoller",
+                "num_units": 1,
+                "tier_current": 1,
+                "tier_total": 1
+            },
+            {
+                "name": "TFT13_Infused",
+                "num_units": 2,
+                "tier_current": 1,
+                "tier_total": 3
+            },
+            {
+                "name": "TFT13_JunkerKing",
+                "num_units": 1,
+                "tier_current": 1,
+                "tier_total": 1
+            },
+            {
+                "name": "TFT13_Scrap",
+                "num_units": 2,
+                "tier_current": 1,
+                "tier_total": 4
+            }
+        ],
+        "champions": [
+            {
+                "character_id": "TFT13_Chainsaw",
+                "tier": 2,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Gremlin",
+                "tier": 3,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Silco",
+                "tier": 2,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_DrMundo",
+                "tier": 2,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Ekko",
+                "tier": 2,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Jayce",
+                "tier": 1,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Lieutenant",
+                "tier": 1,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Rumble",
+                "tier": 1,
+                "items": []
+            },
+            {
+                "character_id": "tft13_jinx",
+                "tier": 2,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Warwick",
+                "tier": 1,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_DrMundo",
+                "tier": 2,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_JayceSummon",
+                "tier": 1,
+                "items": []
+            }
+        ]
+    },
+    {
+        "placement": 7,
+        "level": 9,
+        "traits": [
+            {
+                "name": "TFT13_Cabal",
+                "num_units": 5,
+                "tier_current": 3,
+                "tier_total": 4
+            },
+            {
+                "name": "TFT13_FormSwapper",
+                "num_units": 2,
+                "tier_current": 1,
+                "tier_total": 2
+            },
+            {
+                "name": "TFT13_Infused",
+                "num_units": 3,
+                "tier_current": 1,
+                "tier_total": 3
+            },
+            {
+                "name": "TFT13_Sorcerer",
+                "num_units": 6,
+                "tier_current": 3,
+                "tier_total": 3
+            }
+        ],
+        "champions": [
+            {
+                "character_id": "TFT13_Morgana",
+                "tier": 2,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Zyra",
+                "tier": 2,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Vladimir",
+                "tier": 1,
+                "items": []
+            },
+            {
+                "character_id": "tft13_swain",
+                "tier": 1,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Blitzcrank",
+                "tier": 1,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Cassiopeia",
+                "tier": 1,
+                "items": []
+            },
+            {
+                "character_id": "tft13_elise",
+                "tier": 1,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_DrMundo",
+                "tier": 2,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Zoe",
+                "tier": 1,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_LeBlanc",
+                "tier": 1,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Sion",
+                "tier": 3,
+                "items": []
+            }
+        ]
+    },
+    {
+        "placement": 6,
+        "level": 9,
+        "traits": [
+            {
+                "name": "TFT13_Ambassador",
+                "num_units": 1,
+                "tier_current": 1,
+                "tier_total": 2
+            },
+            {
+                "name": "TFT13_Ambusher",
+                "num_units": 2,
+                "tier_current": 1,
+                "tier_total": 4
+            },
+            {
+                "name": "TFT13_FormSwapper",
+                "num_units": 3,
+                "tier_current": 1,
+                "tier_total": 2
+            },
+            {
+                "name": "TFT13_Scrap",
+                "num_units": 2,
+                "tier_current": 1,
+                "tier_total": 4
+            },
+            {
+                "name": "TFT13_Sorcerer",
+                "num_units": 2,
+                "tier_current": 1,
+                "tier_total": 3
+            },
+            {
+                "name": "TFT13_Warband",
+                "num_units": 7,
+                "tier_current": 3,
+                "tier_total": 4
+            },
+            {
+                "name": "TFT13_Watcher",
+                "num_units": 2,
+                "tier_current": 1,
+                "tier_total": 3
+            }
+        ],
+        "champions": [
+            {
+                "character_id": "TFT13_Darius",
+                "tier": 2,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Vladimir",
+                "tier": 2,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Rell",
+                "tier": 2,
+                "items": []
+            },
+            {
+                "character_id": "tft13_swain",
+                "tier": 2,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Gangplank",
+                "tier": 1,
+                "items": []
+            },
+            {
+                "character_id": "tft13_elise",
+                "tier": 1,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Ambessa",
+                "tier": 1,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Ekko",
+                "tier": 2,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Mordekaiser",
+                "tier": 1,
+                "items": []
+            },
+            {
+                "character_id": "tft13_jinx",
+                "tier": 1,
+                "items": []
+            }
+        ]
+    },
+    {
+        "placement": 8,
+        "level": 5,
+        "traits": [
+            {
+                "name": "TFT13_Ambassador",
+                "num_units": 1,
+                "tier_current": 1,
+                "tier_total": 2
+            },
+            {
+                "name": "TFT13_Warband",
+                "num_units": 2,
+                "tier_current": 1,
+                "tier_total": 4
+            }
+        ],
+        "champions": [
+            {
+                "character_id": "TFT13_Darius",
+                "tier": 1,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Draven",
+                "tier": 1,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Vex",
+                "tier": 1,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Nami",
+                "tier": 1,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_TwistedFate",
+                "tier": 1,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Illaoi",
+                "tier": 1,
+                "items": []
+            }
+        ]
+    },
+    {
+        "placement": 4,
+        "level": 9,
+        "traits": [
+            {
+                "name": "TFT13_Academy",
+                "num_units": 6,
+                "tier_current": 4,
+                "tier_total": 4
+            },
+            {
+                "name": "TFT13_Invoker",
+                "num_units": 3,
+                "tier_current": 1,
+                "tier_total": 3
+            },
+            {
+                "name": "TFT13_Martialist",
+                "num_units": 2,
+                "tier_current": 1,
+                "tier_total": 3
+            },
+            {
+                "name": "TFT13_Titan",
+                "num_units": 6,
+                "tier_current": 3,
+                "tier_total": 3
+            }
+        ],
+        "champions": [
+            {
+                "character_id": "TFT13_Lux",
+                "tier": 2,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Leona",
+                "tier": 2,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Rell",
+                "tier": 2,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Ezreal",
+                "tier": 2,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_NunuWillump",
+                "tier": 2,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Beardy",
+                "tier": 2,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Heimerdinger",
+                "tier": 2,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Illaoi",
+                "tier": 2,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Corki",
+                "tier": 2,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_Jayce",
+                "tier": 1,
+                "items": []
+            },
+            {
+                "character_id": "TFT13_JayceSummon",
+                "tier": 1,
+                "items": []
+            }
+        ]
+    }
+]
