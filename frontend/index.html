@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,37 +7,97 @@
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
-    <header>
-        <h1>TFT戰術推薦視覺化系統</h1>
-        <p>基於S13賽季高端玩家對局資料</p>
-    </header>
-
-    <main class="container">
-        <div class="board-section">
-            <h2>棋盤配置</h2>
-            <div class="hexagon-board" id="hexBoard">
-                <!-- 六角形格子將通過JS動態生成 -->
+    <div class="container">
+        <!-- 頂部資訊欄 -->
+        <div class="top-info">
+            <h1>TFT戰術推薦視覺化系統 - 第13季PBE測試版</h1>
+            <div class="version-info">版本: 13.0</div>
+        </div>
+        
+        <!-- 狀態信息 -->
+        <div class="status-info">
+            系統狀態：開發模式 - 圖片資源有限。部分圖片使用預設圖示替代。
+        </div>
+        
+        <!-- 主要內容區 -->
+        <div class="main-content">
+            <!-- 左側陣容資訊 -->
+            <div class="team-info">
+                <h3>陣容</h3>
+                <div class="team-info-content">
+                    <p>放置冠軍以激活協同作用。</p>
+                    <div class="traits-container" id="traits-container">
+                        <!-- 特質會動態添加在這裡 -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 中間棋盤區域 -->
+            <div class="board-container">
+                <div class="board-label">棋盤</div>
+                <div class="hexagon-board" id="hexagon-board">
+                    <!-- 六角形格子會動態生成 -->
+                </div>
+                <div class="board-instructions">
+                    <p>• 拖動或左鍵單擊，將冠軍和物品放置到佈局上。</p>
+                    <p>• 右鍵選擇取消選擇冠軍和物品。</p>
+                </div>
+                <div class="board-buttons">
+                    <button id="clear-board"><img src="/api/placeholder/18/18" alt="清除圖示" /> 清除面板</button>
+                    <button id="save-image"><img src="/api/placeholder/18/18" alt="儲存圖示" /> 儲存圖像</button>
+                </div>
+            </div>
+            
+            <!-- 右側推薦區 -->
+            <div class="recommendation">
+                <h3>核心英雄與道具</h3>
+                <div class="recommendation-content">
+                    <p>從清單中拖動核心冠軍。</p>
+                    <div id="core-recommendations">
+                        <!-- 推薦內容會動態生成 -->
+                    </div>
+                    <h3 style="margin-top: 20px;">增幅裝置</h3>
+                    <p>從下面的增幅表中拖動建議的增幅。</p>
+                    <div id="augment-recommendations">
+                        <!-- 增幅推薦會動態生成 -->
+                    </div>
+                </div>
             </div>
         </div>
-
-        <div class="champions-section">
-            <h2>英雄選擇</h2>
-            <div id="championsGrid" class="champions-grid">
-                <!-- 英雄將通過JS動態生成 -->
-                <p>英雄列表載入中...</p>
+        
+        <!-- 底部選單欄 -->
+        <div class="bottom-menu">
+            <div class="menu-tabs">
+                <div class="menu-tab active" data-tab="champions">
+                    <img src="/api/placeholder/18/18" alt="英雄圖示" /> 英雄
+                </div>
+                <div class="menu-tab" data-tab="items">
+                    <img src="/api/placeholder/18/18" alt="道具圖示" /> 道具
+                </div>
+                <div class="menu-tab" data-tab="augments">
+                    <img src="/api/placeholder/18/18" alt="增幅圖示" /> 增幅裝置
+                </div>
+            </div>
+            
+            <div class="menu-filter">
+                <div class="filter-box">
+                    <div class="search-box">
+                        <img src="/api/placeholder/16/16" alt="搜尋圖示" />
+                        <input type="text" id="search-input" placeholder="搜尋英雄">
+                    </div>
+                    <div class="filter-buttons" id="filter-buttons">
+                        <!-- 過濾按鈕會根據當前標籤動態生成 -->
+                    </div>
+                </div>
+                <button class="clear-button" id="clear-filter">清除</button>
+            </div>
+            
+            <div class="items-grid" id="items-grid">
+                <!-- 物品格會動態生成 -->
             </div>
         </div>
-
-        <div class="recommendation-section">
-            <h2>陣容推薦</h2>
-            <p class="placeholder">請在棋盤上放置英雄以獲取推薦</p>
-        </div>
-    </main>
-
-    <footer>
-        <p>TFT戰術推薦視覺化系統 - S13賽季資料</p>
-    </footer>
-
-    <script src="assets/js/main.js"></script>
+    </div>
+    
+    <script src="assets/js/recommendationEngine.js"></script>
 </body>
 </html>
