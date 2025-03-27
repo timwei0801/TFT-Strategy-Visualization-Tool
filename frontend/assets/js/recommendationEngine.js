@@ -11,6 +11,7 @@ const availableImages = {
         'Annie', 'Brand', 'Ziggs', "Cho'Gath", 'Vex', 'Leona',
         'Zac', 'Kobuko', 'Aurora', 'Urgot', 'Samira', 'Viego', 'Garen', 'Renekton'
     ],
+
     items: [
         'Fist of Fairness','Covalent Spark','Crest of Cinders',"Jak'sho the Protean","Statikk's Favor",
         "Sterak's Megashield","Bulwark's Oath","Warmog's Pride",'Dvarapala Stoneplate','Equinox',
@@ -55,7 +56,13 @@ const availableImages = {
         "Recurve Bow", "Tear of the Goddess", "Giant's Belt", "Needlessly Large Rod", "Frying Pan", "B.F Sword",
         "Sparring Gloves", "Negatron Cloak", "Spatula", "Chain Vest",
     ],
-    traits: [],
+
+    traits: [
+        'Vanguar', 'Techie', 'Slayer', 'Rapidfire', 'Bastion', 'Divinicorp', 'Nitro', 'Anima Squad', 'Stree Demon', 'A.M.P.', 'Marksman', 
+        'BoomBot', 'Exotech', 'Dynamo', 'Ctpher', 'Syndicate', 'Cyberboss', 'Golden Ox', 'Executioner', 'Strategist', 'Bruiser', 'Soul Killer', 
+        'Overlord', 'God of the Net', 'Virus', 
+    ],
+
     augments: [
         'Ones Twos Three', 'One Two Five!', 'Find Your Center', 'Teaming Up I', 'Eye For An Eye', 'Eye For An Eye+', 
         'Health is Wealth I', 'Lunch Money', 'Bulky Buddies I', 'Diversified Portfolio', 'Diversified Portfolio+', 
@@ -190,77 +197,133 @@ const traitData = [
 ];
 
 const itemData = [
-    { id: 'Fist of Fairness', name: '公理拳套', type: 'Radiant', stats: ['critChance +40%', 'abilityPower +15'], description: '攻擊和技能為攜帶者提供相當於實際傷害值35%的治療效果。' },
-    { id: 'Covalent Spark', name: '共價鍵星火', type: 'Radiant' },
-    { id: 'Crest of Cinders', name: '力量的餘燼', type: 'Radiant' },
-    { id: "Jak'sho the Protean", name: '千變萬化之賈克修', type: 'Radiant' },
-    { id: "Statikk's Favor", name: '史提克的善行', type: 'Radiant' },
-    { id: "Sterak's Megashield", name: '史特拉克超級護盾', type: 'Radiant' },
-    { id: "Bulwark's Oath", name: '堡壘之誓約', type: 'Radiant' },
-    { id: "Warmog's Pride", name: '好站者驕傲', type: 'Radiant' },
-    { id: 'Dvarapala Stoneplate', name: '守門天磐核', type: 'Radiant' },
-    { id: 'Equinox', name: '寂靜星河', type: 'Radiant' },
-    { id: 'Zenith Edge', name: '巔峰之刃', type: 'Radiant' },
-    { id: 'Legacy of the Colossus', name: '巨像之遺物', type: 'Radiant' },
-    { id: "The Baron's Gift", name: '巴龍的賜福', type: 'Radiant' },
-    { id: 'Spear of Hirana', name: '希安那之矛', type: 'Radiant' },
-    { id: "Rascal's Gloves", name: '搗蛋鬼手套', type: 'Radiant' },
-    { id: 'Sunlight Cape', name: '日光斗篷', type: 'Radiant' },
-    { id: 'Quickestsilver', name: '極致水銀', type: 'Radiant' },
-    { id: 'More More-ellonomicon', name: '極黑魔禁書', type: 'Radiant' },
-    { id: 'Eternal Whisper', name: '永恆耳語', type: 'Radiant' },
-    { id: "Titan's Vow", name: '泰坦的誓言', type: 'Radiant' },
-    { id: 'Hextech Lifeblade', name: '海克斯科技命刃', type: 'Radiant' },
-    { id: 'Demonslayer', name: '滅鬼之刃', type: 'Radiant' },
-    { id: 'Rosethorn Vest', name: '玫瑰刺藤胸甲', type: 'Radiant' },
-    { id: 'Royal Crownshield', name: '皇家冠盾', type: 'Radiant' },
-    { id: 'Willbreaker', name: '破志者', type: 'Radiant' },
-    { id: 'Blessed Bloodthirster', name: '神聖嗜血者', type: 'Radiant' },
-    { id: 'Blue Blessing', name: '神聖遠古魔像增益', type: 'Radiant' },
-    { id: 'Luminous Deathblade', name: '聖光神聖之刃', type: 'Radiant' },
-    { id: "Runaan's Tempest", name: '芮蘭驟雨箭', type: 'Radiant' },
-    { id: 'Absolution', name: '赦罪神石', type: 'Radiant' },
-    { id: "Urf-Angel's Staff", name: '阿福天使之杖', type: 'Radiant' },
-    { id: "Rabadon's Ascended Deathcap", name: '飛昇死亡之帽', type: 'Radiant' },
-    { id: "Guinsoo's Reckoning", name: '鬼索的審判之刃', type: 'Radiant' },
-    { id: 'Glamorous Gauntlet', name: '魅力手套', type: 'Radiant' },
-    { id: 'Brink of Dawn', name: '黎明邊際', type: 'Radiant' },
-    { id: "Dragon's Will", name: '龍之志', type: 'Radiant' },
+    { id: 'Crest of Cinders', name: '力量的餘燼', type: 'Radiant', stats: ['attackSpeed +60%', 'damageAmp +10%'], description: '普攻和技能對敵人造成2% 燃燒和33%重創效果，持續5秒。燃燒：每秒對目標造成等同於其最大生命1%的真實傷害，重創：降低獲得的治療效果' },
+
+    { id: "Jak'sho the Protean", name: '千變萬化之賈克修', type: 'Radiant', stats: ['magicAttack +25', 'abilityPower +15', 'magicDefense +30'], description: '戰鬥開始：根據起始位置獲得不同加成。前兩排：60物理與魔法防禦，被普攻命中時獲得2魔力。後兩排：40魔法攻擊，每3秒獲得20魔力。' },
+
+    { id: "Statikk's Favor", name: '史提克的善行', type: 'Radiant', stats: ['attackSpeed +20%', 'magicAttack +50', 'abilityPower +15'], description: '每3次普攻會對8名敵軍造成95魔法傷害並削抗30%，持續5秒。削抗：減少魔法防禦' },
+
+    { id: "Sterak's Megashield", name: '史特拉克超級護盾', type: 'Radiant', stats: ['physicalAttack +30%', 'health +400'], description: '每場戰鬥一次，生命60%時，獲得40%最大生命與60%物理攻擊。' },
+
+    { id: "Bulwark's Oath", name: '堡壘之誓約', type: 'Radiant', stats: ['abilityPower +30', 'physicalDefense +40'], description: '每場戰鬥一次：40%生命時，獲得一個50%最大生命的護盾，持續10秒，並獲得60物理與50魔法防禦。' },
+
+    { id: "Warmog's Pride", name: '好站者驕傲', type: 'Radiant', stats: ['health +1000'], description: '獲得20%最大生命。每秒回復1.5%最大生命。' },
+
+    { id: 'Dvarapala Stoneplate', name: '守門天磐核', type: 'Radiant', stats: ['physicalDefense +50', 'magicDefense +50', 'health +250'], description: '每有一位敵軍以裝備者為目標，便獲得15物防與15魔防。此外，每秒回復1.5%最大生命。' },
+
+    { id: 'Equinox', name: '寂靜星河', type: 'Radiant', stats: ['magicDefense +30', 'health +500'], description: '在3格內的敵軍受到30%破甲。戰鬥開始後20秒內，增加70物理防禦與魔法防禦。破甲：降低物防' },
+
+    { id: 'Zenith Edge', name: '巔峰之刃', type: 'Radiant', stats: ['physicalAttack +70%', 'critChance +75%'], description: '技能可以暴擊。若裝備者的技能本來就可暴擊，則改為增加10%暴擊傷害。' },
+
+    { id: 'Legacy of the Colossus', name: '巨像之遺物', type: 'Radiant', stats: ['physicalDefense +40', 'health +500', 'critChance +20%'], description: '獲得16%額戰力。生命在40%以上時，改為獲得30%額戰力。' },
+
+    { id: "The Baron's Gift", name: '巴龍的賜福', type: 'Radiant', stats: ['attackSpeed +20%', 'magicAttack +30', 'health +200'], description: '施放技能後，增加120%攻速，持續8秒。' },
+
+    { id: 'Spear of Hirana', name: '希安那之矛', type: 'Radiant', stats: ['physicalAttack +35%', 'magicAttack +35', 'abilityPower +20'], description: '物理攻擊賦予10額外魔力。' },
+
+    { id: "Rascal's Gloves", name: '搗蛋鬼手套', type: 'Radiant', stats: ['health +150', 'critChance +20%'], description: '每個回合：裝備2件隨機星光道具。[需消耗3個裝備格]' },
+
+    { id: 'Sunlight Cape', name: '日光斗篷', type: 'Radiant', stats: ['physicalDefense +40', 'health +300'], description: '獲得12%最大生命。每1.5秒，對3格內的敵軍造成2%燃燒與33%重創效果，持續8秒。[唯一：每一名英雄僅限1件]' },
+
+    { id: 'Quickestsilver', name: '極致水銀', type: 'Radiant', stats: ['attackSpeed +50%', 'magicDefense +30', 'critChance +40%'], description: '戰鬥開始：免疫控制效果，持續45秒。在18秒期間，每2秒增加7%攻速。[唯一：每一名英雄僅限1件]' },
+
+    { id: 'More More-ellonomicon', name: '極黑魔禁書', type: 'Radiant', stats: ['attackSpeed +25%', 'magicAttack +50', 'health +150'], description: '普攻與技能會對敵軍造成2%燃燒與33%重創效果，持續8秒。[唯一：每一名英雄僅限1件]' },
+
+    { id: 'Eternal Whisper', name: '永恆耳語', type: 'Radiant', stats: ['physicalAttack +45%', 'attackSpeed +25%', 'critChance +55%'], description: '物理傷害會對目標造成30%破甲，直到戰鬥結束。此效果無法疊加。[唯一：每一名英雄僅限1件]' },
+
+    { id: "Titan's Vow", name: '泰坦的誓言', type: 'Radiant', stats: ['attackSpeed +30%', 'physicalDefense +35'], description: '普攻或承受傷害時，獲得3%物理與3魔法攻擊，最多可累加25層。滿層時，獲得50物理與50魔法防禦。' },
+
+    { id: 'Hextech Lifeblade', name: '海克斯科技命刃', type: 'Radiant', stats: ['physicalAttack +40%', 'magicAttack +40', 'omnivamp +30%'], description: '治療生命比例最低的友軍，治療量等同於40%傷害量。' },
+
+    { id: 'Demonslayer', name: '滅鬼之刃', type: 'Radiant', stats: ['physicalAttack +50%', 'attackSpeed +10%', 'magicAttack +50', 'damageAmp +20%'], description: '攻擊高於1750最大生命的敵軍時，獲得30%額外傷害增幅。' },
+
+    { id: 'Rosethorn Vest', name: '玫瑰刺藤胸甲', type: 'Radiant', stats: ['physicalDefense +100'], description: '增加15%最大生命。承受的普攻傷害降低25%。被普攻命中時，對所有鄰近敵軍造成175魔法傷害。冷卻時間：2秒' },
+
+    { id: 'Royal Crownshield', name: '皇家冠盾', type: 'Radiant', stats: ['magicAttack +40', 'physicalDefense +40', 'health +200'], description: '戰鬥開始：獲得可吸收最大生命50%傷害的護盾，持續8秒。護盾消失時，增加50魔法攻擊。' },
+
+    { id: 'Willbreaker', name: '破志者', type: 'Radiant', stats: ['attackSpeed +30%', 'magicAttack +30', 'health +150', 'critChance +20%', 'damageAmp +20%'], description: '對敵軍造成傷害後，獲得30%額外傷害增幅，持續3秒。' },
+
+    { id: 'Blessed Bloodthirster', name: '神聖嗜血者', type: 'Radiant', stats: ['physicalAttack +40%', 'magicAttack +40', 'magicDefense +20', 'omnivamp +40%'], description: '每場戰鬥一次：生命掉到40%時，獲得等同於40%最大生命的護盾，最多持續5秒。' },
+
+    { id: 'Blue Blessing', name: '神聖遠古魔像增益', type: 'Radiant', stats: ['physicalAttack +60%', 'magicAttack +60', 'abilityPower +30'], description: '施放技能後獲得10魔力。裝備者參與擊殺後，可額外造成20%傷害，持續12秒。[唯一：每一名英雄僅限1件]' },
+
+    { id: 'Luminous Deathblade', name: '聖光神聖之刃', type: 'Radiant', stats: ['physicalAttack +105%', 'damageAmp +20%'], description: '在敵人、朋友，以及任何生物附近時都會發光，真心不騙。' },
+
+    { id: "Runaan's Tempest", name: '芮蘭驟雨箭', type: 'Radiant', stats: ['physicalAttack +50%', 'attackSpeed +20%', 'magicDefense +20'], description: '普攻向另一名附近的敵軍發射分裂箭，造成110%物理攻擊的物理傷害。' },
+
+    { id: 'Absolution', name: '赦罪神石', type: 'Radiant', stats: ['abilityPower +15', 'health +400'], description: '每5秒治療2格內的友軍25%已損失的生命，同時獲得10%額戰力(無法疊加)，持續5秒。' },
+
+    { id: "Urf-Angel's Staff", name: '阿福天使之杖', type: 'Radiant', stats: ['magicAttack +60', 'abilityPower +15'], description: '戰鬥開始：戰鬥中每4秒獲得40魔法攻擊。' },
+
+    { id: "Rabadon's Ascended Deathcap", name: '飛昇死亡之帽', type: 'Radiant', stats: ['magicAttack +80', 'damageAmp +50%'], description: '奇蹟和災難同時被見證，也同時被釋放。' },
+
+    { id: "Guinsoo's Reckoning", name: '鬼索的審判之刃', type: 'Radiant', stats: ['attackSpeed +20%', 'magicAttack +10'], description: '每次普攻增加10%可疊加的攻速。' },
+
+    { id: 'Glamorous Gauntlet', name: '魅力手套', type: 'Radiant', stats: ['magicAttack +70', 'critChance +75%'], description: '技能可以暴擊。若裝備者的技能本來就可暴擊，則改為增加10%暴擊傷害。' },
+
+    { id: 'Brink of Dawn', name: '黎明邊際', type: 'Radiant', stats: ['physicalAttack +30%', 'physicalDefense +30'], description: '每場戰鬥一次：生命60%時，短暫進入無法指定狀態，並移除負面效果。之後，回復100%已損失的生命，並增加85%額外攻速。[唯一：每一名英雄僅限1件]' },
+
+    { id: "Dragon's Will", name: '龍之志', type: 'Radiant', stats: ['magicDefense +115'], description: '增加15%最大生命。每2秒回復10%最大生命。' },
     
-    { id: "Zhonya's Paradox", name: '中婭悖論之鐘', type: 'Artifact' },
-    { id: 'Lightshield Crest', name: '光盾之紋', type: 'Artifact' },
-    { id: 'Deathfire Grasp', name: '冥火之擁', type: 'Artifact' },
-    { id: "Suspicious Trench Coat", name: '可疑風衣', type: 'Artifact' },
-    { id: "Sniper's Focus", name: '屏息狙擊', type: 'Artifact' },
-    { id: "Lich Bane", name: '巫妖之禍', type: 'Artifact' },
-    { id: "Fishbones", name: '惡鯊火箭', type: 'Artifact' },
-    { id: "Seeker's Armguard", name: '探索者護腕', type: 'Artifact' },
-    { id: 'Innervating Locket', name: '支配寶匣', type: 'Artifact' },
-    { id: 'Talisman Of Ascension', name: '昇華護符', type: 'Artifact' },
-    { id: "Wit's End", name: '智慧末刃', type: 'Artifact' },
-    { id: 'Blighting Jewel', name: '枯萎寶石', type: 'Artifact' },
-    { id: "Mogul's Mail", name: '權貴之甲', type: 'Artifact' },
-    { id: "Trickster's Glass", name: '欺瞞水晶', type: 'Artifact' },
-    { id: "Death's Defiance", name: '死亡之蔑', type: 'Artifact' },
-    { id: 'Eternal Winter', name: '永冬', type: 'Artifact' },
-    { id: "Prowler's Claw", name: '潛行者之爪', type: 'Artifact' },
-    { id: 'Infinity Force', name: '無盡之力', type: 'Artifact' },
-    { id: 'Unending Despair', name: '無盡絕望', type: 'Artifact' },
-    { id: 'Anima Visage', name: '生命鎧甲', type: 'Artifact' },
-    { id: "Luden's Tempest", name: '盧登驟雨', type: 'Artifact' },
-    { id: 'Hullcrusher', name: '碎船戰斧', type: 'Artifact' },
-    { id: 'Forbidden Idol', name: '禁忌之像', type: 'Artifact' },
-    { id: 'Mittens', name: '縮小手套', type: 'Artifact' },
-    { id: 'Rapid Firecannon', name: '衝擊火砲', type: 'Artifact' },
-    { id: 'Horizon Focus', name: '視界專注', type: 'Artifact' },
-    { id: 'Corrupt Vampiric Scepter', name: '詛咒吸血鬼權杖', type: 'Artifact' },
-    { id: "Gambler's Blade", name: '賭徒之刃', type: 'Artifact' },
-    { id: 'Gold Collector', name: '金幣收藏家', type: 'Artifact' },
-    { id: 'Silvermere Dawn', name: '銀織黎明', type: 'Artifact' },
-    { id: "Blacksmith's Gloves", name: '鐵匠手套', type: 'Artifact' },
-    { id: 'Diamond Hands', name: '鑽石之手', type: 'Artifact' },
-    { id: 'Spectral Cutlass', name: '鬼使彎刀', type: 'Artifact' },
-    { id: 'Manazane', name: '魔力之蘊', type: 'Artifact' },
+    { id: "Zhonya's Paradox", name: '中婭悖論之鐘', type: 'Artifact', stats: ['magicAttack +40', 'physicalDefense +30', 'magicDefense +30'], description: '每場戰鬥一次: 在40%生命時，進入免疫傷害狀態且無法被指定，持續3秒。[唯一：每一名英雄僅限1件]' },
+
+    { id: 'Lightshield Crest', name: '光盾之紋', type: 'Artifact', stats: ['physicalDefense +55', 'magicDefense +55'], description: '每3秒，賦予生命比例最低的友軍護盾，護盾量相當於裝備者物理防禦與魔法防禦總和的70%，持續5秒。陣亡時賦予所有友軍此護盾。' },
+
+    { id: 'Deathfire Grasp', name: '冥火之擁', type: 'Artifact', stats: ['magicAttack +30', 'abilityPower +15', 'damageAmp +25%'], description: '戰鬥開始時：鎖定目標，造成等同於其最大生命40%的魔法傷害。每13秒重複一次。' },
+
+    { id: "Suspicious Trench Coat", name: '可疑風衣', type: 'Artifact', stats: ['attackSpeed +15%', 'health +100'], description: '每場戰鬥一次，裝備者生命掉到66%時，便會一分為三，每個分身的生命為最大生命的25%。[唯一：每一名英雄僅限1件]' },
+
+    { id: "Sniper's Focus", name: '屏息狙擊', type: 'Artifact', stats: ['physicalAttack +15%', 'attackSpeed +15%', 'magicAttack +15'], description: '增加2攻擊距離。裝備者與目標之間每隔1格，獲得對目標的9%傷害增幅。' },
+
+    { id: "Lich Bane", name: '巫妖之禍', type: 'Artifact', stats: ['attackSpeed +30%', 'magicAttack +30'], description: '每次施放技能後，裝備者的首次普攻會造成200 / 270 / 340 / 410 / 480額外魔法傷害。傷害量會根據階段增加。' },
+
+    { id: "Fishbones", name: '惡鯊火箭', type: 'Artifact', stats: ['physicalAttack +20%', 'attackSpeed +50%'], description: '裝備者的攻擊距離加倍，且每次普攻都會以一名隨機敵軍為目標。' },
+
+    { id: "Seeker's Armguard", name: '探索者護腕', type: 'Artifact', stats: ['magicAttack +30', 'physicalDefense +30', 'magicDefense +30'], description: '參與擊殺會使裝備者的物理防禦、魔法防禦和魔法攻擊增加15，若取得擊殺則增加20。' },
+
+    { id: 'Innervating Locket', name: '支配寶匣', type: 'Artifact', stats: ['abilityPower +15', 'health +150'], description: '受到普攻時，裝備者會獲得相當於總魔力2%的魔力。每次施放會在3秒內回復裝備者20%最大生命。' },
+
+    { id: 'Talisman Of Ascension', name: '昇華護符', type: 'Artifact', stats: ['physicalAttack +20%', 'magicAttack +20', 'health +300'], description: '22秒後，增加100%最大生命，且獲得120%傷害增幅，持續到戰鬥結束。' },
+
+    { id: "Wit's End", name: '智慧末刃', type: 'Artifact', stats: ['attackSpeed +30%', 'magicDefense +30'], description: '普攻造成42/60/75/90/100額外魔法傷害。為裝備者回復相當於所造成魔法傷害35%的生命。傷害加成隨階段增加。' },
+
+    { id: 'Blighting Jewel', name: '枯萎寶石', type: 'Artifact', stats: ['magicAttack +40', 'abilityPower +15'], description: '造成魔法傷害會降低目標4魔法防禦。若其魔法防禦為0，則改為賦予裝備者5魔力。' },
+
+    { id: "Mogul's Mail", name: '權貴之甲', type: 'Artifact', stats: ['health +100'], description: '受到傷害時，增加1物防、1魔防及7生命，最多累加35層。滿層時，獲得💰1金錢，且每隔8秒獲得💰1金錢。[唯一：每一名英雄僅限1件]' },
+
+    { id: "Trickster's Glass", name: '欺瞞水晶', type: 'Artifact', stats: ['attackSpeed +10%', 'physicalDefense +10', 'magicDefense +10', 'critChance +15%'], description: '召喚1個擁有額外70%基礎生命與+10%最大魔力的分身，分身無法裝備道具。分身可受益於特性效果。[唯一：每一名英雄僅限1件]' },
+
+    { id: "Death's Defiance", name: '死亡之蔑', type: 'Artifact', stats: ['physicalAttack +10%', 'attackSpeed +25%', 'physicalDefense +30', 'omnivamp +25%'], description: '裝備者承受的50%傷害會改為在4秒內持續的非致命傷害。[唯一：每一名英雄僅限1件]' },
+
+    { id: "Prowler's Claw", name: '潛行者之爪', type: 'Artifact', stats: ['physicalAttack +40%', 'health +200', 'critChance +50%'], description: '擊殺目標後，移除負面效果並在4格內最遠的目標處刺刺。接下來2次攻擊會造成60%額外暴擊傷害。' },
+
+    { id: 'Infinity Force', name: '無盡之力', type: 'Artifact', stats: ['physicalAttack +25%', 'attackSpeed +25%', 'magicAttack +25', 'abilityPower +25', 'physicalDefense +25', 'magicDefense +25', 'health +250'], description: '不管什麼都來很多！' },
+
+    { id: 'Unending Despair', name: '無盡絕望', type: 'Artifact', stats: ['physicalDefense +40', 'health +350'], description: '裝備者身上的護盾破裂時，對最靠近的敵軍造成相當於該護盾初始數值150%的魔法傷害。' },
+
+    { id: 'Anima Visage', name: '生命鎧甲', type: 'Artifact', stats: ['physicalDefense +20', 'magicDefense +20', 'health +400'], description: '每秒回復最大生命3.5%。' },
+
+    { id: "Luden's Tempest", name: '盧登驟雨', type: 'Artifact', stats: ['physicalAttack +45%', 'magicAttack +45'], description: '對最靠近目標的三名敵軍造成相當於100%超量傷害，外加100的魔法傷害。' },
+
+    { id: 'Hullcrusher', name: '碎船戰斧', type: 'Artifact', stats: ['physicalDefense +35', 'magicDefense +35'], description: '戰鬥開始：若沒有鄰近友軍，則增加600生命、20%物攻和20魔攻。' },
+
+    { id: 'Mittens', name: '縮小手套', type: 'Artifact', stats: ['attackSpeed +60%', 'damageReduction +25%'], description: '縮小裝備者，使其跑速增加，且對凍骨效果免疫。凍骨：降低攻速' },
+
+    { id: 'Rapid Firecannon', name: '衝擊火砲', type: 'Artifact', stats: ['attackSpeed +66%'], description: '攻擊距離+1，且裝備者每擊殺一名敵軍便再+1。' },
+
+    { id: 'Horizon Focus', name: '視界專注', type: 'Artifact', stats: ['abilityPower +15', 'physicalDefense +20', 'magicDefense +20', 'health +250'], description: '暈眩敵軍會引發閃電擊打目標，造成相當於30%最大生命的魔法傷害。' },
+
+    { id: "Gambler's Blade", name: '賭徒之刃', type: 'Artifact', stats: ['attackSpeed +35%', 'magicAttack +10'], description: '每持有💰1金錢便增加⚔️1%額外攻速(最多💰30金錢)。每次普攻有5%機率掉落💰1金錢。' },
+
+    { id: 'Gold Collector', name: '金幣收藏家', type: 'Artifact', stats: ['physicalAttack +25%', 'critChance +30%'], description: '普攻與技能會魔決最大生命低於12%的敵軍，魔決有33%機率掉落💰1金錢。[唯一：每一名英雄僅限1件]' },
+
+    { id: 'Silvermere Dawn', name: '銀織黎明', type: 'Artifact', stats: ['physicalAttack +120%', 'physicalDefense +50', 'magicDefense +50'], description: '裝備者免疫暈眩效果，且普攻會暈眩目標0.8秒。裝備者的攻速固定為0.5。' },
+
+    { id: "Blacksmith's Gloves", name: '鐵匠手套', type: 'Artifact', stats: ['health +200', 'critChance +30%'], description: '每個回合：裝備2件隨機鄙廟神器。[需消耗3格道具欄位。]' },
+
+    { id: 'Spectral Cutlass', name: '鬼使彎刀', type: 'Artifact', stats: ['physicalAttack +40%', 'physicalDefense +40', 'magicDefense +40', 'critChance +20%'], description: '戰鬥開始：將裝備者傳送到敵軍那側的對應棋格。8秒後，裝備者回到原本的位置。' },
+
+    { id: 'Manazane', name: '魔力之蘊', type: 'Artifact', stats: ['physicalAttack +15%', 'attackSpeed +15%', 'magicAttack +10', 'abilityPower +15'], description: '第一次在戰鬥中施放技能後，在5秒內獲得120魔力。[唯一：每一名英雄僅限1件]' },
     
     { id: "Protector's Vow", name: '保衛者之誓', type: 'Core', stats: ['physicalDefense +20', 'abilityPower +30'], description: '每場戰鬥一次：40%生命時，獲得一個25%最大生命的護盾，持續5秒，並獲得20物理與20魔法防禦。' },
     { id: 'Bramble Vest', name: '刺藤胸甲', type: 'Core', stats: ['physicalDefense +65'], description: '增加7%最大生命。承受的普攻傷害降低8%。被普攻命中時，對所有鄰近敵軍造成100魔法傷害。冷卻時間：2秒' },
@@ -302,81 +365,107 @@ const itemData = [
     { id: 'Morellonomicon', name: '黑魔禁書', type: 'Core', stats: ['magicAttack +25', 'attackSpeed +10%', 'health +150'], description: '普攻與技能會對敵軍造成1%燃燒與33%重創效果，持續10.0秒。燃燒：每秒造成目標一定比例最大生命的真實傷害。重創：降低獲得的治療效果' },
     { id: "Dragon's Claw", name: '龍之爪', type: 'Core', stats: ['magicDefense +75'], description: '增加9%最大生命。每2.0秒回復2.5%最大生命。' },
 
-    { id: "Vanguard Emblem", name: '先鋒戰士徽章', type: 'Emblem' },
-    { id: "Bastion Emblem", name: '堡壘衛士徽章', type: 'Emblem' },
-    { id: 'Marksman Emblem', name: '射手徽章', type: 'Emblem' },
-    { id: 'Strategist Emblem', name: '戰略軍師徽章', type: 'Emblem' },
-    { id: 'Techie Emblem', name: '技師徽章', type: 'Emblem' },
-    { id: 'BoomBot Emblem', name: '末日機器人徽章', type: 'Emblem' },
-    { id: 'Exotech Emblem', name: '極限科技徽章', type: 'Emblem' },
-    { id: 'Slayer Emblem', name: '殺戮者徽章', type: 'Emblem' },
-    { id: "Dynamo Emblem", name: '發電機徽章', type: 'Emblem' },
-    { id: 'Anima Squad Emblem', name: '百獸特攻隊徽章', type: 'Emblem' },
-    { id: 'Cypher Emblem', name: '破譯師徽章', type: 'Emblem' },
-    { id: "Divinicorp Emblem", name: '神諭集團徽章', type: 'Emblem' },
-    { id: "Syndicate Emblem", name: '罪惡集團徽章', type: 'Emblem' },
-    { id: 'Executioner Emblem', name: '處刑者徽章', type: 'Emblem' },
-    { id: 'Bruiser Emblem', name: '蠻勇鬥士徽章', type: 'Emblem' },
-    { id: 'Street Demon Emblem', name: '街頭狂魔徽章', type: 'Emblem' },
-    { id: "Rapidfire Emblem", name: '速射徽章', type: 'Emblem' },
-    { id: "Golden Ox Emblem", name: '開運金牛徽章', type: 'Emblem' },
+    { id: "Vanguard Emblem", name: '先鋒戰士徽章', type: 'Emblem', stats: ['health +150'], description: ' ' },
+    { id: "Bastion Emblem", name: '堡壘衛士徽章', type: 'Emblem', stats: ['physicalDefense +20'], description: ' '  },
+    { id: 'Marksman Emblem', name: '射手徽章', type: 'Emblem', stats: ['physicalAttack +25%'], description: ' '  },
+    { id: 'Strategist Emblem', name: '戰略軍師徽章', type: 'Emblem', stats: ['physicalAttack +25%'], description: ' '  },
+    { id: 'Techie Emblem', name: '技師徽章', type: 'Emblem', stats: ['magicAttack +10'] , description: ' ' },
+    { id: 'BoomBot Emblem', name: '末日機器人徽章', type: 'Emblem', stats: ['physicalDefense +20'] , description: ' ' },
+    { id: 'Exotech Emblem', name: '極限科技徽章', type: 'Emblem', stats: ['critChance +20%'], description: ' '  },
+    { id: 'Slayer Emblem', name: '殺戮者徽章', type: 'Emblem', stats: ['magicDefense +20'], description: ' '  },
+    { id: "Dynamo Emblem", name: '發電機徽章', type: 'Emblem', stats: ['abilityPower +15'], description: ' '  },
+    { id: 'Anima Squad Emblem', name: '百獸特攻隊徽章', type: 'Emblem', stats: ['abilityPower +15'], description: ' '  },
+    { id: 'Cypher Emblem', name: '破譯師徽章', type: 'Emblem', stats: ['health +150'], description: ' '  },
+    { id: "Divinicorp Emblem", name: '神諭集團徽章', type: 'Emblem', stats: ['attackSpeed +10%'] , description: ' ' },
+    { id: "Syndicate Emblem", name: '罪惡集團徽章', type: 'Emblem', stats: ['magicDefense +20'] , description: ' ' },
+    { id: 'Executioner Emblem', name: '處刑者徽章', type: 'Emblem', stats: ['critChance +20%'], description: ' '  },
+    { id: 'Bruiser Emblem', name: '蠻勇鬥士徽章', type: 'Emblem', stats: ['health +150'] , description: ' ' },
+    { id: 'Street Demon Emblem', name: '街頭狂魔徽章', type: 'Emblem', stats: ['magicAttack +10'], description: ' '  },
+    { id: "Rapidfire Emblem", name: '速射徽章', type: 'Emblem', stats: ['attackSpeed +10%'], description: ' '  },
+    { id: "Golden Ox Emblem", name: '開運金牛徽章', type: 'Emblem', stats: ['health +150'] , description: ' ' },
 
-    { id: "Chalice of Power", name: '力量聖杯', type: 'Support' },
-    { id: "Unstable Treasure Chest", name: '反復無常寶箱', type: 'Support' },
-    { id: "Banshee's Veil", name: '女妖面紗', type: 'Support' },
-    { id: "Shround of Stillness", name: '寂靜法衣', type: 'Support' },
-    { id: "Spite", name: '惡源', type: 'Support' },
-    { id: "Locket of the Iron Solari", name: '日輪的加冕', type: 'Support' },
-    { id: "Moonstone Renewer", name: '月之石再生裝置', type: 'Support' },
-    { id: "The Eternal Flame", name: '永恆之焰', type: 'Support' },
-    { id: "Virtue of the Martyr", name: '烈士美德', type: 'Support' },
-    { id: "Randuin's Omen", name: '蘭頓之兆', type: 'Support' },
-    { id: "Zz'Rot Portal", name: '虛空之門', type: 'Support' },
-    { id: "Zephyr", name: '西風匕首', type: 'Support' },
-    { id: "Aegis of the Legion", name: '軍團聖盾', type: 'Support' },
-    { id: "Needlessly Big Gem", name: '過大寶石', type: 'Support' },
-    { id: "Zeke's Herald", name: '錫柯的號角', type: 'Support' },
-    { id: "Knight's Vow", name: '騎士誓願', type: 'Support' },
-    { id: "Obsidian Cleaver", name: '黑曜切割者', type: 'Support' },
+    { id: "Chalice of Power", name: '力量聖杯', type: 'Support', stats: ['health +150'], description: '戰鬥開始：裝備者與同一排2格內的友軍增加25魔法攻擊和10魔力。' },
+    { id: "Unstable Treasure Chest", name: '反復無常寶箱', type: 'Support', stats: ['health +150'], description: '裝備者陣亡時，生命比例最高的4名友軍獲得1件暫時完整道具。' },
+    { id: "Banshee's Veil", name: '女妖面紗', type: 'Support', stats: ['health +150'], description: '戰鬥開始：裝備者和同一排1格內的友軍免疫控制效果並增加25%攻速，持續18秒。' },
+    { id: "Shround of Stillness", name: '寂靜法衣', type: 'Support', stats: ['health +150'], description: '戰鬥開始：射出一道光束，使敵軍受到30%魔力掠奪。我方隊伍增加60生命。 ' },
+    { id: "Spite", name: '惡源', type: 'Support', stats: ['health +150'], description: '戰鬥開始：裝備者與所有鄰近友軍獲得15%物攻和20魔攻。裝備者陣亡時，暈眩2格內所有敵軍2秒。' },
+    { id: "Locket of the Iron Solari", name: '日輪的加冕', type: 'Support', stats: ['health +150'], description: '戰鬥開始：裝備者和同一排2格內的友軍獲得250護盾，並增加20物理防禦和20魔法防禦，持續20秒。' },
+    { id: "Moonstone Renewer", name: '月之石再生裝置', type: 'Support', stats: ['health +150'], description: '每隔4秒，賦予2名生命比例最低的友軍55-325生命的護盾(取決於階段)，持續4秒。' },
+    { id: "The Eternal Flame", name: '永恆之焰', type: 'Support', stats: ['health +150'], description: '裝備者存活期間，所有敵軍33%重創，且所有友軍獲得8%傷害增幅。此效果每5秒觸發一次。' },
+    { id: "Virtue of the Martyr", name: '烈士美德', type: 'Support', stats: ['health +150'], description: '每5秒回復所有友軍最大生命7%。裝備者死亡時，額外治療2次，治療量增加至14%最大生命。' },
+    { id: "Randuin's Omen", name: '蘭頓之兆', type: 'Support', stats: ['health +150'], description: '戰鬥開始：裝備者與鄰近友軍增加30物理防禦及30魔法防禦。' },
+    { id: "Zz'Rot Portal", name: '虛空之門', type: 'Support', stats: ['health +150'], description: '召喚1隻巨型虛空蟲，強度會隨階段提升。' },
+    { id: "Zephyr", name: '西風匕首', type: 'Support', stats: ['health +150'], description: '戰鬥開始：在競技場另一頭召喚一道旋風，並將距離旋風最近的敵軍從戰鬥中移除5秒。 我方隊伍增加8%攻速。' },
+    { id: "Aegis of the Legion", name: '軍團聖盾', type: 'Support', stats: ['health +150'], description: '戰鬥開始時：裝備者、鄰近友軍及同一列後面的所有友軍增加30%攻速及15物理與魔法防禦，持續12秒。' },
+    { id: "Needlessly Big Gem", name: '過大寶石', type: 'Support', stats: ['health +150'], description: '我方隊伍獲得5%傷害增幅，裝備者每存活一秒，我方隊伍便額外獲得1%傷害增幅，總量最多20%。' },
+    { id: "Zeke's Herald", name: '錫柯的號角', type: 'Support', stats: ['health +150'], description: '戰鬥開始：裝備者與同一排2格內的友軍增加+30%攻速。' },
+    { id: "Knight's Vow", name: '騎士誓願', type: 'Support', stats: ['health +150'], description: '戰鬥開始：裝備者與同一排1格內的友軍增加200生命與15%全能吸血。​​' },
+    { id: "Obsidian Cleaver", name: '黑曜切割者', type: 'Support', stats: ['health +150'], description: '造成傷害會對敵軍造成30%削抗與30%破甲，持續15秒。 我方隊伍增加8%物理攻擊和8魔法攻擊。 ' },
 
-    { id: "Guiding Hex", name: '引導靈咒', type: 'Synergy' },
-    { id: "Ani-Mines", name: '百獸地雷', type: 'Synergy' },
-    { id: "Searing Shortbow", name: '熔炎短弓', type: 'Synergy' },
-    { id: "The Annihilator", name: '滅絕者', type: 'Synergy' },
-    { id: "Final City Transit", name: '終城快車', type: 'Synergy' },
-    { id: "Tornadoes", name: '龍捲風', type: 'Synergy' },
-    { id: "Blade-o-rang", name: '迴力刃', type: 'Synergy' },
-    { id: "Gating Bunny-Guns", name: '兔女郎格林槍', type: 'Synergy' },
-    { id: "Surprise Supply Drop", name: '驚喜空投', type: 'Synergy' },
-    { id: "UwU Blasters", name: 'UwU炮', type: 'Synergy' },
-    { id: "Vortex Glove", name: '漩渦手套', type: 'Synergy' },
-    { id: "Repulsor Lantern", name: '懸浮燈籠', type: 'Synergy' },
-    { id: "Nullifier Lantern", name: '抵銷燈籠', type: 'Synergy' },
-    { id: "Pulse Stabilizer", name: '脈衝穩定器', type: 'Synergy' },
-    { id: "Pulse Silencer", name: '脈衝沈默者', type: 'Synergy' },
-    { id: "Kingpin Hat", name: '黑街霸主帽子', type: 'Synergy' },
-    { id: "Kingpin Hat R", name: '黑街霸主帽子', type: 'Synergy' },
-    { id: "Corrupted Chassis", name: '破損機身', type: 'Synergy' },
-    { id: "Harmonized Chassis", name: '協調機身', type: 'Synergy' },
-    { id: "Hyper Fangs", name: '超頻利牙', type: 'Synergy' },
-    { id: "Apex-Fangs", name: '頂尖利牙', type: 'Synergy' },
-    { id: "Cybercoil", name: '賽博繩索', type: 'Synergy' },
-    { id: "Hijacked Cybercoil", name: '被駭賽博繩索', type: 'Synergy' },
-    { id: "Holobow", name: '全息弩弓', type: 'Synergy' },
-    { id: "Scoped Holobow", name: '狙擊全息弩弓', type: 'Synergy' },
-    { id: "Flux Capacitor", name: '湧動電容器', type: 'Synergy' },
-    { id: "Fully-Charged Flux Capacitor", name: '滿電湧動電容器', type: 'Synergy' },
+    { id: "Guiding Hex", name: '引導靈咒', type: 'Synergy', stats: [], description: '發射導引飛彈，對隨機3位鄰近敵軍造成魔法傷害。' },
 
-    { id: "Recurve Bow", name: '反曲弓', type: 'Component' },
-    { id: "Tear of the Goddess", name: '女神之淚', type: 'Component' },
-    { id: "Giant's Belt", name: '巨人腰帶', type: 'Component' },
-    { id: "Needlessly Large Rod", name: '巨型魔棒', type: 'Component' },
-    { id: "Frying Pan", name: '平底鍋', type: 'Component' },
-    { id: "B.F Sword", name: '暴風之劍', type: 'Component' },
-    { id: "Sparring Gloves", name: '格鬥手套', type: 'Component' },
-    { id: "Negatron Cloak", name: '負極斗篷', type: 'Component' },
-    { id: "Spatula", name: '鍋鏟', type: 'Component' },
-    { id: "Chain Vest", name: '鎖子甲', type: 'Component' },
+    { id: "Ani-Mines", name: '百獸地雷', type: 'Synergy', stats: [], description: '每隔5秒，一位隨機百獸特攻隊英雄丟出三枚會爆炸的百獸地雷，在範圍內造成物理傷害。' },
+    
+    { id: "Searing Shortbow", name: '熔炎短弓', type: 'Synergy', stats: [], description: '每隔5秒，一位隨機百獸特攻隊英雄會使用熔岩短弓射出火焰箭，留下一片會造成持續性魔法傷害的區域。' },
+    
+    { id: "The Annihilator", name: '滅絕者', type: 'Synergy', stats: [], description: '在6秒時，滅絕者會造成一次性的最大生命百分比真實傷害。' },
+    
+    { id: "Final City Transit", name: '終城快車', type: 'Synergy', stats: [], description: '每隔數秒，終城快車會召喚一輛火車並穿越整個戰場，造成毀滅性傷害且帶走低生命的敵軍。' },
+    
+    { id: "Tornadoes", name: '龍捲風', type: 'Synergy', stats: [], description: '每6秒，一位隨機百獸特攻隊英雄會生成龍捲風，造成魔法傷害。' },
+    
+    { id: "Blade-o-rang", name: '迴力刃', type: 'Synergy', stats: [], description: '每隔4秒，一位百獸特攻隊英雄會投擲出一把會返回的利刃，造成物理傷害，首個命中目標受到的傷害會增加。' },
+    
+    { id: "Gating Bunny-Guns", name: '兔女郎格林槍', type: 'Synergy', stats: [], description: '每隔5.5秒，一位百獸特攻隊英雄會使用兔女郎格林槍對錐形範圍造成高額物理傷害。' },
+    
+    { id: "Surprise Supply Drop", name: '驚喜空投', type: 'Synergy', stats: [], description: '每隔8秒，空投物資將呼喚支援飛船，對戰場投下強力補給。' },
+    
+    { id: "UwU Blasters", name: 'UwU炮', type: 'Synergy', stats: [], description: '每隔4秒，一位百獸特攻隊英雄會使用UwU炮快速連射，對首位命中的敵軍造成物理傷害。' },
+    
+    { id: "Vortex Glove", name: '漩渦手套', type: 'Synergy', stats: [], description: '每隔5秒，一位百獸特攻隊英雄會使用漩渦手套射出穿刺球體，造成魔法傷害，每命中一位敵軍傷害就會降低。' },
+    
+    { id: "Repulsor Lantern", name: '懸浮燈籠', type: 'Synergy', stats: ['health +444'], description: '增加5%生命。每3秒對1格內的所有敵軍造成等同於裝備者6%最大生命的魔法傷害。' },
+    
+    { id: "Nullifier Lantern", name: '抵銷燈籠', type: 'Synergy', stats: ['health +777'], description: ' ' },
+    
+    { id: "Pulse Stabilizer", name: '脈衝穩定器', type: 'Synergy', stats: ['physicalAttack +25%', 'critChance +35%'], description: '處決生命低於12%的敵軍，技能可以暴擊。若裝備者的技能本來就可暴擊，則改為增加10%暴擊傷害。' },
+    
+    { id: "Pulse Silencer", name: '脈衝沈默者', type: 'Synergy', stats: ['physicalAttack +44%', 'critChance +44%'], description: '處決生命低於12%的敵軍，技能可以暴擊。若裝備者的技能本來就可暴擊，則改為增加10%暴擊傷害。' },
+    
+    { id: "Kingpin Hat", name: '黑街霸主帽子', type: 'Synergy', stats: [], description: '' },
+    
+    { id: "Kingpin Hat R", name: '黑街霸主帽子', type: 'Synergy', stats: [], description: '' },
+    
+    { id: "Corrupted Chassis", name: '破損機身', type: 'Synergy', stats: ['health +200'], description: '裝備者獲得的護盾效果增加15%。每7秒，從當前目標吸取裝備者最大生命10%的生命，將之轉換為持續5秒的護盾。' },
+    
+    { id: "Harmonized Chassis", name: '協調機身', type: 'Synergy', stats: ['health +400'], description: '裝備者獲得的護盾效果增加15%。每7秒，從當前目標吸取裝備者最大生命10%的生命，將之轉換為持續5秒的護盾。' },
+    
+    { id: "Hyper Fangs", name: '超頻利牙', type: 'Synergy', stats: ['physicalAttack +20%', 'magicAttack +20', 'omnivamp +15%'], description: '對敵軍造成傷害時，將對其造成傷害的25%儲存起來。4秒後，對目標和最靠近的敵軍造成等同於儲存傷害的物理傷害。' },
+    
+    { id: "Apex-Fangs", name: '頂尖利牙', type: 'Synergy', stats: ['physicalAttack +40%', 'magicAttack +40', 'omnivamp +15%'], description: '對敵軍造成傷害時，將對其造成傷害的25%儲存起來。4秒後，對目標和最靠近的敵軍造成等同於儲存傷害的物理傷害。' },
+    
+    { id: "Cybercoil", name: '賽博繩索', type: 'Synergy', stats: ['physicalDefense +40', 'magicDefense +40'], description: '技能和普攻會標記敵軍，持續5秒。對標記敵軍造成傷害時，可回復相當於傷害量10%的生命。' },
+    
+    { id: "Hijacked Cybercoil", name: '被駭賽博繩索', type: 'Synergy', stats: ['physicalDefense +100', 'magicDefense +100'], description: '技能和普攻會標記敵軍，持續5秒。對標記敵軍造成傷害時，可回復相當於傷害量10%的生命。' },
+    
+    { id: "Holobow", name: '全息弩弓', type: 'Synergy', stats: ['attackSpeed +15%', 'magicAttack +20', 'abilityPower +15'], description: '普攻造成暴擊時賦予2額外魔力。施放技能後，增加40%暴擊率，持續5秒。' },
+    
+    { id: "Scoped Holobow", name: '狙擊全息弩弓', type: 'Synergy', stats: ['attackSpeed +20%', 'magicAttack +40', 'abilityPower +30'], description: '普攻造成暴擊時賦予2額外魔力。施放技能後，增加40%暴擊率，持續5秒。' },
+    
+    { id: "Flux Capacitor", name: '湧動電容器', type: 'Synergy', stats: ['physicalAttack +15%', 'attackSpeed +25%'], description: '普攻可儲存充能。達到4層充能時，下一次普攻會消耗充能，造成等同於目標15%最大生命的物理傷害，並降低10物理防禦。' },
+    
+    { id: "Fully-Charged Flux Capacitor", name: '滿電湧動電容器', type: 'Synergy', stats: ['physicalAttack +50%', 'attackSpeed +30%'], description: '普攻可儲存充能。達到4層充能時，下一次普攻會消耗充能，造成等同於目標15%最大生命的物理傷害，並降低10物理防禦。' },
+
+    { id: "Recurve Bow", name: '反曲弓', type: 'Component', stats: ['attackSpeed +10%'], description: ' ' },
+    { id: "Tear of the Goddess", name: '女神之淚', type: 'Component', stats: ['abilityPower +15'], description: ' ' },
+    { id: "Giant's Belt", name: '巨人腰帶', type: 'Component', stats: ['health +150'], description: ' ' },
+    { id: "Needlessly Large Rod", name: '巨型魔棒', type: 'Component', stats: ['magicAttack +10'], description: ' ' },
+    { id: "Frying Pan", name: '平底鍋', type: 'Component', description: ' ' },
+    { id: "B.F Sword", name: '暴風之劍', type: 'Component', stats: ['physicalAttack +10%'], description: ' ' },
+    { id: "Sparring Gloves", name: '格鬥手套', type: 'Component', stats: ['critChance +20%'], description: ' ' },
+    { id: "Negatron Cloak", name: '負極斗篷', type: 'Component', stats: ['magicDefense +20'], description: ' ' },
+    { id: "Spatula", name: '鍋鏟', type: 'Component', description: ' ' },
+    { id: "Chain Vest", name: '鎖子甲', type: 'Component', stats: ['physicalDefense +20'], description: ' ' },
 ];
 
 const augmentData = [
@@ -716,6 +805,8 @@ const augmentData = [
 ];
 
 // 當前選擇的標籤和過濾條件
+let selectedItem = null;
+let selectedItemType = null;
 let currentTab = 'champions';
 let currentFilter = '';
 let currentSearch = '';
@@ -743,6 +834,24 @@ document.addEventListener('DOMContentLoaded', function() {
     // 初始化事件監聽器
     initEventListeners();
 });
+
+// 選擇項目函數
+function selectItem(item, type) {
+    selectedItem = item;
+    selectedItemType = type;
+    console.log(`已選擇: ${item.name} (${type})`);
+    
+    // 移除之前選中項目的高亮
+    document.querySelectorAll('.grid-item').forEach(el => {
+        el.classList.remove('selected');
+    });
+    
+    // 為當前選中的項目添加高亮
+    const selectedElements = document.querySelectorAll(`.grid-item[data-id="${item.id}"]`);
+    selectedElements.forEach(el => {
+        el.classList.add('selected');
+    });
+}
 
 
 // 生成六角形棋盤
@@ -1130,6 +1239,9 @@ function placeSelectedItem(index) {
     if (selectedItemType === 'champions') {
         // 如果是英雄，直接放置
         hexagon.innerHTML = '';
+        const imgContainer = document.createElement('div');
+        imgContainer.className = 'hex-img-container';
+        
         const img = document.createElement('img');
         
         // 檢查是否有可用圖片
@@ -1147,20 +1259,13 @@ function placeSelectedItem(index) {
             this.src = '/api/placeholder/40/40';
         };
         
-        hexagon.appendChild(img);
+        imgContainer.appendChild(img);
+        hexagon.appendChild(imgContainer);
         
         // 添加標籤顯示名稱
         const label = document.createElement('div');
         label.textContent = selectedItem.name;
-        label.style.position = 'absolute';
-        label.style.bottom = '0';
-        label.style.left = '0';
-        label.style.right = '0';
-        label.style.textAlign = 'center';
-        label.style.fontSize = '10px';
-        label.style.backgroundColor = 'rgba(0,0,0,0.7)';
-        label.style.color = 'white';
-        label.style.padding = '2px 0';
+        label.className = 'hex-label';
         hexagon.appendChild(label);
         
         hexagon.classList.add('occupied');
