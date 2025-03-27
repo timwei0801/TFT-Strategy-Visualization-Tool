@@ -26,27 +26,31 @@ const availableImages = {
         'Talisman Of Ascension',"Wit's End",'Blighting Jewel',"Mogul's Mail","Trickster's Glass","Death's Defiance",
         'Eternal Winter',"Prowler's Claw",'Infinity Force','Unending Despair',"Thief's Gloves",'Gold Collector',
         'Silvermere Dawn',"Blacksmith's Gloves",'Diamond Hands','Spectral Cutlass','Rapid firecannon','Corrupt Vampiric Scepter',
+        'Innervating Locket', "Luden's Tempest", 'Hullcrusher', 'Forbidden Idol', 'Mittens', 'Rapid Firecannon', 'Horizon Focus',"Gambler's Blade",
 
         'Protector\'s Vow','Bramble Vest','Statikk Shiv',"Sterak's Gage","Bloodthirster","Evenshroud","Steadfast Heart",
         "Edge of Night","Archangel's Staff","Warmog's Armor","Jeweled Gauntlet","Giant Slayer","Sunfire Cape",
         "Last Whisper","Tactician's Shield","Tactician's Cape","Tactician's Crown","Hand Of Justice","Rabadon's Deathcap",
         "Deathblade","Quicksilver","Titan's Resolve","Hextech Gunblade","Infinity Edge","CrownGuard","Gargoyle Stoneplate",
         "Guardbreaker","Thief's Gloves","Spear of Shojin","Red buff","Nashor's Tooth","Runaan's Hurricane","Redemption",
+        'Blue buff','Adaptive Helm', "Lonic Spark", "Guinsoo's Rageblade", 'Morellonomicon', "Dragon's Claw",
+    
 
         'Anima Squad Emblem','Bastion Emblem','BoomBot Emblem','Ctpher Emblem','Cyberboss Emblem','Divinicorp Emblem',
         'Dynamo Emblem','Exotech Emblem','Golden Ox Emblem','Marksman Emblem','Nitro Emblem','Overlord Emblem',
         'Rapidfire Emblem','Slayer Emblem','Stree Demon Emblem','Techie Emblem','Vanguar Emblem','Virus Emblem',
+        "Vanguard Emblem",'Strategist Emblem','Cypher Emblem', "Syndicate Emblem", 'Executioner Emblem', 'Bruiser Emblem', 'Street Demon Emblem',
 
         'Aegis of the Legion','Banshee\'s Veil', 'Chalice of Power', 'Knight\'s Vow', 'Locket of the Iron Solari',
         'Moonstone Renewer', 'Needlessly Big Gem', 'Obsidian Cleaver', 'Randuin\'s Omen', 'Shroud of Stillness',
         'Spite', 'The Eternal Flame', 'Unstable Treasure Chest', 'Virtue of the Martyr', 'Zephyr','Zz\'Rot Portal',
-        'Zeke\'s Herald',
+        'Zeke\'s Herald',"Shround of Stillness",
         
         'Guiding Hex', 'Ani-Mines', 'Searning Shortbow', 'The Annihilator', 'Final City Transit', 'Tornadoes',
         "Blade-o-rang", "Gating Bunny-Guns", "Surprise Supply Drop", "UwU Blasters", "Vortex Glove", "Repulsor Lantern",
         "Nullifier Lantern", "Pulse Stabilizer", "Pulse Silencer", "Kingpin Hat", "Kingpin Hat R", "Corrupted Chassis",
         "Harmonized Chassis", "Hyper Fangs", "Apex-Fangs", "Cybercoil", "Hijacked Cybercoil", "Holobow", "Scoped Holobow",
-        "Flux Capacitor", "Fully-Charged Flux Capacitor",
+        "Flux Capacitor", "Fully-Charged Flux Capacitor","Searing Shortbow",
 
         "Recurve Bow", "Tear of the Goddess", "Giant's Belt", "Needlessly Large Rod", "Frying Pan", "B.F Sword",
         "Sparring Gloves", "Negatron Cloak", "Spatula", "Chain Vest",
@@ -63,6 +67,24 @@ const availableImages = {
         'Young and Wild and Free', 'Superstars I', 'Pumping Up I', 'Firesale', 'Support Mining', 'Support Mining+', 
         'Over Encumbered', 'Item Collector I', 'Item Grab Bag I', 'Adaptive Strikes', 'Blistering Strikes', 'Recombobulator', 
         'Restart Mission', 'Silver Spoon', 'Dummify', 'Iron Assets', 'Lineuo', 'Risky Moves', 'ManaFlow I', 'Rigged Shop+',
+
+        'Trifecta I', 'No Scout No Pivot', 'Category Five', 'Teaming Up II', 'Not Today', 'Scapegoat', 'Bad Luvk Protection', 'a', 'b', 'c', 'd',
+        'Vanguard Crest', 'e', 'f', 'g', 'h', 'Reactive Shell', 'Alter Ego', 'Vampiric Vitality', 'i', 'j', 'k', 'l', 'm', 'Bastion Crest', 'n', 
+        'Bulky Buddies II','Big Grab Bag', 'Raining Gold', 'Raining Gold+', "Caretaker's Favor", 'o', 'p', 'Little Buddies', 'q', 'r', 's', 't', 
+        'u', 'v', 'Liquidate', 'Tagging Spree','One For All II', 'w', 'x', 'y', 'Techie Crest', 'z', 'Spare Parts', 'aa', 'ab', 'ac', 'ad', 'ae', 
+        'af', 'Gold For Dummies', '10,000 IQ', 'ag', 'ah', 'ai','aj', 'Cybernetic Implants II', 'Slayer Crest', 'Wandering Trainer I', 'ak', 'al', 
+        'am', 'an', 'Blazing Soul I', 'ao' ,'ap', 'aq', 'ar', 'as', 'Anima Squad Crest','at', 'au', 'av', 'Slammin', 'Slammin+', 'Divine Ascension', 
+        'Divine Crest', 'aw', 'ax', 'ay', 'az', 'ba', 'bb', 'bc', 'bd', 'be', 'bf', 'bg', 'bh', 'bi','Lethal Rerouting', 'bj', 'bk', 'bl', 'bm', 'bn', 
+        'The Chug Bug', 'The Chug Bug+', 'bo', 'bp', 'bq', 'Keep Your Friends Close', 'br', 'bs', 'bt', 'bu','Cyberdesk', 'bv', 'bw', 'Overclocked', 
+        'Overheal', 'bx', 'by', 'bz', 'Rapidfire Crest', 'ca', 'cb', 'Golden Ox Crest', 'cc', 'cd', 'Two Trick', 'ce','Capacitor', 'cf', 'cg', 'ch', 
+        'BRB', 'ci', 'cj', 'ck', 'cl', 'cm', 'A Magic Roll', 'All That Shinmmers', 'All That Shinmmers+' ,'Golden Fleece','Golden Fleece+',
+
+        'cn', 'co', 'cp', 'cq', 'cr', 'cs', 'ct', 'cu', 'cv', 'cw', 'cx', 'cy', 'cz', 'da', 'db', 'dc', 'dd', 'de', 'df', 'dg', 'dh', 'di', 'dj', 'dk', 
+        'dl', 'dm', 'dn', 'do', 'dp', 'dq', 'dr', 'ds', 'dt', 'du', 'dv', 'dw', 'dx', 'dy', 'dz', 'ea', 'eb', 'ec', 'ed', 'ee', 'ef', 'eg', 'eh', 'ei', 
+        'ej', 'ek', 'el', 'em', 'en', 'eo', 'ep', 'eq', 'er', 'es', 'et', 'eu', 'ev', 'ew', 'ex', 'ey', 'ez', 'fa', 'fb', 'fc', 'fd', 'fe', 'ff', 'fg', 
+        'fh', 'fi', 'fj', 'fk', 'fl', 'fm', 'fn', 'fo', 'fp', 'fq', 'fr', 'fs', 'ft', 'fu', 'fv', 'fw', 'fx', 'fy', 'fz', 'ga', 'gb', 'gc', 'gd', 'ge', 
+        'gf', 'gg', 'gh', 'gi', 'gj', 'gk', 'gl', 'gm', 'gn', 'go', 'gp', 'gq', 'gr', 'gs', 'gt', 'gu', 'gv', 'gw', 'gx', 'gy', 'gz', 'ha', 'hb', 'hc', 
+        'hd', 'he', 'hf', 'hg',
     ]
 };
 
@@ -168,7 +190,7 @@ const traitData = [
 ];
 
 const itemData = [
-    { id: 'Fist of Fairness', name: '公理拳套', type: 'Radiant' },
+    { id: 'Fist of Fairness', name: '公理拳套', type: 'Radiant', stats: ['critChance +40%', 'abilityPower +15'], description: '攻擊和技能為攜帶者提供相當於實際傷害值35%的治療效果。' },
     { id: 'Covalent Spark', name: '共價鍵星火', type: 'Radiant' },
     { id: 'Crest of Cinders', name: '力量的餘燼', type: 'Radiant' },
     { id: "Jak'sho the Protean", name: '千變萬化之賈克修', type: 'Radiant' },
@@ -240,45 +262,45 @@ const itemData = [
     { id: 'Spectral Cutlass', name: '鬼使彎刀', type: 'Artifact' },
     { id: 'Manazane', name: '魔力之蘊', type: 'Artifact' },
     
-    { id: "Protector's Vow", name: '保衛者之誓', type: 'Core' },
-    { id: 'Bramble Vest', name: '刺藤胸甲', type: 'Core' },
-    { id: 'Statikk Shiv', name: '史提克彈簧刀', type: 'Core' },
-    { id: "Sterak's Gage", name: '史特拉克手套', type: 'Core' },
-    { id: "Bloodthirster", name: '嗜血者', type: 'Core' },
-    { id: "Evenshroud", name: '均等法衣', type: 'Core' },
-    { id: "Steadfast Heart", name: '堅定之心', type: 'Core' },
-    { id: "Edge of Night", name: '夜色緣界', type: 'Core' },
-    { id: "Archangel's Staff", name: '大天使之杖', type: 'Core' },
-    { id: "Warmog's Armor", name: '好戰者鎧甲', type: 'Core' },
-    { id: "Jeweled Gauntlet", name: '寶石手套', type: 'Core' },
-    { id: 'Giant Slayer', name: '巨人殺手', type: 'Core' },
-    { id: "Sunfire Cape", name: '日炎斗篷', type: 'Core' },
-    { id: "Last Whisper", name: '最後耳語', type: 'Core' },
-    { id: "Tactician's Shield", name: '棋手之盾', type: 'Core' },
-    { id: "Tactician's Cape", name: '棋手披風', type: 'Core' },
-    { id: "Tactician's Crown", name: '棋手皇冠', type: 'Core' },
-    { id: 'Hand Of Justice', name: '正義手套', type: 'Core' },
-    { id: "Rabadon's Deathcap", name: '死亡之帽', type: 'Core' },
-    { id: 'Deathblade', name: '死神之刃', type: 'Core' },
-    { id: "Quicksilver", name: '水銀兜帽', type: 'Core' },
-    { id: "Titan's Resolve", name: '泰坦的決意', type: 'Core' },
-    { id: 'Hextech Gunblade', name: '海克斯科技槍刃', type: 'Core' },
-    { id: 'Infinity Edge', name: '無盡之刃', type: 'Core' },
-    { id: 'CrownGuard', name: '皇冠守衛', type: 'Core' },
-    { id: 'Gargoyle Stoneplate', name: '石像鬼磐核', type: 'Core' },
-    { id: 'Guardbreaker', name: '破防者', type: 'Core' },
-    { id: "Thief's Gloves", name: '竊賊手套', type: 'Core' },
-    { id: 'Spear of Shojin', name: '精進之矛', type: 'Core' },
-    { id: 'Red buff', name: '紅Buff', type: 'Core' },
-    { id: "Nashor's Tooth", name: '納什之牙', type: 'Core' },
-    { id: "Runaan's Hurricane", name: '芮蘭颶風箭', type: 'Core' },
-    { id: 'Redemption', name: '贖罪神石', type: 'Core' },
-    { id: 'Blue buff', name: '遠古魔像增益', type: 'Core' },
-    { id: 'Adaptive Helm', name: '適性神盔', type: 'Core' },
-    { id: "Lonic Spark", name: '離子星火', type: 'Core' },
-    { id: "Guinsoo's Rageblade", name: '鬼索狂暴之刃', type: 'Core' },
-    { id: 'Morellonomicon', name: '黑魔禁書', type: 'Core' },
-    { id: "Dragon's Claw", name: '龍之爪', type: 'Core' },
+    { id: "Protector's Vow", name: '保衛者之誓', type: 'Core', stats: ['physicalDefense +20', 'abilityPower +30'], description: '每場戰鬥一次：40%生命時，獲得一個25%最大生命的護盾，持續5秒，並獲得20物理與20魔法防禦。' },
+    { id: 'Bramble Vest', name: '刺藤胸甲', type: 'Core', stats: ['physicalDefense +65'], description: '增加7%最大生命。承受的普攻傷害降低8%。被普攻命中時，對所有鄰近敵軍造成100魔法傷害。冷卻時間：2秒' },
+    { id: 'Statikk Shiv', name: '史提克彈簧刀', type: 'Core', stats: ['magicAttack +15', 'attackSpeed +15%', 'abilityPower +15'], description: '每3次普攻會對4名敵軍造成35魔法傷害並削抗30%，持續5秒。削抗：減少魔法防禦' },
+    { id: "Sterak's Gage", name: '史特拉克手套', type: 'Core', stats: ['physicalAttack +15%', 'health +150'], description: '每場戰鬥一次，生命60%時，獲得25%最大生命與35%物理攻擊。' },
+    { id: "Bloodthirster", name: '嗜血者', type: 'Core', stats: ['physicalAttack +15%', 'magicAttack +15', 'magicDefense +20'], description: '每場戰鬥一次：生命掉到40%時，獲得等同於25%最大生命的護盾，最多持續5秒。' },
+    { id: "Evenshroud", name: '均等法衣', type: 'Core', stats: ['health +150', 'magicDefense +20'], description: '在2.0格內的敵軍受到30%破甲。戰鬥開始後15秒內，增加25物理防禦與魔法防禦。破甲：降低物理防禦' },
+    { id: "Steadfast Heart", name: '堅定之心', type: 'Core', stats: ['physicalDefense +20', 'critChance +20%', 'health +150'], description: '獲得8%續戰力。生命在50%以上時，改為獲得15%續戰力。' },
+    { id: "Edge of Night", name: '夜色緣界', type: 'Core', stats: ['physicalAttack +10%', 'physicalDefense +20'], description: '每場戰鬥一次：生命60%時，短暫進入無法指定狀態，並移除負面效果。之後，增加15%額外攻速。' },
+    { id: "Archangel's Staff", name: '大天使之杖', type: 'Core', stats: ['magicAttack +20', 'abilityPower +15'], description: '戰鬥開始：戰鬥中每5秒獲得30魔法攻擊。' },
+    { id: "Warmog's Armor", name: '好戰者鎧甲', type: 'Core', stats: ['health +600'], description: '獲得12%最大生命。' },
+    { id: "Jeweled Gauntlet", name: '寶石手套', type: 'Core', stats: ['magicAttack +35', 'critChance +35%'], description: '技能可以暴擊。若裝備者的技能本來就可暴擊，則改為增加10%暴擊傷害。' },
+    { id: 'Giant Slayer', name: '巨人殺手', type: 'Core', stats: ['physicalAttack +25%', 'abilityPower +15', 'attackSpeed +10%'], description: '攻擊高於1750最大生命的敵軍時，獲得20%額外傷害增幅。' },
+    { id: "Sunfire Cape", name: '日炎斗篷', type: 'Core', stats: ['physicalDefense +20', 'health +150'], description: '增加8%最大生命。每2.0秒，對2.0格內的敵軍造成1%燃燒與33%重創效果，持續10.0秒。燃燒：每秒對目標造成等同於其最大生命一定百分比的真實傷害。重創：降低獲得的治療效果' },
+    { id: "Last Whisper", name: '最後耳語', type: 'Core', stats: ['physicalAttack +15%', 'attackSpeed +20%', 'critChance +20%'], description: '物理傷害會對目標造成30%破甲，持續3.0秒。此效果無法累加。破甲：降低物理防禦' },
+    { id: "Tactician's Shield", name: '棋手之盾', type: 'Core', description: '我方最大隊伍規模+1.0。裝備者死亡時有10%機率掉落1金錢。' },
+    { id: "Tactician's Cape", name: '棋手披風', type: 'Core', description: '我方最大隊伍規模+1.0。戰鬥開始10.0秒後有10%機率掉落1金錢。' },
+    { id: "Tactician's Crown", name: '棋手皇冠', type: 'Core', description: '我方最大隊伍規模+1.0。贏得戰鬥時有10%機率掉落1金錢。' },
+    { id: 'Hand Of Justice', name: '正義手套', type: 'Core', stats: ['critChance +20%', 'abilityPower +15'], description: '獲得2項效果：- 15%物理攻擊與15.0魔法攻擊。- 12%全能吸血。生命在0.5%以上時，物理攻擊以及魔法攻擊的加成翻倍。生命低於0.5%時，全能吸血的加成翻倍' },
+    { id: "Rabadon's Deathcap", name: '死亡之帽', type: 'Core', stats: ['magicAttack +50'], description: '這頂小小的帽子能夠助你創造或毀滅世界。' },
+    { id: 'Deathblade', name: '死神之刃', type: 'Core', stats: ['physicalAttack +55%'], description: '持有者將擁有永恆的安寧——敵對者也是。' },
+    { id: "Quicksilver", name: '水銀兜帽', type: 'Core', stats: ['critChance +20%', 'attackSpeed +30%', 'magicDefense +20'], description: '戰鬥開始：免疫控制效果，持續18.0秒。在此期間，每2.0秒增加03%攻速。' },
+    { id: "Titan's Resolve", name: '泰坦的決意', type: 'Core' , stats: ['attackSpeed +10%', 'physicalDefense +20'], description: '普攻或承受傷害時，獲得2%物理與2.0魔法攻擊，最多可累加25.0層。滿層時，獲得20.0物理防禦與20.0魔法防禦' },
+    { id: 'Hextech Gunblade', name: '海克斯科技槍刃', type: 'Core', stats: ['physicalAttack +10%', 'magicAttack +20'], description: '治療生命比例最低的友軍，治療量等同於0.25%傷害量。' },
+    { id: 'Infinity Edge', name: '無盡之刃', type: 'Core', stats: ['physicalAttack +35%', 'critChance +35%'], description: '技能可以暴擊。若裝備者的技能本來就可暴擊，則改為增加10%暴擊傷害。' },
+    { id: 'CrownGuard', name: '皇冠守衛', type: 'Core', stats: ['magicAttack +20', 'physicalDefense +20', 'health +100'], description: '戰鬥開始：獲得可吸收最大生命25%傷害的護盾，持續8.0秒。護盾消失時，增加25.0魔法攻擊。' },
+    { id: 'Gargoyle Stoneplate', name: '石像鬼磐核', type: 'Core', stats: ['physicalDefense +25', 'health +100', 'magicDefense +25'], description: '每有一位敵軍以裝備者為目標，便獲得10.0物理與10.0魔法防禦。' },
+    { id: 'Guardbreaker', name: '破防者', type: 'Core', stats: ['critChance +20%', 'magicAttack +10', 'health +150', 'attackSpeed +20%'], description: '對護盾造成傷害後，獲得15%額外傷害增幅，持續3.0秒。' },
+    { id: "Thief's Gloves", name: '竊賊手套', type: 'Core', stats: ['critChance +20%', 'health +150'], description: '每個回合：裝備2件隨機道具。' },
+    { id: 'Spear of Shojin', name: '精進之矛', type: 'Core', stats: ['physicalAttack +15%', 'abilityPower +15', 'magicAttack +15'], description: '物理攻擊賦予5.0額外魔力。' },
+    { id: 'Red buff', name: '紅Buff', type: 'Core', stats: ['attackSpeed +35%'], description: '普攻與技能會對敵軍造成1%燃燒與33%重創，持續5.0秒。燃燒：每秒造成目標一定比例最大生命的真實傷害。重創：降低獲得的治療效果' },
+    { id: "Nashor's Tooth", name: '納什之牙', type: 'Core', stats: ['magicAttack +10', 'attackSpeed +10%', 'health +150'], description: '施放技能後，增加60%攻速，持續5.0秒。' },
+    { id: "Runaan's Hurricane", name: '芮蘭颶風箭', type: 'Core', stats: ['physicalAttack +25%', 'attackSpeed +10%', 'magicDefense +20'], description: '普攻向另一名附近的敵軍發射分裂箭，造成60%物理攻擊AD的物理傷害。'  },
+    { id: 'Redemption', name: '贖罪神石', type: 'Core', stats: ['health +150', 'abilityPower +15'], description: '每5.0秒治療1格內的友軍15%已損失的生命，同時獲得10%續戰力(無法累加)，持續5.0秒。' },
+    { id: 'Blue buff', name: '遠古魔像增益', type: 'Core', stats: ['magicAttack +15', 'abilityPower +30', 'physicalAttack +15%'], description: '施放技能後獲得10.0魔力。裝備者參與擊殺後，可額外造成5%傷害，持續8.0秒。' },
+    { id: 'Adaptive Helm', name: '適性神盔', type: 'Core', stats: ['magicAttack +10', 'abilityPower +15', 'magicDefense +25'], description: '戰鬥開始：根據起始位置獲得不同加成。前兩排：40.0物理與魔法防禦。被普攻命中時獲得1.0魔力。後兩排：15.0魔法攻擊。每3.0秒獲得10.0魔力。' },
+    { id: "Lonic Spark", name: '離子星火', type: 'Core', stats: ['magicAttack +15', 'health +150', 'magicDefense +25'], description: '2.0格內的敵軍受到30%削抗。每當敵軍施放技能，造成等同於160%其消耗魔力的魔法傷害。削抗：減少魔法防禦' },
+    { id: "Guinsoo's Rageblade", name: '鬼索狂暴之刃', type: 'Core' , stats: ['magicAttack +10', 'attackSpeed +10%'], description: '每次普攻可增加5%可累加的攻速。' },
+    { id: 'Morellonomicon', name: '黑魔禁書', type: 'Core', stats: ['magicAttack +25', 'attackSpeed +10%', 'health +150'], description: '普攻與技能會對敵軍造成1%燃燒與33%重創效果，持續10.0秒。燃燒：每秒造成目標一定比例最大生命的真實傷害。重創：降低獲得的治療效果' },
+    { id: "Dragon's Claw", name: '龍之爪', type: 'Core', stats: ['magicDefense +75'], description: '增加9%最大生命。每2.0秒回復2.5%最大生命。' },
 
     { id: "Vanguard Emblem", name: '先鋒戰士徽章', type: 'Emblem' },
     { id: "Bastion Emblem", name: '堡壘衛士徽章', type: 'Emblem' },
@@ -424,273 +446,273 @@ const augmentData = [
     { id: 'ManaFlow I', name: '魔力流動 I', tier: 1 },
     { id: 'Rigged Shop+', name: '黑箱商店+', tier: 1 },
 
-    { id: '', name: '三連勝 I', tier: 2 },
-    { id: '', name: '不偵查不換陣容', tier: 2 },
-    { id: '', name: '五級颶風', tier: 2 },
-    { id: '', name: '人多好辦事', tier: 2 },
-    { id: '', name: '今非死期', tier: 2 },
-    { id: '', name: '代罪羔羊', tier: 2 },
-    { id: '', name: '保底機制', tier: 2 },
-    { id: '', name: '值得等待', tier: 2 },
-    { id: '', name: '健康即是財富 II', tier: 2 },
-    { id: '', name: '備品零件', tier: 2 },
-    { id: '', name: '債值爆棚', tier: 2 },
-    { id: '', name: '先鋒戰士之紋', tier: 2 },
-    { id: '', name: '刃馬合一', tier: 2 },
-    { id: '', name: '刷新計分板', tier: 2 },
-    { id: '', name: '助攻碑文', tier: 2 },
-    { id: '', name: '化為魔像', tier: 2 },
-    { id: '', name: '反應殼盾', tier: 2 },
-    { id: '', name: '另我人格', tier: 2 },
-    { id: '', name: '吸血活力', tier: 2 },
-    { id: '', name: '嚴守皇冠', tier: 2 },
-    { id: '', name: '四個一組', tier: 2 },
-    { id: '', name: '四重援軍', tier: 2 },
-    { id: '', name: '回收再利用', tier: 2 },
-    { id: '', name: '回收再利用+', tier: 2 },
-    { id: '', name: '堡壘之紋', tier: 2 },
-    { id: '', name: '塔防', tier: 2 },
-    { id: '', name: '壯碩夥伴', tier: 2 },
-    { id: '', name: '大禮包', tier: 2 },
-    { id: '', name: '天降金幣', tier: 2 },
-    { id: '', name: '天降金幣+', tier: 2 },
-    { id: '', name: '守望者眷顧', tier: 2 },
-    { id: '', name: '射手之紋', tier: 2 },
-    { id: '', name: '導師 II', tier: 2 },
-    { id: '', name: '小小夥伴', tier: 2 },
-    { id: '', name: '弱者，顫抖吧！', tier: 2 },
-    { id: '', name: '強化骨骼', tier: 2 },
-    { id: '', name: '心電靜止', tier: 2 },
-    { id: '', name: '思緒清晰', tier: 2 },
-    { id: '', name: '思緒雜亂', tier: 2 },
-    { id: '', name: '惡性經營', tier: 2 },
-    { id: '', name: '惡意收購', tier: 2 },
-    { id: '', name: '我標我標我標標標', tier: 2 },
-    { id: '', name: '我為人人 II', tier: 2 },
-    { id: '', name: '戰爭紅利 II', tier: 2 },
-    { id: '', name: '戰略軍師之紋', tier: 2 },
-    { id: '', name: '戰錘意志', tier: 2 },
-    { id: '', name: '技師之紋', tier: 2 },
-    { id: '', name: '投資策略 I', tier: 2 },
-    { id: '', name: '拋光鉻', tier: 2 },
-    { id: '', name: '拳擊選手', tier: 2 },
-    { id: '', name: '拾荒者', tier: 2 },
-    { id: '', name: '持槍假人', tier: 2 },
-    { id: '', name: '攀升之階 II', tier: 2 },
-    { id: '', name: '攜帶型打鐵鋪', tier: 2 },
-    { id: '', name: '支援尖塔', tier: 2 },
-    { id: '', name: '散財假人', tier: 2 },
-    { id: '', name: '智商10,000', tier: 2 },
-    { id: '', name: '月光', tier: 2 },
-    { id: '', name: '末日機器之紋', tier: 2 },
-    { id: '', name: '棘刺盔甲', tier: 2 },
-    { id: '', name: '極限之紋', tier: 2 },
-    { id: '', name: '模控機械', tier: 2 },
-    { id: '', name: '殺戮者之紋', tier: 2 },
-    { id: '', name: '流浪假人 I', tier: 2 },
-    { id: '', name: '清算', tier: 2 },
-    { id: '', name: '潘朵拉的道具 II', tier: 2 },
-    { id: '', name: '烏龍商店', tier: 2 },
-    { id: '', name: '烹飪鍋', tier: 2 },
-    { id: '', name: '熾熱靈魂 I', tier: 2 },
-    { id: '', name: '特性追蹤器', tier: 2 },
-    { id: '', name: '獵殺導彈', tier: 2 },
-    { id: '', name: '玻璃大砲 II', tier: 2 },
-    { id: '', name: '發條加速器', tier: 2 },
-    { id: '', name: '發電機之紋', tier: 2 },
-    { id: '', name: '百獸之紋', tier: 2 },
-    { id: '', name: '皇冠意志', tier: 2 },
-    { id: '', name: '盜取', tier: 2 },
-    { id: '', name: '盜蓋者 I', tier: 2 },
-    { id: '', name: '砸起來', tier: 2 },
-    { id: '', name: '砸起來+', tier: 2 },
-    { id: '', name: '神諭之梯', tier: 2 },
-    { id: '', name: '神諭之紋', tier: 2 },
-    { id: '', name: '移情', tier: 2 },
-    { id: '', name: '究極升級', tier: 2 },
-    { id: '', name: '穿刺蓮花 I', tier: 2 },
-    { id: '', name: '竊賊', tier: 2 },
-    { id: '', name: '紀元', tier: 2 },
-    { id: '', name: '紀元+', tier: 2 },
-    { id: '', name: '終火狂', tier: 2 },
-    { id: '', name: '繁星夜空', tier: 2 },
-    { id: '', name: '繁星夜空+', tier: 2 },
-    { id: '', name: '罪惡之紋', tier: 2 },
-    { id: '', name: '耐心學習', tier: 2 },
-    { id: '', name: '自毀裝置', tier: 2 },
-    { id: '', name: '自由發揮', tier: 2 },
-    { id: '', name: '致命重導', tier: 2 },
-    { id: '', name: '英雄禮包', tier: 2 },
-    { id: '', name: '英雄禮包+', tier: 2 },
-    { id: '', name: '英雄禮包++', tier: 2 },
-    { id: '', name: '董事會', tier: 2 },
-    { id: '', name: '處刑者之紋', tier: 2 },
-    { id: '', name: '蟲蟲暢飲', tier: 2 },
-    { id: '', name: '蟲蟲暢飲+', tier: 2 },
-    { id: '', name: '蠻勇之紋', tier: 2 },
-    { id: '', name: '複製', tier: 2 },
-    { id: '', name: '複製設施', tier: 2 },
-    { id: '', name: '親近朋友', tier: 2 },
-    { id: '', name: '記憶銀行', tier: 2 },
-    { id: '', name: '試營運', tier: 2 },
-    { id: '', name: '認知植入', tier: 2 },
-    { id: '', name: '貿易大亨', tier: 2 },
-    { id: '', name: '賽博平台', tier: 2 },
-    { id: '', name: '超前部署', tier: 2 },
-    { id: '', name: '超級巨星 II', tier: 2 },
-    { id: '', name: '超載', tier: 2 },
-    { id: '', name: '超量治癒', tier: 2 },
-    { id: '', name: '越戰越勇 II', tier: 2 },
-    { id: '', name: '越戰越強', tier: 2 },
-    { id: '', name: '輔助藏寶箱', tier: 2 },
-    { id: '', name: '速射之紋', tier: 2 },
-    { id: '', name: '道具收藏家 II', tier: 2 },
-    { id: '', name: '遠親如近鄰', tier: 2 },
-    { id: '', name: '金牛之紋', tier: 2 },
-    { id: '', name: '鋼級之命 I', tier: 2 },
-    { id: '', name: '長矛意志', tier: 2 },
-    { id: '', name: '雙戲法', tier: 2 },
-    { id: '', name: '雙排', tier: 2 },
-    { id: '', name: '電容器', tier: 2 },
-    { id: '', name: '電晶體', tier: 2 },
-    { id: '', name: '靈魂連結', tier: 2 },
-    { id: '', name: '饜足術士', tier: 2 },
-    { id: '', name: '馬上回來', tier: 2 },
-    { id: '', name: '高分新紀錄', tier: 2 },
-    { id: '', name: '高貴犧牲', tier: 2 },
-    { id: '', name: '高速殺戮', tier: 2 },
-    { id: '', name: '高電壓', tier: 2 },
-    { id: '', name: '魔力流動 II', tier: 2 },
-    { id: '', name: '魔法擲骰', tier: 2 },
-    { id: '', name: '鱗光四射', tier: 2 },
-    { id: '', name: '鱗光四射+', tier: 2 },
-    { id: '', name: '黃金羊毛', tier: 2 },
-    { id: '', name: '黃金羊毛+', tier: 2 },
+    { id: 'Trifecta I', name: '三連勝 I', tier: 2 },
+    { id: 'No Scout No Pivot', name: '不偵查不換陣容', tier: 2 },
+    { id: 'Category Five', name: '五級颶風', tier: 2 },
+    { id: 'Teaming Up II', name: '人多好辦事', tier: 2 },
+    { id: 'Not Today', name: '今非死期', tier: 2 },
+    { id: 'Scapegoat', name: '代罪羔羊', tier: 2 },
+    { id: 'Bad Luvk Protection', name: '保底機制', tier: 2 },
+    { id: 'a', name: '值得等待', tier: 2 },
+    { id: 'b', name: '健康即是財富 II', tier: 2 },
+    { id: 'c', name: '備品零件', tier: 2 },
+    { id: 'd', name: '債值爆棚', tier: 2 },
+    { id: 'Vanguard Crest', name: '先鋒戰士之紋', tier: 2 },
+    { id: 'e', name: '刃馬合一', tier: 2 },
+    { id: 'f', name: '刷新計分板', tier: 2 },
+    { id: 'g', name: '助攻碑文', tier: 2 },
+    { id: 'h', name: '化為魔像', tier: 2 },
+    { id: 'Reactive Shell', name: '反應殼盾', tier: 2 },
+    { id: 'Alter Ego', name: '另我人格', tier: 2 },
+    { id: 'Vampiric Vitality', name: '吸血活力', tier: 2 },
+    { id: 'i', name: '嚴守皇冠', tier: 2 },
+    { id: 'j', name: '四個一組', tier: 2 },
+    { id: 'k', name: '四重援軍', tier: 2 },
+    { id: 'l', name: '回收再利用', tier: 2 },
+    { id: 'm', name: '回收再利用+', tier: 2 },
+    { id: 'Bastion Crest', name: '堡壘之紋', tier: 2 },
+    { id: 'n', name: '塔防', tier: 2 },
+    { id: 'Bulky Buddies II', name: '壯碩夥伴', tier: 2 },
+    { id: 'Big Grab Bag', name: '大禮包', tier: 2 },
+    { id: 'Raining Gold', name: '天降金幣', tier: 2 },
+    { id: 'Raining Gold+', name: '天降金幣+', tier: 2 },
+    { id: "Caretaker's Favor", name: '守望者眷顧', tier: 2 },
+    { id: 'o', name: '射手之紋', tier: 2 },
+    { id: 'p', name: '導師 II', tier: 2 },
+    { id: 'Little Buddies', name: '小小夥伴', tier: 2 },
+    { id: 'q', name: '弱者，顫抖吧！', tier: 2 },
+    { id: 'r', name: '強化骨骼', tier: 2 },
+    { id: 's', name: '心電靜止', tier: 2 },
+    { id: 't', name: '思緒清晰', tier: 2 },
+    { id: 'u', name: '思緒雜亂', tier: 2 },
+    { id: 'v', name: '惡性經營', tier: 2 },
+    { id: 'Liquidate', name: '惡意收購', tier: 2 },
+    { id: 'Tagging Spree', name: '我標我標我標標標', tier: 2 },
+    { id: 'One For All II', name: '我為人人 II', tier: 2 },
+    { id: 'w', name: '戰爭紅利 II', tier: 2 },
+    { id: 'x', name: '戰略軍師之紋', tier: 2 },
+    { id: 'y', name: '戰錘意志', tier: 2 },
+    { id: 'Techie Crest', name: '技師之紋', tier: 2 },
+    { id: 'z', name: '投資策略 I', tier: 2 },
+    { id: 'Spare Parts', name: '拋光鉻', tier: 2 },
+    { id: 'aa', name: '拳擊選手', tier: 2 },
+    { id: 'ab', name: '拾荒者', tier: 2 },
+    { id: 'ac', name: '持槍假人', tier: 2 },
+    { id: 'ad', name: '攀升之階 II', tier: 2 },
+    { id: 'ae', name: '攜帶型打鐵鋪', tier: 2 },
+    { id: 'af', name: '支援尖塔', tier: 2 },
+    { id: 'Gold For Dummies', name: '散財假人', tier: 2 },
+    { id: '10,000 IQ', name: '智商10,000', tier: 2 },
+    { id: 'ag', name: '月光', tier: 2 },
+    { id: 'ah', name: '末日機器之紋', tier: 2 },
+    { id: 'ai', name: '棘刺盔甲', tier: 2 },
+    { id: 'aj', name: '極限之紋', tier: 2 },
+    { id: 'Cybernetic Implants II', name: '模控機械', tier: 2 },
+    { id: 'Slayer Crest', name: '殺戮者之紋', tier: 2 },
+    { id: 'Wandering Trainer I', name: '流浪假人 I', tier: 2 },
+    { id: 'ak', name: '清算', tier: 2 },
+    { id: 'al', name: '潘朵拉的道具 II', tier: 2 },
+    { id: 'am', name: '烏龍商店', tier: 2 },
+    { id: 'an', name: '烹飪鍋', tier: 2 },
+    { id: 'Blazing Soul I', name: '熾熱靈魂 I', tier: 2 },
+    { id: 'ao', name: '特性追蹤器', tier: 2 },
+    { id: 'ap', name: '獵殺導彈', tier: 2 },
+    { id: 'aq', name: '玻璃大砲 II', tier: 2 },
+    { id: 'ar', name: '發條加速器', tier: 2 },
+    { id: 'as', name: '發電機之紋', tier: 2 },
+    { id: 'Anima Squad Crest', name: '百獸之紋', tier: 2 },
+    { id: 'at', name: '皇冠意志', tier: 2 },
+    { id: 'au', name: '盜取', tier: 2 },
+    { id: 'av', name: '盜蓋者 I', tier: 2 },
+    { id: 'Slammin', name: '砸起來', tier: 2 },
+    { id: 'Slammin+', name: '砸起來+', tier: 2 },
+    { id: 'Divine Ascension', name: '神諭之梯', tier: 2 },
+    { id: 'Divine Crest', name: '神諭之紋', tier: 2 },
+    { id: 'aw', name: '移情', tier: 2 },
+    { id: 'ax', name: '究極升級', tier: 2 },
+    { id: 'ay', name: '穿刺蓮花 I', tier: 2 },
+    { id: 'az', name: '竊賊', tier: 2 },
+    { id: 'ba', name: '紀元', tier: 2 },
+    { id: 'bb', name: '紀元+', tier: 2 },
+    { id: 'bc', name: '終火狂', tier: 2 },
+    { id: 'bd', name: '繁星夜空', tier: 2 },
+    { id: 'be', name: '繁星夜空+', tier: 2 },
+    { id: 'bf', name: '罪惡之紋', tier: 2 },
+    { id: 'bg', name: '耐心學習', tier: 2 },
+    { id: 'bh', name: '自毀裝置', tier: 2 },
+    { id: 'bi', name: '自由發揮', tier: 2 },
+    { id: 'Lethal Rerouting', name: '致命重導', tier: 2 },
+    { id: 'bj', name: '英雄禮包', tier: 2 },
+    { id: 'bk', name: '英雄禮包+', tier: 2 },
+    { id: 'bl', name: '英雄禮包++', tier: 2 },
+    { id: 'bm', name: '董事會', tier: 2 },
+    { id: 'bn', name: '處刑者之紋', tier: 2 },
+    { id: 'The Chug Bug', name: '蟲蟲暢飲', tier: 2 },
+    { id: 'The Chug Bug+', name: '蟲蟲暢飲+', tier: 2 },
+    { id: 'bo', name: '蠻勇之紋', tier: 2 },
+    { id: 'bp', name: '複製', tier: 2 },
+    { id: 'bq', name: '複製設施', tier: 2 },
+    { id: 'Keep Your Friends Close', name: '親近朋友', tier: 2 },
+    { id: 'br', name: '記憶銀行', tier: 2 },
+    { id: 'bs', name: '試營運', tier: 2 },
+    { id: 'bt', name: '認知植入', tier: 2 },
+    { id: 'bu', name: '貿易大亨', tier: 2 },
+    { id: 'Cyberdesk', name: '賽博平台', tier: 2 },
+    { id: 'bv', name: '超前部署', tier: 2 },
+    { id: 'bw', name: '超級巨星 II', tier: 2 },
+    { id: 'Overclocked', name: '超載', tier: 2 },
+    { id: 'Overheal', name: '超量治癒', tier: 2 },
+    { id: 'bx', name: '越戰越勇 II', tier: 2 },
+    { id: 'by', name: '越戰越強', tier: 2 },
+    { id: 'bz', name: '輔助藏寶箱', tier: 2 },
+    { id: 'Rapidfire Crest', name: '速射之紋', tier: 2 },
+    { id: 'ca', name: '道具收藏家 II', tier: 2 },
+    { id: 'cb', name: '遠親如近鄰', tier: 2 },
+    { id: 'Golden Ox Crest', name: '金牛之紋', tier: 2 },
+    { id: 'cc', name: '鋼級之命 I', tier: 2 },
+    { id: 'cd', name: '長矛意志', tier: 2 },
+    { id: 'Two Trick', name: '雙戲法', tier: 2 },
+    { id: 'ce', name: '雙排', tier: 2 },
+    { id: 'Capacitor', name: '電容器', tier: 2 },
+    { id: 'cf', name: '電晶體', tier: 2 },
+    { id: 'cg', name: '靈魂連結', tier: 2 },
+    { id: 'ch', name: '饜足術士', tier: 2 },
+    { id: 'BRB', name: '馬上回來', tier: 2 },
+    { id: 'ci', name: '高分新紀錄', tier: 2 },
+    { id: 'cj', name: '高貴犧牲', tier: 2 },
+    { id: 'ck', name: '高速殺戮', tier: 2 },
+    { id: 'cl', name: '高電壓', tier: 2 },
+    { id: 'cm', name: '魔力流動 II', tier: 2 },
+    { id: 'A Magic Roll', name: '魔法擲骰', tier: 2 },
+    { id: 'All That Shinmmers', name: '鱗光四射', tier: 2 },
+    { id: 'All That Shinmmers+', name: '鱗光四射+', tier: 2 },
+    { id: 'Golden Fleece', name: '黃金羊毛', tier: 2 },
+    { id: 'Golden Fleece+', name: '黃金羊毛+', tier: 2 },
 
-    { id: '', name: '一個Buff，兩個Buff', tier: 3 },
-    { id: '', name: '三連勝 II', tier: 3 },
-    { id: '', name: '不穩定的進化', tier: 3 },
-    { id: '', name: '值得等待 II', tier: 3 },
-    { id: '', name: '先鋒戰士之冠', tier: 3 },
-    { id: '', name: '先鋒戰士之環', tier: 3 },
-    { id: '', name: '公理弧刃 III', tier: 3 },
-    { id: '', name: '共享光采', tier: 3 },
-    { id: '', name: '刀劍湧流', tier: 3 },
-    { id: '', name: '加冕', tier: 3 },
-    { id: '', name: '勝者發財', tier: 3 },
-    { id: '', name: '升級！', tier: 3 },
-    { id: '', name: '只買高檔貨 II', tier: 3 },
-    { id: '', name: '召喚虛靈', tier: 3 },
-    { id: '', name: '向上流動', tier: 3 },
-    { id: '', name: '吸取精華', tier: 3 },
-    { id: '', name: '地底寶藏 III', tier: 3 },
-    { id: '', name: '堡壘之冠', tier: 3 },
-    { id: '', name: '堡壘之環', tier: 3 },
-    { id: '', name: '壯碩夥伴 III', tier: 3 },
-    { id: '', name: '好運手套', tier: 3 },
-    { id: '', name: '好運手套+', tier: 3 },
-    { id: '', name: '守望者之選', tier: 3 },
-    { id: '', name: '射手之冠', tier: 3 },
-    { id: '', name: '射手之環', tier: 3 },
-    { id: '', name: '山寨版', tier: 3 },
-    { id: '', name: '巨獸決意', tier: 3 },
-    { id: '', name: '巨獸決意+', tier: 3 },
-    { id: '', name: '強力投入', tier: 3 },
-    { id: '', name: '微光龍鱗精粹', tier: 3 },
-    { id: '', name: '快刷快想', tier: 3 },
-    { id: '', name: '快拳連打', tier: 3 },
-    { id: '', name: '情緒管理', tier: 3 },
-    { id: '', name: '戰爭紅利 III', tier: 3 },
-    { id: '', name: '戰略軍師之冠', tier: 3 },
-    { id: '', name: '戰略軍師之環', tier: 3 },
-    { id: '', name: '技師之冠', tier: 3 },
-    { id: '', name: '技師之環', tier: 3 },
-    { id: '', name: '投資+', tier: 3 },
-    { id: '', name: '投資++', tier: 3 },
-    { id: '', name: '投資策略 II', tier: 3 },
-    { id: '', name: '擲骰子', tier: 3 },
-    { id: '', name: '最大上限', tier: 3 },
-    { id: '', name: '最終庫存', tier: 3 },
-    { id: '', name: '末日機器之冠', tier: 3 },
-    { id: '', name: '末日機器之環', tier: 3 },
-    { id: '', name: '棋手廚房', tier: 3 },
-    { id: '', name: '極限之冠', tier: 3 },
-    { id: '', name: '極限之環', tier: 3 },
-    { id: '', name: '模控機械移植 III', tier: 3 },
-    { id: '', name: '殺戮者之冠', tier: 3 },
-    { id: '', name: '殺戮者之環', tier: 3 },
-    { id: '', name: '泰坦之武', tier: 3 },
-    { id: '', name: '洞燭先機 II', tier: 3 },
-    { id: '', name: '活到老學到老', tier: 3 },
-    { id: '', name: '活火爐', tier: 3 },
-    { id: '', name: '流浪假人 II', tier: 3 },
-    { id: '', name: '海賊王', tier: 3 },
-    { id: '', name: '混沌召喚', tier: 3 },
-    { id: '', name: '渾身是勁 III', tier: 3 },
-    { id: '', name: '潘朵拉的道具 III', tier: 3 },
-    { id: '', name: '炫目神速', tier: 3 },
-    { id: '', name: '無可動搖', tier: 3 },
-    { id: '', name: '無盡軍勢', tier: 3 },
-    { id: '', name: '無盡軍勢+', tier: 3 },
-    { id: '', name: '燃熱靈魂 II', tier: 3 },
-    { id: '', name: '狙擊武器 II', tier: 3 },
-    { id: '', name: '現在我是主力', tier: 3 },
-    { id: '', name: '生化過載', tier: 3 },
-    { id: '', name: '生日禮物', tier: 3 },
-    { id: '', name: '畫龍點睛', tier: 3 },
-    { id: '', name: '發電機之冠', tier: 3 },
-    { id: '', name: '發電機之環', tier: 3 },
-    { id: '', name: '百獸之冠', tier: 3 },
-    { id: '', name: '百獸之環', tier: 3 },
-    { id: '', name: '皎潔月光', tier: 3 },
-    { id: '', name: '盜墓者 II', tier: 3 },
-    { id: '', name: '盧登回音 III', tier: 3 },
-    { id: '', name: '神諭之冠', tier: 3 },
-    { id: '', name: '神諭之環', tier: 3 },
-    { id: '', name: '稜鏡票券', tier: 3 },
-    { id: '', name: '稜鏡管道', tier: 3 },
-    { id: '', name: '穿刺蓮花 II', tier: 3 },
-    { id: '', name: '精打細算', tier: 3 },
-    { id: '', name: '精算強化', tier: 3 },
-    { id: '', name: '罪惡之冠', tier: 3 },
-    { id: '', name: '罪惡之環', tier: 3 },
-    { id: '', name: '聖光重構', tier: 3 },
-    { id: '', name: '聖物抉擇', tier: 3 },
-    { id: '', name: '腰帶多多', tier: 3 },
-    { id: '', name: '處刑者之冠', tier: 3 },
-    { id: '', name: '處刑者之環', tier: 3 },
-    { id: '', name: '虧機星期五', tier: 3 },
-    { id: '', name: '虧機星期五+', tier: 3 },
-    { id: '', name: '蠻勇之冠', tier: 3 },
-    { id: '', name: '蠻勇之環', tier: 3 },
-    { id: '', name: '街頭狂魔之冠', tier: 3 },
-    { id: '', name: '街頭狂魔之環', tier: 3 },
-    { id: '', name: '訂閱服務', tier: 3 },
-    { id: '', name: '詛咒之冠', tier: 3 },
-    { id: '', name: '買不手軟', tier: 3 },
-    { id: '', name: '質大於量', tier: 3 },
-    { id: '', name: '越戰越勇 III', tier: 3 },
-    { id: '', name: '迷你小英雄', tier: 3 },
-    { id: '', name: '迷你小英雄+', tier: 3 },
-    { id: '', name: '速射之冠', tier: 3 },
-    { id: '', name: '速射之環', tier: 3 },
-    { id: '', name: '避險基金', tier: 3 },
-    { id: '', name: '金牛之冠', tier: 3 },
-    { id: '', name: '金牛之環', tier: 3 },
-    { id: '', name: '銅級之命 II', tier: 3 },
-    { id: '', name: '鏡之廳', tier: 3 },
-    { id: '', name: '長久之計', tier: 3 },
-    { id: '', name: '開局新手包 I', tier: 3 },
-    { id: '', name: '陽壽局', tier: 3 },
-    { id: '', name: '雙胞胎 III', tier: 3 },
-    { id: '', name: '雙重目的', tier: 3 },
-    { id: '', name: '雙重空投物資', tier: 3 },
-    { id: '', name: '電擊療法', tier: 3 },
-    { id: '', name: '電擊療法+', tier: 3 },
-    { id: '', name: '靈活變通', tier: 3 },
-    { id: '', name: '非凡冒險', tier: 3 },
-    { id: '', name: '預料中的意外', tier: 3 },
-    { id: '', name: '魔杖湧流', tier: 3 }
+    { id: 'cn', name: '一個Buff，兩個Buff', tier: 3 },
+    { id: 'co', name: '三連勝 II', tier: 3 },
+    { id: 'cp', name: '不穩定的進化', tier: 3 },
+    { id: 'cq', name: '值得等待 II', tier: 3 },
+    { id: 'cr', name: '先鋒戰士之冠', tier: 3 },
+    { id: 'cs', name: '先鋒戰士之環', tier: 3 },
+    { id: 'ct', name: '公理弧刃 III', tier: 3 },
+    { id: 'cu', name: '共享光采', tier: 3 },
+    { id: 'cv', name: '刀劍湧流', tier: 3 },
+    { id: 'cw', name: '加冕', tier: 3 },
+    { id: 'cx', name: '勝者發財', tier: 3 },
+    { id: 'cy', name: '升級！', tier: 3 },
+    { id: 'cz', name: '只買高檔貨 II', tier: 3 },
+    { id: 'da', name: '召喚虛靈', tier: 3 },
+    { id: 'db', name: '向上流動', tier: 3 },
+    { id: 'dc', name: '吸取精華', tier: 3 },
+    { id: 'dd', name: '地底寶藏 III', tier: 3 },
+    { id: 'de', name: '堡壘之冠', tier: 3 },
+    { id: 'df', name: '堡壘之環', tier: 3 },
+    { id: 'dg', name: '壯碩夥伴 III', tier: 3 },
+    { id: 'dh', name: '好運手套', tier: 3 },
+    { id: 'di', name: '好運手套+', tier: 3 },
+    { id: 'dj', name: '守望者之選', tier: 3 },
+    { id: 'dk', name: '射手之冠', tier: 3 },
+    { id: 'dl', name: '射手之環', tier: 3 },
+    { id: 'dm', name: '山寨版', tier: 3 },
+    { id: 'dn', name: '巨獸決意', tier: 3 },
+    { id: 'do', name: '巨獸決意+', tier: 3 },
+    { id: 'dp', name: '強力投入', tier: 3 },
+    { id: 'dq', name: '微光龍鱗精粹', tier: 3 },
+    { id: 'dr', name: '快刷快想', tier: 3 },
+    { id: 'ds', name: '快拳連打', tier: 3 },
+    { id: 'dt', name: '情緒管理', tier: 3 },
+    { id: 'du', name: '戰爭紅利 III', tier: 3 },
+    { id: 'dv', name: '戰略軍師之冠', tier: 3 },
+    { id: 'dw', name: '戰略軍師之環', tier: 3 },
+    { id: 'dx', name: '技師之冠', tier: 3 },
+    { id: 'dy', name: '技師之環', tier: 3 },
+    { id: 'dz', name: '投資+', tier: 3 },
+    { id: 'ea', name: '投資++', tier: 3 },
+    { id: 'eb', name: '投資策略 II', tier: 3 },
+    { id: 'ec', name: '擲骰子', tier: 3 },
+    { id: 'ed', name: '最大上限', tier: 3 },
+    { id: 'ee', name: '最終庫存', tier: 3 },
+    { id: 'ef', name: '末日機器之冠', tier: 3 },
+    { id: 'eg', name: '末日機器之環', tier: 3 },
+    { id: 'eh', name: '棋手廚房', tier: 3 },
+    { id: 'ei', name: '極限之冠', tier: 3 },
+    { id: 'ej', name: '極限之環', tier: 3 },
+    { id: 'ek', name: '模控機械移植 III', tier: 3 },
+    { id: 'el', name: '殺戮者之冠', tier: 3 },
+    { id: 'em', name: '殺戮者之環', tier: 3 },
+    { id: 'en', name: '泰坦之武', tier: 3 },
+    { id: 'eo', name: '洞燭先機 II', tier: 3 },
+    { id: 'ep', name: '活到老學到老', tier: 3 },
+    { id: 'eq', name: '活火爐', tier: 3 },
+    { id: 'er', name: '流浪假人 II', tier: 3 },
+    { id: 'es', name: '海賊王', tier: 3 },
+    { id: 'et', name: '混沌召喚', tier: 3 },
+    { id: 'eu', name: '渾身是勁 III', tier: 3 },
+    { id: 'ev', name: '潘朵拉的道具 III', tier: 3 },
+    { id: 'ew', name: '炫目神速', tier: 3 },
+    { id: 'ex', name: '無可動搖', tier: 3 },
+    { id: 'ey', name: '無盡軍勢', tier: 3 },
+    { id: 'ez', name: '無盡軍勢+', tier: 3 },
+    { id: 'fa', name: '燃熱靈魂 II', tier: 3 },
+    { id: 'fb', name: '狙擊武器 II', tier: 3 },
+    { id: 'fc', name: '現在我是主力', tier: 3 },
+    { id: 'fd', name: '生化過載', tier: 3 },
+    { id: 'fe', name: '生日禮物', tier: 3 },
+    { id: 'ff', name: '畫龍點睛', tier: 3 },
+    { id: 'fg', name: '發電機之冠', tier: 3 },
+    { id: 'fh', name: '發電機之環', tier: 3 },
+    { id: 'fi', name: '百獸之冠', tier: 3 },
+    { id: 'fj', name: '百獸之環', tier: 3 },
+    { id: 'fk', name: '皎潔月光', tier: 3 },
+    { id: 'fl', name: '盜墓者 II', tier: 3 },
+    { id: 'fm', name: '盧登回音 III', tier: 3 },
+    { id: 'fn', name: '神諭之冠', tier: 3 },
+    { id: 'fo', name: '神諭之環', tier: 3 },
+    { id: 'fp', name: '稜鏡票券', tier: 3 },
+    { id: 'fq', name: '稜鏡管道', tier: 3 },
+    { id: 'fr', name: '穿刺蓮花 II', tier: 3 },
+    { id: 'fs', name: '精打細算', tier: 3 },
+    { id: 'ft', name: '精算強化', tier: 3 },
+    { id: 'fu', name: '罪惡之冠', tier: 3 },
+    { id: 'fv', name: '罪惡之環', tier: 3 },
+    { id: 'fw', name: '聖光重構', tier: 3 },
+    { id: 'fx', name: '聖物抉擇', tier: 3 },
+    { id: 'fy', name: '腰帶多多', tier: 3 },
+    { id: 'fz', name: '處刑者之冠', tier: 3 },
+    { id: 'ga', name: '處刑者之環', tier: 3 },
+    { id: 'gb', name: '虧機星期五', tier: 3 },
+    { id: 'gc', name: '虧機星期五+', tier: 3 },
+    { id: 'gd', name: '蠻勇之冠', tier: 3 },
+    { id: 'ge', name: '蠻勇之環', tier: 3 },
+    { id: 'gf', name: '街頭狂魔之冠', tier: 3 },
+    { id: 'gg', name: '街頭狂魔之環', tier: 3 },
+    { id: 'gh', name: '訂閱服務', tier: 3 },
+    { id: 'gi', name: '詛咒之冠', tier: 3 },
+    { id: 'gj', name: '買不手軟', tier: 3 },
+    { id: 'gk', name: '質大於量', tier: 3 },
+    { id: 'gl', name: '越戰越勇 III', tier: 3 },
+    { id: 'gm', name: '迷你小英雄', tier: 3 },
+    { id: 'gn', name: '迷你小英雄+', tier: 3 },
+    { id: 'go', name: '速射之冠', tier: 3 },
+    { id: 'gp', name: '速射之環', tier: 3 },
+    { id: 'gq', name: '避險基金', tier: 3 },
+    { id: 'gr', name: '金牛之冠', tier: 3 },
+    { id: 'gs', name: '金牛之環', tier: 3 },
+    { id: 'gt', name: '銅級之命 II', tier: 3 },
+    { id: 'gu', name: '鏡之廳', tier: 3 },
+    { id: 'gv', name: '長久之計', tier: 3 },
+    { id: 'gw', name: '開局新手包 I', tier: 3 },
+    { id: 'gx', name: '陽壽局', tier: 3 },
+    { id: 'gy', name: '雙胞胎 III', tier: 3 },
+    { id: 'gz', name: '雙重目的', tier: 3 },
+    { id: 'ha', name: '雙重空投物資', tier: 3 },
+    { id: 'hb', name: '電擊療法', tier: 3 },
+    { id: 'hc', name: '電擊療法+', tier: 3 },
+    { id: 'hd', name: '靈活變通', tier: 3 },
+    { id: 'he', name: '非凡冒險', tier: 3 },
+    { id: 'hf', name: '預料中的意外', tier: 3 },
+    { id: 'hg', name: '魔杖湧流', tier: 3 }
 ];
 
 // 當前選擇的標籤和過濾條件
@@ -1014,14 +1036,9 @@ function createChampionGridItem(champion) {
     gridItem.dataset.id = champion.id;
     
     const img = document.createElement('img');
-    img.src = `images/champions/${champion.id}.png`;
+    img.src = isImageAvailable('champions', champion.id) ? `images/champions/${champion.id}.png` : '/api/placeholder/40/40';
     img.alt = champion.name;
     img.title = champion.name;
-    
-    // 錯誤處理
-    img.onerror = function() {
-        this.src = 'images/placeholder/40x40.png';
-    };
     
     gridItem.appendChild(img);
     
@@ -1035,21 +1052,19 @@ function createChampionGridItem(champion) {
         selectItem(champion, 'champions');
     });
     
+    // 添加滑鼠懸停事件
+    gridItem.addEventListener('mouseenter', function(event) {
+        showTooltip(event, champion, 'champions');
+    });
+    
+    gridItem.addEventListener('mouseleave', function() {
+        hideTooltip();
+    });
+    
     return gridItem;
 }
 
-// 創建物品/增幅網格項目的輔助函數
-let selectedItem = null;
-let selectedItemType = null;
-
-// 新增缺少的 selectItem 函數
-function selectItem(item, type) {
-    selectedItem = item;
-    selectedItemType = type;
-    console.log(`已選擇 ${type}: ${item.name}`);
-}
-
-// 修正 createItemGridItem 函數，避免重複定義
+// 修改 createItemGridItem 函數，添加滑鼠懸停事件
 function createItemGridItem(item, type) {
     const gridItem = document.createElement('div');
     gridItem.className = 'grid-item';
@@ -1068,15 +1083,18 @@ function createItemGridItem(item, type) {
     
     const img = document.createElement('img');
     if (type === 'items') {
-        img.src = `images/items/${item.id}.png`;
+        // 修改圖片路徑處理
+        img.src = isImageAvailable('items', item.id) ? `images/items/${item.id}.png` : '/api/placeholder/40/40';
     } else if (type === 'augments') {
-        img.src = `images/augments/${item.id}.png`;
+        img.src = isImageAvailable('augments', item.id) ? `images/augments/${item.id}.png` : '/api/placeholder/40/40';
     }
     img.alt = item.name;
     img.title = item.name;
-    
+
+    // 確保錯誤處理使用絕對路徑
     img.onerror = function() {
         this.src = '/api/placeholder/40/40';
+        this.onerror = null; // 防止無限循環
     };
     
     gridItem.appendChild(img);
@@ -1089,6 +1107,15 @@ function createItemGridItem(item, type) {
     // 添加點擊事件
     gridItem.addEventListener('click', function() {
         selectItem(item, type);
+    });
+    
+    // 添加滑鼠懸停事件
+    gridItem.addEventListener('mouseenter', function(event) {
+        showTooltip(event, item, type);
+    });
+    
+    gridItem.addEventListener('mouseleave', function() {
+        hideTooltip();
     });
     
     return gridItem;
@@ -1298,4 +1325,213 @@ function clearBoard() {
     
     // 更新特質顯示
     updateTraitDisplay();
+}
+
+// 提示框相關函數
+const tooltip = document.getElementById('tooltip');
+let tooltipTimeout;
+
+// 設置提示框內容和顯示位置
+function showTooltip(event, item, type) {
+    // 清除任何可能的懸停延遲
+    if (tooltipTimeout) clearTimeout(tooltipTimeout);
+    
+    const tooltipIcon = tooltip.querySelector('.tooltip-icon');
+    const tooltipTitle = tooltip.querySelector('.tooltip-title');
+    const tooltipCost = tooltip.querySelector('.tooltip-cost');
+    const tooltipTraits = tooltip.querySelector('.tooltip-traits');
+    const tooltipStats = tooltip.querySelector('.tooltip-stats');
+    const tooltipAbility = tooltip.querySelector('.tooltip-ability');
+    const tooltipDescription = tooltip.querySelector('.tooltip-description');
+    
+    // 重置提示框內容
+    tooltipTraits.innerHTML = '';
+    tooltipStats.innerHTML = '';
+    tooltipAbility.innerHTML = '';
+    tooltipDescription.innerHTML = '';
+    
+    // 設置通用資訊
+    tooltipTitle.textContent = item.name;
+    
+    // 根據類型設置不同的內容
+    if (type === 'champions') {
+        // 設置英雄圖示
+        tooltipIcon.src = isImageAvailable('champions', item.id) 
+            ? `images/champions/${item.id}.png` 
+            : '/api/placeholder/40/40';
+        tooltipIcon.alt = item.name;
+        
+        // 設置英雄費用
+        tooltipCost.textContent = `${item.cost} 費`;
+        tooltipCost.style.color = getCostColor(item.cost);
+        
+        // 設置英雄特質
+        item.traits.forEach(trait => {
+            const traitElem = document.createElement('div');
+            traitElem.className = 'tooltip-trait';
+            traitElem.textContent = trait;
+            tooltipTraits.appendChild(traitElem);
+        });
+        
+    } else if (type === 'items') {
+        // 設置物品圖示
+        tooltipIcon.src = isImageAvailable('items', item.id) 
+            ? `images/items/${item.id}.png` 
+            : '/api/placeholder/40/40';
+        tooltipIcon.alt = item.name;
+        
+        // 設置物品類型
+        tooltipCost.textContent = item.type;
+        switch(item.type) {
+            case 'Radiant': tooltipCost.style.color = '#FFD700'; break;
+            case 'Artifact': tooltipCost.style.color = '#FF4500'; break;
+            case 'Core': tooltipCost.style.color = '#1E90FF'; break;
+            case 'Component': tooltipCost.style.color = '#FFFFFF'; break;
+            case 'Emblem': tooltipCost.style.color = '#9932CC'; break;
+            default: tooltipCost.style.color = '#90EE90'; break;
+        }
+        
+        // 顯示物品屬性加成
+        if (item.stats && Array.isArray(item.stats)) {
+            item.stats.forEach(stat => {
+                const statElem = document.createElement('div');
+                statElem.className = 'tooltip-stat';
+                statElem.textContent = stat;
+                tooltipStats.appendChild(statElem);
+            });
+        }
+        
+        // 物品功能描述
+        if (item.description) {
+            tooltipDescription.textContent = item.description;
+        } else {
+            tooltipDescription.textContent = `${item.name}是一件${item.type}類型的裝備。`;
+        }
+        
+    } else if (type === 'augments') {
+        // 設置增幅圖示
+        tooltipIcon.src = isImageAvailable('augments', item.id) 
+            ? `images/augments/${item.id}.png` 
+            : '/api/placeholder/40/40';
+        tooltipIcon.alt = item.name;
+        
+        // 設置增幅等級
+        let tierText = '';
+        let tierColor = '';
+        switch(item.tier) {
+            case 1: tierText = '銀級'; tierColor = '#C0C0C0'; break;
+            case 2: tierText = '金級'; tierColor = '#FFD700'; break;
+            case 3: tierText = '彩級'; tierColor = '#FF1493'; break;
+        }
+        tooltipCost.textContent = tierText;
+        tooltipCost.style.color = tierColor;
+        
+        // 增幅描述
+        if (item.description) {
+            tooltipDescription.textContent = item.description;
+        } else {
+            tooltipDescription.textContent = `${item.name}是一個${tierText}增幅裝置，可在對戰中提供特殊效果。`;
+        }
+    }
+    
+    // 設置提示框位置
+    const x = event.clientX + 15;
+    const y = event.clientY + 15;
+    
+    // 確保提示框不會超出視窗邊界
+    const tooltipRect = tooltip.getBoundingClientRect();
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    
+    let finalX = x;
+    let finalY = y;
+    
+    if (x + tooltipRect.width > viewportWidth) {
+        finalX = x - tooltipRect.width - 15;
+    }
+    
+    if (y + tooltipRect.height > viewportHeight) {
+        finalY = y - tooltipRect.height - 15;
+    }
+    
+    tooltip.style.left = `${finalX}px`;
+    tooltip.style.top = `${finalY}px`;
+    tooltip.style.display = 'block';
+}
+
+// 隱藏提示框
+function hideTooltip() {
+    tooltipTimeout = setTimeout(() => {
+        tooltip.style.display = 'none';
+    }, 100); // 略微延遲以實現更平滑的過渡
+}
+
+// 獲取物品的屬性加成
+function getItemStats(item) {
+    if (item.stats) {
+        return item.stats;
+    }
+    
+    // 如果沒有定義屬性，則返回預設值
+    return {
+        physicalAttack: 0,
+        magicAttack: 0,
+        attackSpeed: 0,
+        abilityPower: 0,
+        physicalDefense: 0,
+        magicDefense: 0,
+        health: 0,
+        critChance: 0
+    };
+}
+
+function getItemDescription(item) {
+    return item.description || `${item.name}是一件${item.type}類型的裝備。`;
+}
+
+// 獲取物品的功能描述
+function getItemDescription(item) {
+    // 這是一個示例函數，應該根據實際的物品數據來實現
+    // 在實際使用中，描述應該定義在物品數據中
+    
+    switch(item.id) {
+        case 'Infinity Edge':
+            return '增加暴擊傷害50%，並提高暴擊率。普通攻擊有25%機率造成175%傷害。';
+        case "Rabadon's Deathcap":
+            return '增加40%法術強度。';
+        case "Warmog's Armor":
+            return '每秒恢復2%最大生命值。';
+        case 'Bloodthirster':
+            return '攻擊會恢復33%傷害的生命值。落到30%生命值以下時，獲得一個持續4秒的護盾。';
+        case 'Statikk Shiv':
+            return '每第三次攻擊會發射一道鏈狀閃電，對3個敵人造成70魔法傷害，並減少敵人40%魔法抗性5秒。';
+        case "Dragon's Claw":
+            return '增加魔法抗性，並在戰鬥開始時獲得一個吸收400魔法傷害的護盾。';
+        case 'Titan\'s Resolve':
+            return '每次被擊中或攻擊時，獲得2%攻擊和2%法術強度，最多堆疊25次。滿層時，增加25點護甲和魔抗。';
+        default:
+            return `${item.name}是一件${item.type}類型的裝備，提供獨特的戰鬥能力。裝備在英雄身上可以增強其能力，並且某些裝備組合可以產生更強大的效果。`;
+    }
+}
+
+// 獲取增幅的描述
+function getAugmentDescription(item) {
+    // 示例函數，實際應該從增幅數據中獲取
+    switch(item.id) {
+        case 'Ones Twos Three':
+            return '在每個玩家階段開始時，獲得1個1費單位、1個2費單位和1個3費單位。';
+        case 'One Two Five!':
+            return '在每個玩家階段開始時，獲得1個1費單位、1個2費單位和1個5費單位。';
+        case 'Find Your Center':
+            return '你的英雄們獲得10%生命值和5%攻擊力。';
+        default:
+            return `${item.name}是一個${item.tier === 1 ? '銀級' : item.tier === 2 ? '金級' : '彩級'}增幅裝置，提供強大的戰鬥加成或特殊效果，幫助你在對戰中取得優勢。`;
+    }
+}
+
+// 隱藏提示框
+function hideTooltip() {
+    tooltipTimeout = setTimeout(() => {
+        tooltip.style.display = 'none';
+    }, 100); // 略微延遲以實現更平滑的過渡
 }
