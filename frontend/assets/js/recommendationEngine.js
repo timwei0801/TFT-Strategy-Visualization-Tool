@@ -1655,3 +1655,66 @@ function hideTooltip() {
         tooltip.style.display = 'none';
     }, 100); // 略微延遲以實現更平滑的過渡
 }
+
+function createChampionGridItem(champion) {
+    const gridItem = document.createElement('div');
+    gridItem.className = 'grid-item';
+    gridItem.dataset.id = champion.id;
+    
+    // 添加背景顏色以反映英雄費用
+    gridItem.style.backgroundColor = getCostBackgroundColor(champion.cost);
+    gridItem.style.boxShadow = `0 0 5px ${getCostColor(champion.cost)}`;
+    
+    const img = document.createElement('img');
+    img.src = isImageAvailable('champions', champion.id) ? `images/champions/${champion.id}.png` : '/api/placeholder/40/40';
+    img.alt = champion.name;
+    img.title = champion.name;
+    
+    gridItem.appendChild(img);
+    
+    const name = document.createElement('div');
+    name.className = 'item-name';
+    name.textContent = champion.name;
+    name.style.color = getCostTextColor(champion.cost);
+    gridItem.appendChild(name);
+    
+    // 添加點擊事件
+    gridItem.addEventListener('click', function() {
+        selectItem(champion, 'champions');
+    });
+    
+    // 添加滑鼠懸停事件
+    gridItem.addEventListener('mouseenter', function(event) {
+        showTooltip(event, champion, 'champions');
+    });
+    
+    gridItem.addEventListener('mouseleave', function() {
+        hideTooltip();
+    });
+    
+    return gridItem;
+}
+
+// 根據費用獲取背景顏色
+function getCostBackgroundColor(cost) {
+    switch (cost) {
+        case 1: return '#2A2A2A'; // 灰色背景 - 一費
+        case 2: return '#213824'; // 深綠色背景 - 二費
+        case 3: return '#1A2940'; // 深藍色背景 - 三費
+        case 4: return '#2A1A33'; // 深紫色背景 - 四費
+        case 5: return '#332B1A'; // 深金色背景 - 五費
+        default: return '#2A2A3A';
+    }
+}
+
+// 根據費用獲取文字顏色
+function getCostTextColor(cost) {
+    switch (cost) {
+        case 1: return '#BBBBBB'; // 灰色文字 - 一費
+        case 2: return '#7FC97F'; // 綠色文字 - 二費
+        case 3: return '#386CB0'; // 藍色文字 - 三費
+        case 4: return '#F0027F'; // 紫色文字 - 四費
+        case 5: return '#FFD700'; // 金色文字 - 五費
+        default: return '#FFFFFF';
+    }
+}

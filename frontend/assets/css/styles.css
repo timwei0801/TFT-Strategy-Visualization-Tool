@@ -14,7 +14,7 @@ body {
 
 .container {
     width: 100%;
-    max-width: 1400px;
+    max-width: 1600px;
     margin: 0 auto;
     padding: 10px;
 }
@@ -87,16 +87,17 @@ body {
 
 .hexagon-board {
     display: grid;
-    grid-template-columns: repeat(7, 60px);
-    grid-template-rows: repeat(4, 60px);
-    gap: 5px;
-    margin: 10px 0;
+    grid-template-columns: repeat(7, 80px);
+    grid-template-rows: repeat(4, 80px);
+    gap: 6px;
+    margin: 15px auto;
+    max-width: 600px;
 }
 
 .hexagon {
-    width: 60px;
-    height: 60px;
-    background-color: #2A2A3A;
+    width: 80px;
+    height: 80px;
+    background-color: #1A1A28;
     clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
     display: flex;
     justify-content: center;
@@ -104,10 +105,12 @@ body {
     cursor: pointer;
     position: relative;
     transition: all 0.2s;
+    border: 1px solid #333344;
 }
 
 .hexagon:hover {
-    background-color: #3A3A4A;
+    background-color: #2A2A3A;
+    border: 1px solid #876A3B;
 }
 
 .hexagon.occupied {
@@ -188,12 +191,12 @@ body {
 
 .menu-tab {
     flex: 1;
-    padding: 10px;
+    padding: 15px;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #2A2A3A;
-    border-radius: 5px;
+    border-radius: 15px;
     cursor: pointer;
     position: relative;
     transition: all 0.2s;
@@ -228,7 +231,7 @@ body {
 
 .search-box input {
     width: 100%;
-    padding: 8px 15px 8px 35px;
+    padding: 10px 15px 8px 35px;
     background-color: #2A2A3A;
     border: none;
     border-radius: 5px;
@@ -277,7 +280,7 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(55px, 1fr));
     gap: 10px;
-    max-height: 300px;
+    max-height: 1000px;
     overflow-y: auto;
     padding-right: 5px;
 }
