@@ -4,7 +4,8 @@ import pandas as pd
 import time
 import os
 import mysql.connector
-from datetime import datetime
+import random
+from datetime import datetime, timedelta
 from dotenv import load_dotenv
 
 # 載入環境變數
@@ -13,17 +14,32 @@ load_dotenv()
 # API設定
 api_key = os.getenv("RIOT_API_KEY", "RGAPI-6a3bb895-db2d-4d7a-9182-3723e7a01034")  # 優先使用環境變數
 
-# 伺服器設定 - 增加多個區域
-regions_league = ["tw2", "kr", "jp1"]  # 獲取玩家基本資料的區域
-regions_match = ["sea", "asia"]  # 獲取比賽資料的區域映射
+# 擴展伺服器設定 - 增加更多區域
+regions_league = ["tw2", "kr", "jp1", "euw1", "na1", "br1", "la1", "la2", "oc1", "ru", "tr1"]
+regions_match = {
+    "tw2": "sea", "jp1": "sea",
+    "kr": "asia",
+    "euw1": "europe", "eun1": "europe", "ru": "europe", "tr1": "europe",
+    "na1": "americas", "br1": "americas", "la1": "americas", "la2": "americas", "oc1": "americas"
+}
+
+# 擴大收集段位範圍
+league_tiers = ["challenger", "grandmaster", "master"]
 
 # MySQL 資料庫設定
 db_config = {
     'host': 'localhost',
-    'user': 'root',  # 更改為你的MySQL使用者名稱
-    'password': 'Tim0986985588=',  # 更改為你的MySQL密碼
-    'database': 'TFT_db'  # 需要先創建此資料庫
+    'user': 'root',
+    'password': 'Tim0986985588=',
+    'database': 'TFT_db'
 }
+
+# 控制參數
+MAX_PLAYERS_PER_TIER = 50  # 每個段位最多收集的玩家數
+MATCHES_PER_PLAYER = 20    # 每位玩家收集的比賽數
+MAX_RETRIES = 3            # API請求失敗時的重試次數
+RETRY_DELAY = 2            # 重試間隔(秒)
+REQUEST_DELAY = 1.2        # 標準請求間隔(秒)
 
 def get_first_match_version(puuid, match_region):
     """獲取一場比賽，檢查版本字串長度"""
@@ -48,6 +64,7 @@ def create_db_connection():
         print(f"MySQL連接失敗: {error}")
         return None
 
+# 增強的初始化資料庫函數
 def initialize_database(connection):
     if connection is None:
         return False
@@ -74,131 +91,158 @@ def initialize_database(connection):
     except Exception as e:
         print(f"刪除外鍵約束時發生錯誤: {e}")
     
-    # 按順序刪除表格
-    tables = ["traits", "units", "players", "matches", "game_versions"]
-    for table in tables:
+    # 按順序刪除表格 - 如果是增量更新模式則不刪除表格
+    if not os.getenv("INCREMENTAL_UPDATE", "False").lower() in ["true", "1", "yes"]:
+        tables = ["traits", "units", "players", "matches", "game_versions"]
+        for table in tables:
+            try:
+                cursor.execute(f"DROP TABLE IF EXISTS {table}")
+                print(f"已刪除表格 {table}")
+            except Exception as e:
+                print(f"刪除表格 {table} 時發生錯誤: {e}")
+    
+        # 建立遊戲版本表 - 增加版本ID長度至150
         try:
-            cursor.execute(f"DROP TABLE IF EXISTS {table}")
-            print(f"已刪除表格 {table}")
+            cursor.execute('''
+            CREATE TABLE game_versions (
+                version_id VARCHAR(150) PRIMARY KEY,
+                release_date DATE
+            )
+            ''')
+            print("已建立game_versions表，版本ID長度為VARCHAR(150)")
         except Exception as e:
-            print(f"刪除表格 {table} 時發生錯誤: {e}")
-    
-    # 建立遊戲版本表 - 增加版本ID長度至150
-    try:
-        cursor.execute('''
-        CREATE TABLE game_versions (
-            version_id VARCHAR(150) PRIMARY KEY,
-            release_date DATE
-        )
-        ''')
-        print("已建立game_versions表，版本ID長度為VARCHAR(150)")
-    except Exception as e:
-        print(f"建立game_versions表時出錯: {e}")
-    
-    # 修改或創建matches表
-    try:
-        cursor.execute("DROP TABLE IF EXISTS matches")
-        cursor.execute('''
-        CREATE TABLE matches (
-            match_id VARCHAR(50) PRIMARY KEY,
-            game_version VARCHAR(100),
-            game_length INT,
-            game_datetime BIGINT,
-            region VARCHAR(10),
-            FOREIGN KEY (game_version) REFERENCES game_versions(version_id)
-        )
-        ''')
-        print("已建立matches表，game_version長度為VARCHAR(100)")
-    except Exception as e:
-        print(f"建立matches表時出錯: {e}")
-    
-    # 修改或創建其他表格
-    try:
-        cursor.execute("DROP TABLE IF EXISTS players")
-        cursor.execute('''
-        CREATE TABLE players (
-            player_id INT AUTO_INCREMENT PRIMARY KEY,
-            puuid VARCHAR(78),
-            summoner_name VARCHAR(50),
-            match_id VARCHAR(50),
-            placement INT,
-            last_round INT,
-            FOREIGN KEY (match_id) REFERENCES matches(match_id)
-        )
-        ''')
-        print("已建立players表")
-    except Exception as e:
-        print(f"建立players表時出錯: {e}")
-    
-    try:
-        cursor.execute("DROP TABLE IF EXISTS units")
-        cursor.execute('''
-        CREATE TABLE units (
-            unit_id INT AUTO_INCREMENT PRIMARY KEY,
-            player_id INT,
-            match_id VARCHAR(50),
-            character_id VARCHAR(50),
-            tier INT,
-            items VARCHAR(200),
-            FOREIGN KEY (player_id) REFERENCES players(player_id),
-            FOREIGN KEY (match_id) REFERENCES matches(match_id)
-        )
-        ''')
-        print("已建立units表")
-    except Exception as e:
-        print(f"建立units表時出錯: {e}")
-    
-    try:
-        cursor.execute("DROP TABLE IF EXISTS traits")
-        cursor.execute('''
-        CREATE TABLE traits (
-            trait_id INT AUTO_INCREMENT PRIMARY KEY,
-            player_id INT,
-            match_id VARCHAR(50),
-            trait_name VARCHAR(50),
-            tier_current INT,
-            tier_total INT,
-            FOREIGN KEY (player_id) REFERENCES players(player_id),
-            FOREIGN KEY (match_id) REFERENCES matches(match_id)
-        )
-        ''')
-        print("已建立traits表")
-    except Exception as e:
-        print(f"建立traits表時出錯: {e}")
+            print(f"建立game_versions表時出錯: {e}")
+        
+        # 建立比賽表
+        try:
+            cursor.execute('''
+            CREATE TABLE matches (
+                match_id VARCHAR(50) PRIMARY KEY,
+                game_version VARCHAR(150),
+                game_length INT,
+                game_datetime BIGINT,
+                region VARCHAR(10),
+                FOREIGN KEY (game_version) REFERENCES game_versions(version_id)
+            )
+            ''')
+            print("已建立matches表，game_version長度為VARCHAR(150)")
+        except Exception as e:
+            print(f"建立matches表時出錯: {e}")
+        
+        # 建立玩家表
+        try:
+            cursor.execute('''
+            CREATE TABLE players (
+                player_id INT AUTO_INCREMENT PRIMARY KEY,
+                puuid VARCHAR(78),
+                summoner_name VARCHAR(100),
+                tier VARCHAR(20),
+                match_id VARCHAR(50),
+                placement INT,
+                last_round INT,
+                FOREIGN KEY (match_id) REFERENCES matches(match_id)
+            )
+            ''')
+            print("已建立players表")
+        except Exception as e:
+            print(f"建立players表時出錯: {e}")
+        
+        # 建立單位表
+        try:
+            cursor.execute('''
+            CREATE TABLE units (
+                unit_id INT AUTO_INCREMENT PRIMARY KEY,
+                player_id INT,
+                match_id VARCHAR(50),
+                character_id VARCHAR(50),
+                tier INT,
+                items VARCHAR(200),
+                FOREIGN KEY (player_id) REFERENCES players(player_id),
+                FOREIGN KEY (match_id) REFERENCES matches(match_id)
+            )
+            ''')
+            print("已建立units表")
+        except Exception as e:
+            print(f"建立units表時出錯: {e}")
+        
+        # 建立特質表
+        try:
+            cursor.execute('''
+            CREATE TABLE traits (
+                trait_id INT AUTO_INCREMENT PRIMARY KEY,
+                player_id INT,
+                match_id VARCHAR(50),
+                trait_name VARCHAR(50),
+                tier_current INT,
+                tier_total INT,
+                FOREIGN KEY (player_id) REFERENCES players(player_id),
+                FOREIGN KEY (match_id) REFERENCES matches(match_id)
+            )
+            ''')
+            print("已建立traits表")
+        except Exception as e:
+            print(f"建立traits表時出錯: {e}")
+    else:
+        print("增量更新模式: 保留現有資料表結構")
     
     connection.commit()
     return True
 
-# 從指定區域獲取高端玩家資料
-def get_challenger_players(region, league_type="challenger"):
-    # 修正URL格式，確保與最新的Riot API匹配
+# 獲取已收集的比賽ID列表
+def get_collected_match_ids(connection):
+    cursor = connection.cursor()
+    cursor.execute("SELECT match_id FROM matches")
+    result = cursor.fetchall()
+    return [match[0] for match in result]
+
+# 增強的API請求功能，加入重試機制
+def make_api_request(url, params):
+    for attempt in range(MAX_RETRIES):
+        try:
+            response = requests.get(url, params=params)
+            
+            # 對於429錯誤（請求過多），等待並重試
+            if response.status_code == 429:
+                retry_after = int(response.headers.get('Retry-After', RETRY_DELAY * 2))
+                print(f"API請求限制，等待 {retry_after} 秒後重試...")
+                time.sleep(retry_after)
+                continue
+                
+            # 對於其他非成功狀態碼，可能需要處理
+            if response.status_code != 200:
+                print(f"API請求失敗，狀態碼: {response.status_code}, 內容: {response.text[:200]}...")
+                if attempt < MAX_RETRIES - 1:
+                    print(f"等待 {RETRY_DELAY} 秒後重試...")
+                    time.sleep(RETRY_DELAY)
+                    continue
+                return None
+                
+            # 成功
+            return response.json()
+                
+        except Exception as e:
+            print(f"API請求異常: {e}")
+            if attempt < MAX_RETRIES - 1:
+                print(f"等待 {RETRY_DELAY} 秒後重試...")
+                time.sleep(RETRY_DELAY)
+                continue
+            return None
+    
+    return None
+
+# 從指定段位獲取高端玩家資料
+def get_high_ranking_players(region, league_type="challenger"):
     url = f"https://{region}.api.riotgames.com/tft/league/v1/{league_type}"
     params = {"api_key": api_key}
     
-    try:
-        response = requests.get(url, params=params)
-        print(f"API請求URL: {url} (不包含API金鑰)")
-        print(f"響應狀態碼: {response.status_code}")
-        
-        if response.status_code == 200:
-            data = response.json()
-            return data.get('entries', [])
-        elif response.status_code == 400:
-            print(f"請求格式錯誤，請確認區域代碼和API端點格式")
-            print(f"響應內容: {response.text[:200]}...")  # 打印部分響應內容以幫助診斷
-            return []
-        elif response.status_code == 401:
-            print(f"API金鑰無效或已過期")
-            return []
-        elif response.status_code == 429:
-            print(f"API請求次數超過限制")
-            return []
-        else:
-            print(f"未知錯誤: {response.status_code}")
-            print(f"響應內容: {response.text[:200]}...")  # 打印部分響應內容以幫助診斷
-            return []
-    except Exception as e:
-        print(f"請求異常: {e}")
+    print(f"請求 {region} 區域的 {league_type} 段位玩家資料...")
+    data = make_api_request(url, params)
+    
+    if data:
+        print(f"成功從 {region} 獲取 {league_type} 段位玩家資料，總計 {len(data.get('entries', []))} 位玩家")
+        return data.get('entries', [])
+    else:
+        print(f"無法從 {region} 獲取 {league_type} 段位玩家資料")
         return []
 
 # 獲取玩家的PUUID
@@ -206,12 +250,7 @@ def get_summoner_detail(summoner_id, region):
     url = f"https://{region}.api.riotgames.com/tft/summoner/v1/summoners/{summoner_id}"
     params = {"api_key": api_key}
     
-    response = requests.get(url, params=params)
-    if response.status_code == 200:
-        return response.json()
-    else:
-        print(f"無法獲取玩家資料，錯誤碼: {response.status_code}")
-        return None
+    return make_api_request(url, params)
 
 # 獲取玩家比賽記錄
 def get_player_matches(puuid, region, count=20):
@@ -221,27 +260,18 @@ def get_player_matches(puuid, region, count=20):
         "count": count
     }
     
-    response = requests.get(url, params=params)
-    if response.status_code == 200:
-        return response.json()
-    else:
-        print(f"無法獲取比賽記錄，錯誤碼: {response.status_code}")
-        return []
+    matches = make_api_request(url, params)
+    return matches if matches else []
 
 # 獲取比賽詳情
 def get_match_details(match_id, region):
     url = f"https://{region}.api.riotgames.com/tft/match/v1/matches/{match_id}"
     params = {"api_key": api_key}
     
-    response = requests.get(url, params=params)
-    if response.status_code == 200:
-        return response.json()
-    else:
-        print(f"無法獲取比賽詳情，錯誤碼: {response.status_code}")
-        return None
+    return make_api_request(url, params)
 
 # 將比賽資料存入資料庫
-def save_match_to_database(match_data, connection, region_code):
+def save_match_to_database(match_data, connection, region_code, tier="unknown"):
     if connection is None or not match_data:
         return False
     
@@ -261,10 +291,15 @@ def save_match_to_database(match_data, connection, region_code):
             cursor.execute("INSERT INTO game_versions (version_id, release_date) VALUES (%s, %s)", 
                           (game_version, release_date))
         
-        # 插入比賽資訊
+        # 插入比賽資訊 - 使用 INSERT IGNORE 避免重複
         cursor.execute("INSERT IGNORE INTO matches (match_id, game_version, game_length, game_datetime, region) VALUES (%s, %s, %s, %s, %s)", 
                       (match_id, game_version, game_length, game_datetime, region_code))
         
+        # 如果此比賽已存在，直接返回True
+        if cursor.rowcount == 0:
+            print(f"比賽 {match_id} 已存在於資料庫中，跳過")
+            return True
+            
         # 處理參與者資料
         for participant in match_data['info']['participants']:
             puuid = participant['puuid']
@@ -273,8 +308,8 @@ def save_match_to_database(match_data, connection, region_code):
             summoner_name = participant.get('name', '')
             
             # 插入玩家資料
-            cursor.execute("INSERT INTO players (puuid, summoner_name, match_id, placement, last_round) VALUES (%s, %s, %s, %s, %s)", 
-                          (puuid, summoner_name, match_id, placement, last_round))
+            cursor.execute("INSERT INTO players (puuid, summoner_name, tier, match_id, placement, last_round) VALUES (%s, %s, %s, %s, %s, %s)", 
+                          (puuid, summoner_name, tier, match_id, placement, last_round))
             player_id = cursor.lastrowid
             
             # 插入特質資料
@@ -303,8 +338,41 @@ def save_match_to_database(match_data, connection, region_code):
         connection.rollback()
         return False
 
+def get_match_stats(connection):
+    """獲取資料庫中已收集的比賽數量統計"""
+    cursor = connection.cursor()
+    try:
+        cursor.execute("SELECT COUNT(*) FROM matches")
+        match_count = cursor.fetchone()[0]
+        
+        cursor.execute("SELECT COUNT(*) FROM players")
+        player_count = cursor.fetchone()[0]
+        
+        cursor.execute("SELECT COUNT(DISTINCT match_id) FROM matches WHERE game_datetime > %s", 
+                      (int((datetime.now() - timedelta(days=7)).timestamp() * 1000),))
+        recent_match_count = cursor.fetchone()[0]
+        
+        return {
+            "total_matches": match_count,
+            "total_players": player_count,
+            "recent_matches": recent_match_count
+        }
+    except Exception as e:
+        print(f"獲取統計資料時出錯: {e}")
+        return {"total_matches": 0, "total_players": 0, "recent_matches": 0}
+
 def main():
-    print("TFT資料收集器啟動中...")
+    print("=========================================")
+    print("TFT資料收集器 - 增強版啟動中...")
+    print(f"時間: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    print("=========================================")
+    
+    # 增量更新模式檢查
+    incremental_mode = os.getenv("INCREMENTAL_UPDATE", "False").lower() in ["true", "1", "yes"]
+    if incremental_mode:
+        print("運行模式: 增量更新 (只收集新資料)")
+    else:
+        print("運行模式: 完全重建 (清空並重建資料庫)")
     
     # 檢查API金鑰
     if not api_key or api_key.startswith("RGAPI-"):
@@ -326,72 +394,98 @@ def main():
     
     print("資料庫初始化成功！")
     
-    # 嘗試使用不同的TFT API區域格式
-    regions_to_try = ["tw2", "kr", "jp1", "tw", "kr", "jp", "asia", "sea"]
+    # 如果是增量模式，獲取已收集的比賽ID
+    collected_match_ids = []
+    if incremental_mode:
+        collected_match_ids = get_collected_match_ids(connection)
+        print(f"增量模式: 已收集 {len(collected_match_ids)} 場比賽")
     
+    # 收集玩家統計資料
     all_players = []
-    for region in regions_to_try:
-        print(f"\n嘗試從 {region} 區域收集高端玩家資料...")
-        players = get_challenger_players(region)
+    
+    # 為每個區域和段位收集玩家
+    valid_regions = []
+    for region in regions_league:
+        valid_region = False
+        for tier in league_tiers:
+            players = get_high_ranking_players(region, tier)
+            if players:
+                valid_region = True
+                print(f"成功從 {region} 的 {tier} 段位收集到 {len(players)} 位玩家")
+                
+                # 按分數排序並選取前N名
+                players = sorted(players, key=lambda x: x.get('leaguePoints', 0), reverse=True)[:MAX_PLAYERS_PER_TIER]
+                
+                # 獲取PUUID
+                for i, player in enumerate(players):
+                    if i % 10 == 0:
+                        print(f"收集 {tier} 段位玩家 {i+1}/{len(players)} 的詳細資料...")
+                    
+                    summoner_data = get_summoner_detail(player['summonerId'], region)
+                    if summoner_data:
+                        player_name = summoner_data.get('name', 'Unknown')
+                        all_players.append({
+                            'puuid': summoner_data.get('puuid'),
+                            'summonerName': player_name,
+                            'region': region,
+                            'tier': tier
+                        })
+                    
+                    # 控制API請求頻率
+                    time.sleep(REQUEST_DELAY)
+            else:
+                print(f"無法從 {region} 的 {tier} 段位收集玩家資料")
         
-        if players:
-            print(f"成功從 {region} 收集到 {len(players)} 位高端玩家")
-            print(f"有效的區域代碼: {region}")
-            
-            # 取前10名玩家
-            players = sorted(players, key=lambda x: x.get('leaguePoints', 0), reverse=True)[:10]
-            
-            # 獲取PUUID
-            for i, player in enumerate(players):
-                print(f"收集玩家 {i+1}/10 的詳細資料...")
-                summoner_data = get_summoner_detail(player['summonerId'], region)
-                if summoner_data:
-                    player_name = summoner_data.get('name', 'Unknown')
-                    all_players.append({
-                        'puuid': summoner_data.get('puuid'),
-                        'summonerName': player_name,  # 確保有名稱
-                        'region': region
-                    })
-                    print(f"成功獲取玩家資料: {player_name}")
-                time.sleep(1.2)
-            
-            # 在開始收集比賽前，檢查版本字串長度
-            if all_players:
-                print("\n正在檢查遊戲版本字串長度...")
-                first_player = all_players[0]
-                match_region = "sea" if first_player['region'] in ["tw2", "jp1", "tw", "jp"] else "asia"
-                get_first_match_version(first_player['puuid'], match_region)
-            
-            # 收集比賽資料部分的玩家名稱顯示
-            for i, player in enumerate(all_players):
-                puuid = player['puuid']
-                player_name = player['summonerName'] or "未知玩家"  # 避免None顯示
-                print(f"\n正在處理玩家 {i+1}/{len(all_players)}: {player_name}...")
-            
-            # 如果已找到有效區域並收集到玩家，不再嘗試其他區域
-            if all_players:
-                break
+        if valid_region:
+            valid_regions.append(region)
     
-    print(f"\n已收集到 {len(all_players)} 位玩家的詳細資料")
+    # 打亂玩家順序，避免集中於特定地區
+    random.shuffle(all_players)
+    print(f"\n已收集到 {len(all_players)} 位玩家的詳細資料，來自 {len(valid_regions)} 個有效區域")
     
-    # 收集比賽資料 - 這是缺少的部分
-    match_ids_set = set()  # 用於去重
-    matches_per_player = 5  # 每位玩家收集的比賽數量
+    # 在開始收集比賽前，檢查版本字串長度
+    if all_players:
+        print("\n正在檢查遊戲版本字串長度...")
+        first_player = all_players[0]
+        match_region = regions_match.get(first_player['region'], "sea")
+        get_first_match_version(first_player['puuid'], match_region)
     
+    # 收集比賽資料
+    match_ids_set = set(collected_match_ids)  # 用於去重，包含已收集的比賽ID
+    total_new_matches = 0
+    api_limit_warnings = 0
+    
+    print("\n開始收集比賽資料...")
     for i, player in enumerate(all_players):
         puuid = player['puuid']
-        print(f"\n正在處理玩家 {i+1}/{len(all_players)}: {player['summonerName']}...")
+        player_name = player.get('summonerName', 'Unknown')
+        tier = player.get('tier', 'unknown')
+        
+        if i % 10 == 0 or i == len(all_players) - 1:
+            # 每處理10位玩家，或是最後一位玩家時顯示進度
+            stats = get_match_stats(connection)
+            print(f"\n進度：已處理 {i+1}/{len(all_players)} 位玩家")
+            print(f"目前資料庫狀態：{stats['total_matches']} 場比賽，{stats['total_players']} 位參與者")
+            print(f"本次新增：{total_new_matches} 場比賽")
+        
+        print(f"\n正在處理玩家 {player_name} ({tier})...")
         
         # 根據區域選擇適當的match區域
-        match_region = "sea" if player['region'] in ["tw2", "jp1", "tw", "jp"] else "asia"
+        match_region = regions_match.get(player['region'], "sea")
         
         # 獲取比賽記錄
-        match_ids = get_player_matches(puuid, match_region, matches_per_player)
-        print(f"已獲取 {len(match_ids)} 場比賽記錄")
+        match_ids = get_player_matches(puuid, match_region, MATCHES_PER_PLAYER)
+        new_match_count = sum(1 for mid in match_ids if mid not in match_ids_set)
+        print(f"已獲取 {len(match_ids)} 場比賽記錄，其中 {new_match_count} 場為新比賽")
         
+        # 如果沒有新比賽，考慮跳過
+        if new_match_count == 0 and i > len(all_players) // 4:
+            print("此玩家無新比賽，跳到下一位")
+            continue
+        
+        player_matches_added = 0
         for match_id in match_ids:
             if match_id in match_ids_set:
-                print(f"比賽 {match_id} 已處理過，跳過")
                 continue
                 
             match_ids_set.add(match_id)
@@ -402,17 +496,36 @@ def main():
             
             if match_data:
                 # 存入資料庫
-                if save_match_to_database(match_data, connection, player['region']):
+                if save_match_to_database(match_data, connection, player['region'], tier):
                     print(f"成功存儲比賽 {match_id} 的數據")
+                    total_new_matches += 1
+                    player_matches_added += 1
                 else:
                     print(f"存儲比賽 {match_id} 數據失敗")
             
-            time.sleep(1.5)  # 避免API限制
+            # 控制API請求頻率，每5次請求增加延遲
+            delay = REQUEST_DELAY * (1 + (player_matches_added % 5 == 0))
+            time.sleep(delay)
+            
+            # 如果遇到太多API限制警告，暫停一段時間
+            if api_limit_warnings > 5:
+                print("API限制警告過多，暫停60秒...")
+                time.sleep(60)
+                api_limit_warnings = 0
+        
+        # 每處理10個玩家，顯示一次進度
+        if (i + 1) % 10 == 0:
+            print(f"\n已處理 {i+1}/{len(all_players)} 位玩家，已收集 {total_new_matches} 場新比賽")
     
     # 關閉資料庫連接
     connection.close()
-    print("\n資料收集完成！")
-    print(f"共收集了 {len(match_ids_set)} 場比賽的數據")
+    
+    # 顯示最終統計資料
+    print("\n=========================================")
+    print("資料收集完成！")
+    print(f"本次收集了 {total_new_matches} 場新比賽")
+    print(f"完成時間: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    print("=========================================")
 
 if __name__ == "__main__":
     main()
