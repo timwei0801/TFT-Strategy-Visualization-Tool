@@ -1,0 +1,641 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>TFT S14「機動魔都」數據分析報告</title>
+        <style>
+            body { font-family: Arial, sans-serif; margin: 20px; }
+            h1 { color: #333; }
+            h2 { color: #555; margin-top: 30px; }
+            table { border-collapse: collapse; width: 100%; margin-top: 10px; }
+            th, td { padding: 8px; text-align: left; border-bottom: 1px solid #ddd; }
+            th { background-color: #f2f2f2; }
+            tr:hover { background-color: #f5f5f5; }
+            .highlight { background-color: #ffd700; }
+            .container { margin-bottom: 40px; }
+        </style>
+    </head>
+    <body>
+        <h1>TFT S14「機動魔都」數據分析報告</h1>
+        <p>報告生成時間: 2025-04-10 00:46:45</p>
+        
+        <div class="container">
+            <h2>數據總覽</h2>
+            <table>
+                <tr><th>指標</th><th>數值</th></tr>
+                <tr><td>比賽總數</td><td>2814</td></tr>
+                <tr><td>玩家總數</td><td>22477</td></tr>
+                <tr><td>不同特質數量</td><td>25</td></tr>
+                <tr><td>不同英雄數量</td><td>63</td></tr>
+                <tr><td>每場平均玩家數</td><td>7.99</td></tr>
+            </table>
+        </div>
+        
+        <div class="container">
+            <h2>熱門特質分析</h2>
+            <table>
+                <tr>
+                    <th>特質名稱</th>
+                    <th>出現次數</th>
+                    <th>TOP4率</th>
+                    <th>勝率</th>
+                </tr>
+    
+                <tr>
+                    <td>EdgeRunner</td>
+                    <td>15196</td>
+                    <td>51.09%</td>
+                    <td>13.29%</td>
+                </tr>
+        
+                <tr>
+                    <td>Divinicorp</td>
+                    <td>13507</td>
+                    <td>52.25%</td>
+                    <td>13.30%</td>
+                </tr>
+        
+                <tr>
+                    <td>Bruiser</td>
+                    <td>13238</td>
+                    <td>50.76%</td>
+                    <td>12.61%</td>
+                </tr>
+        
+                <tr>
+                    <td>AnimaSquad</td>
+                    <td>13129</td>
+                    <td>51.80%</td>
+                    <td>12.45%</td>
+                </tr>
+        
+                <tr>
+                    <td>Techie</td>
+                    <td>12977</td>
+                    <td>51.04%</td>
+                    <td>14.06%</td>
+                </tr>
+        
+                <tr>
+                    <td>Armorclad</td>
+                    <td>12416</td>
+                    <td>51.22%</td>
+                    <td>13.34%</td>
+                </tr>
+        
+                <tr>
+                    <td>Thirsty</td>
+                    <td>11983</td>
+                    <td>51.77%</td>
+                    <td>11.67%</td>
+                </tr>
+        
+                <tr>
+                    <td>Immortal</td>
+                    <td>11108</td>
+                    <td>52.57%</td>
+                    <td>14.38%</td>
+                </tr>
+        
+                <tr>
+                    <td>Strong</td>
+                    <td>10255</td>
+                    <td>48.20%</td>
+                    <td>12.00%</td>
+                </tr>
+        
+                <tr>
+                    <td>Vanguard</td>
+                    <td>10166</td>
+                    <td>48.49%</td>
+                    <td>10.53%</td>
+                </tr>
+        
+                <tr>
+                    <td>Marksman</td>
+                    <td>9781</td>
+                    <td>49.40%</td>
+                    <td>11.31%</td>
+                </tr>
+        
+                <tr>
+                    <td>StreetDemon</td>
+                    <td>8679</td>
+                    <td>50.25%</td>
+                    <td>13.98%</td>
+                </tr>
+        
+                <tr>
+                    <td>Supercharge</td>
+                    <td>8456</td>
+                    <td>49.12%</td>
+                    <td>13.58%</td>
+                </tr>
+        
+                <tr>
+                    <td>Swift</td>
+                    <td>8359</td>
+                    <td>51.53%</td>
+                    <td>12.23%</td>
+                </tr>
+        
+                <tr>
+                    <td>Controller</td>
+                    <td>7760</td>
+                    <td>50.41%</td>
+                    <td>15.03%</td>
+                </tr>
+        
+                <tr>
+                    <td>Cutter</td>
+                    <td>6856</td>
+                    <td>52.86%</td>
+                    <td>15.49%</td>
+                </tr>
+        
+                <tr>
+                    <td>Cyberboss</td>
+                    <td>6424</td>
+                    <td>52.65%</td>
+                    <td>15.24%</td>
+                </tr>
+        
+                <tr>
+                    <td>HotRod</td>
+                    <td>6297</td>
+                    <td>49.53%</td>
+                    <td>10.77%</td>
+                </tr>
+        
+                <tr>
+                    <td>BallisTek</td>
+                    <td>5902</td>
+                    <td>52.93%</td>
+                    <td>13.84%</td>
+                </tr>
+        
+                <tr>
+                    <td>Overlord</td>
+                    <td>5597</td>
+                    <td>59.26%</td>
+                    <td>16.76%</td>
+                </tr>
+        
+            </table>
+        </div>
+        
+        <div class="container">
+            <h2>熱門英雄分析</h2>
+            <table>
+                <tr>
+                    <th>英雄名稱</th>
+                    <th>出現次數</th>
+                    <th>TOP4率</th>
+                    <th>勝率</th>
+                </tr>
+    
+                <tr>
+                    <td>Aurora</td>
+                    <td>7362</td>
+                    <td>61.12%</td>
+                    <td>15.46%</td>
+                </tr>
+        
+                <tr>
+                    <td>Jhin</td>
+                    <td>7324</td>
+                    <td>51.13%</td>
+                    <td>10.98%</td>
+                </tr>
+        
+                <tr>
+                    <td>Sejuani</td>
+                    <td>6897</td>
+                    <td>52.72%</td>
+                    <td>14.08%</td>
+                </tr>
+        
+                <tr>
+                    <td>Mordekaiser</td>
+                    <td>6097</td>
+                    <td>52.32%</td>
+                    <td>14.11%</td>
+                </tr>
+        
+                <tr>
+                    <td>Leona</td>
+                    <td>6017</td>
+                    <td>49.38%</td>
+                    <td>10.14%</td>
+                </tr>
+        
+                <tr>
+                    <td>Renekton</td>
+                    <td>5972</td>
+                    <td>60.50%</td>
+                    <td>17.52%</td>
+                </tr>
+        
+                <tr>
+                    <td>Viego</td>
+                    <td>5502</td>
+                    <td>61.60%</td>
+                    <td>20.57%</td>
+                </tr>
+        
+                <tr>
+                    <td>Kobuko</td>
+                    <td>5467</td>
+                    <td>59.58%</td>
+                    <td>17.89%</td>
+                </tr>
+        
+                <tr>
+                    <td>Neeko</td>
+                    <td>5435</td>
+                    <td>53.51%</td>
+                    <td>16.74%</td>
+                </tr>
+        
+                <tr>
+                    <td>Ekko</td>
+                    <td>5144</td>
+                    <td>52.72%</td>
+                    <td>16.50%</td>
+                </tr>
+        
+                <tr>
+                    <td>Zeri</td>
+                    <td>5030</td>
+                    <td>53.30%</td>
+                    <td>14.00%</td>
+                </tr>
+        
+                <tr>
+                    <td>Sylas</td>
+                    <td>4909</td>
+                    <td>48.26%</td>
+                    <td>9.76%</td>
+                </tr>
+        
+                <tr>
+                    <td>Rhaast</td>
+                    <td>4741</td>
+                    <td>48.93%</td>
+                    <td>10.00%</td>
+                </tr>
+        
+                <tr>
+                    <td>Jax</td>
+                    <td>4606</td>
+                    <td>50.80%</td>
+                    <td>13.22%</td>
+                </tr>
+        
+                <tr>
+                    <td>Gragas</td>
+                    <td>4524</td>
+                    <td>49.34%</td>
+                    <td>11.67%</td>
+                </tr>
+        
+                <tr>
+                    <td>Jarvan</td>
+                    <td>4188</td>
+                    <td>47.30%</td>
+                    <td>9.29%</td>
+                </tr>
+        
+                <tr>
+                    <td>Garen</td>
+                    <td>4125</td>
+                    <td>62.62%</td>
+                    <td>22.42%</td>
+                </tr>
+        
+                <tr>
+                    <td>Yuumi</td>
+                    <td>4088</td>
+                    <td>47.73%</td>
+                    <td>13.85%</td>
+                </tr>
+        
+                <tr>
+                    <td>Xayah</td>
+                    <td>4066</td>
+                    <td>47.84%</td>
+                    <td>9.67%</td>
+                </tr>
+        
+                <tr>
+                    <td>Kindred</td>
+                    <td>4055</td>
+                    <td>51.66%</td>
+                    <td>10.78%</td>
+                </tr>
+        
+            </table>
+        </div>
+        
+        <div class="container">
+            <h2>優勢陣容分析</h2>
+            <table>
+                <tr>
+                    <th>特質組合</th>
+                    <th>出現次數</th>
+                    <th>平均名次</th>
+                </tr>
+    
+                <tr>
+                    <td>Armorclad, Divinicorp, EdgeRunner, Overlord, Strong, Suits, Swift</td>
+                    <td>31</td>
+                    <td>1.00</td>
+                </tr>
+        
+                <tr>
+                    <td>Armorclad, Divinicorp, EdgeRunner, Netgod, Overlord, Strong, Suits, Swift</td>
+                    <td>29</td>
+                    <td>1.00</td>
+                </tr>
+        
+                <tr>
+                    <td>Bruiser, Controller, Cyberboss, Immortal, StreetDemon, Supercharge, Techie, ViegoUniqueTrait</td>
+                    <td>28</td>
+                    <td>1.00</td>
+                </tr>
+        
+                <tr>
+                    <td>Controller, Cutter, Divinicorp, Immortal, Netgod, StreetDemon, ViegoUniqueTrait</td>
+                    <td>17</td>
+                    <td>1.00</td>
+                </tr>
+        
+                <tr>
+                    <td>Controller, Cutter, Divinicorp, Immortal, StreetDemon, ViegoUniqueTrait</td>
+                    <td>16</td>
+                    <td>1.00</td>
+                </tr>
+        
+                <tr>
+                    <td>Bruiser, Controller, Cyberboss, StreetDemon, Techie, ViegoUniqueTrait</td>
+                    <td>15</td>
+                    <td>1.00</td>
+                </tr>
+        
+                <tr>
+                    <td>AnimaSquad, Armorclad, Divinicorp, Marksman, Overlord, Techie, Thirsty, Vanguard, ViegoUniqueTrait</td>
+                    <td>14</td>
+                    <td>1.00</td>
+                </tr>
+        
+                <tr>
+                    <td>BallisTek, Bruiser, Divinicorp, Netgod, Techie</td>
+                    <td>11</td>
+                    <td>1.00</td>
+                </tr>
+        
+                <tr>
+                    <td>AnimaSquad, Divinicorp, Strong, Vanguard</td>
+                    <td>10</td>
+                    <td>1.00</td>
+                </tr>
+        
+                <tr>
+                    <td>Armorclad, Divinicorp, EdgeRunner, Overlord, Strong, Suits, Swift, Virus</td>
+                    <td>9</td>
+                    <td>1.00</td>
+                </tr>
+        
+                <tr>
+                    <td>AnimaSquad, Bruiser, Divinicorp, Mob, Thirsty, Vanguard</td>
+                    <td>9</td>
+                    <td>1.00</td>
+                </tr>
+        
+                <tr>
+                    <td>BallisTek, Bruiser, Divinicorp, Techie</td>
+                    <td>9</td>
+                    <td>1.00</td>
+                </tr>
+        
+                <tr>
+                    <td>AnimaSquad, Marksman, Techie, Thirsty, Vanguard, ViegoUniqueTrait</td>
+                    <td>9</td>
+                    <td>1.00</td>
+                </tr>
+        
+                <tr>
+                    <td>Controller, Cutter, Divinicorp, StreetDemon</td>
+                    <td>8</td>
+                    <td>1.00</td>
+                </tr>
+        
+                <tr>
+                    <td>Controller, Cutter, Divinicorp, Immortal, StreetDemon</td>
+                    <td>8</td>
+                    <td>1.00</td>
+                </tr>
+        
+                <tr>
+                    <td>Armorclad, Bruiser, Cyberboss, Divinicorp, HotRod, Immortal, Supercharge, Techie, Thirsty, ViegoUniqueTrait</td>
+                    <td>8</td>
+                    <td>1.00</td>
+                </tr>
+        
+                <tr>
+                    <td>AnimaSquad, Divinicorp, Overlord, Strong, Vanguard</td>
+                    <td>8</td>
+                    <td>1.00</td>
+                </tr>
+        
+                <tr>
+                    <td>Bruiser, Controller, Cyberboss, Immortal, Netgod, StreetDemon, Supercharge, Techie, ViegoUniqueTrait</td>
+                    <td>8</td>
+                    <td>1.00</td>
+                </tr>
+        
+                <tr>
+                    <td>AnimaSquad, Armorclad, Marksman, Techie, Thirsty, Vanguard, ViegoUniqueTrait</td>
+                    <td>7</td>
+                    <td>1.00</td>
+                </tr>
+        
+                <tr>
+                    <td>Bruiser, Divinicorp, Netgod, Overlord, Strong, Vanguard</td>
+                    <td>7</td>
+                    <td>1.00</td>
+                </tr>
+        
+            </table>
+        </div>
+        
+        <div class="container">
+            <h2>特質協同效應</h2>
+            <table>
+                <tr>
+                    <th>特質組合</th>
+                    <th>出現次數</th>
+                    <th>TOP4率</th>
+                    <th>平均名次</th>
+                </tr>
+    
+                <tr>
+                    <td>Cyberboss + Suits</td>
+                    <td>20</td>
+                    <td>80.00%</td>
+                    <td>2.75</td>
+                </tr>
+        
+                <tr>
+                    <td>Swift + ViegoUniqueTrait</td>
+                    <td>631</td>
+                    <td>72.90%</td>
+                    <td>3.32</td>
+                </tr>
+        
+                <tr>
+                    <td>EdgeRunner + Virus</td>
+                    <td>385</td>
+                    <td>72.73%</td>
+                    <td>3.40</td>
+                </tr>
+        
+                <tr>
+                    <td>Controller + Overlord</td>
+                    <td>386</td>
+                    <td>72.02%</td>
+                    <td>3.27</td>
+                </tr>
+        
+                <tr>
+                    <td>Overlord + StreetDemon</td>
+                    <td>305</td>
+                    <td>71.48%</td>
+                    <td>3.36</td>
+                </tr>
+        
+                <tr>
+                    <td>BallisTek + StreetDemon</td>
+                    <td>178</td>
+                    <td>71.35%</td>
+                    <td>3.43</td>
+                </tr>
+        
+                <tr>
+                    <td>EdgeRunner + ViegoUniqueTrait</td>
+                    <td>760</td>
+                    <td>71.32%</td>
+                    <td>3.38</td>
+                </tr>
+        
+                <tr>
+                    <td>Mob + Netgod</td>
+                    <td>231</td>
+                    <td>70.56%</td>
+                    <td>3.50</td>
+                </tr>
+        
+                <tr>
+                    <td>Cyberboss + Overlord</td>
+                    <td>227</td>
+                    <td>70.48%</td>
+                    <td>3.49</td>
+                </tr>
+        
+                <tr>
+                    <td>Swift + Virus</td>
+                    <td>393</td>
+                    <td>70.48%</td>
+                    <td>3.49</td>
+                </tr>
+        
+                <tr>
+                    <td>Overlord + Techie</td>
+                    <td>984</td>
+                    <td>70.43%</td>
+                    <td>3.45</td>
+                </tr>
+        
+                <tr>
+                    <td>Suits + Virus</td>
+                    <td>125</td>
+                    <td>70.40%</td>
+                    <td>3.52</td>
+                </tr>
+        
+                <tr>
+                    <td>BallisTek + Controller</td>
+                    <td>162</td>
+                    <td>69.75%</td>
+                    <td>3.48</td>
+                </tr>
+        
+                <tr>
+                    <td>Overlord + ViegoUniqueTrait</td>
+                    <td>870</td>
+                    <td>69.66%</td>
+                    <td>3.47</td>
+                </tr>
+        
+                <tr>
+                    <td>Thirsty + ViegoUniqueTrait</td>
+                    <td>1527</td>
+                    <td>68.89%</td>
+                    <td>3.43</td>
+                </tr>
+        
+                <tr>
+                    <td>Cutter + Netgod</td>
+                    <td>749</td>
+                    <td>68.89%</td>
+                    <td>3.49</td>
+                </tr>
+        
+                <tr>
+                    <td>Netgod + Thirsty</td>
+                    <td>827</td>
+                    <td>68.80%</td>
+                    <td>3.53</td>
+                </tr>
+        
+                <tr>
+                    <td>Mob + Overlord</td>
+                    <td>253</td>
+                    <td>68.77%</td>
+                    <td>3.68</td>
+                </tr>
+        
+                <tr>
+                    <td>Netgod + ViegoUniqueTrait</td>
+                    <td>918</td>
+                    <td>68.52%</td>
+                    <td>3.31</td>
+                </tr>
+        
+                <tr>
+                    <td>Swift + Techie</td>
+                    <td>990</td>
+                    <td>68.38%</td>
+                    <td>3.59</td>
+                </tr>
+        
+            </table>
+        </div>
+        
+        <div class="container">
+            <h2>英雄與裝備分析</h2>
+            <table>
+                <tr>
+                    <th>英雄</th>
+                    <th>裝備ID</th>
+                    <th>出現次數</th>
+                    <th>TOP4率</th>
+                    <th>平均名次</th>
+                </tr>
+    
+            </table>
+        </div>
+    </body>
+    </html>
+    
