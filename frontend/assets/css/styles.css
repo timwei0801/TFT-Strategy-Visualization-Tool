@@ -87,16 +87,16 @@ body {
 
 .hexagon-board {
     display: grid;
-    grid-template-columns: repeat(7, 80px);
-    grid-template-rows: repeat(4, 80px);
-    gap: 6px;
-    margin: 15px auto;
-    max-width: 600px;
+    grid-template-columns: repeat(7, 100px);
+    grid-template-rows: repeat(4, 100px);
+    gap: 8px;
+    margin: 20px auto;
+    max-width: 750px;
 }
 
 .hexagon {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     background-color: #1A1A28;
     clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
     display: flex;
@@ -106,11 +106,13 @@ body {
     position: relative;
     transition: all 0.2s;
     border: 1px solid #333344;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3) inset;
 }
 
 .hexagon:hover {
     background-color: #2A2A3A;
     border: 1px solid #876A3B;
+    box-shadow: 0 0 15px rgba(135, 106, 59, 0.4);
 }
 
 .hexagon.occupied {
@@ -278,8 +280,8 @@ body {
 
 .items-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(55px, 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+    gap: 12px;
     max-height: 1000px;
     overflow-y: auto;
     padding-right: 5px;
@@ -287,39 +289,42 @@ body {
 
 .grid-item {
     position: relative;
-    width: 55px;
-    height: 65px; /* 增加高度 */
+    width: 70px;
+    height: 85px;
     background-color: #2A2A3A;
-    border-radius: 5px;
+    border-radius: 8px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start; /* 變更為從上方開始對齊 */
-    padding-top: 5px; /* 添加頂部間距 */
+    justify-content: flex-start;
+    padding-top: 8px;
     cursor: pointer;
     transition: all 0.2s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .grid-item:hover {
     background-color: #3A3A4A;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .grid-item img {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     object-fit: contain;
 }
 
 .grid-item .item-name {
-    font-size: 10px;
+    font-size: 11px;
     text-align: center;
-    margin-top: 5px; /* 增加與圖片的間距 */
-    color: #888;
-    width: 90%; /* 減少寬度以避免文字溢出 */
+    margin-top: 6px;
+    color: #AAA;
+    width: 90%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    line-height: 1.2; /* 確保足夠的行高 */
+    line-height: 1.3;
 }
 
 /* 特質標誌樣式 */
