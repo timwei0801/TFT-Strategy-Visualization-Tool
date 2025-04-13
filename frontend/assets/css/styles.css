@@ -511,3 +511,43 @@ body {
     padding: 2px 0;
     z-index: 2;
 }
+
+/* 英雄裝備樣式 */
+.champion-items {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    display: flex;
+    gap: 2px;
+    z-index: 3;
+}
+
+.champion-item {
+    width: 28px;
+    height: 28px;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border: 1px solid #876A3B;
+    box-shadow: 0 0 5px rgba(135, 106, 59, 0.7);
+}
+
+.champion-item img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
+/* 更新六角形內的圖片容器 */
+.hex-img-container {
+    width: 90%;
+    height: 90%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}

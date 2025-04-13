@@ -1283,19 +1283,62 @@ function placeSelectedItem(index) {
         label.className = 'hex-label';
         hexagon.appendChild(label);
         
+        // 為此英雄創建一個裝備容器
+        const itemsContainer = document.createElement('div');
+        itemsContainer.className = 'champion-items';
+        hexagon.appendChild(itemsContainer);
+        
         hexagon.classList.add('occupied');
         
         // 更新棋盤數據
         boardChampions[index] = selectedItem;
+        boardChampions[index].items = []; // 添加裝備數組
         
         // 更新特質顯示
         updateTraitDisplay();
     } else if (selectedItemType === 'items' && boardChampions[index]) {
         // 如果是道具且該位置有英雄，則為英雄添加道具
-        alert(`為 ${boardChampions[index].name} 裝備了 ${selectedItem.name}`);
         
-        // 這裡可以添加道具視覺效果的代碼
-        // ...
+        // 檢查英雄是否已經有3件裝備
+        const itemsContainer = hexagon.querySelector('.champion-items');
+        
+        if (!itemsContainer) return;
+        
+        if (boardChampions[index].items && boardChampions[index].items.length >= 3) {
+            alert(`${boardChampions[index].name} 已經裝備了3件道具，無法再添加更多`);
+            return;
+        }
+        
+        // 創建裝備元素
+        const itemElement = document.createElement('div');
+        itemElement.className = 'champion-item';
+        
+        const itemImg = document.createElement('img');
+        if (isImageAvailable('items', selectedItem.id)) {
+            itemImg.src = `images/items/${selectedItem.id}.png`;
+        } else {
+            itemImg.src = '/api/placeholder/28/28';
+        }
+        
+        itemImg.alt = selectedItem.name;
+        itemImg.title = selectedItem.name;
+        
+        // 設置錯誤處理函數
+        itemImg.onerror = function() {
+            this.src = '/api/placeholder/28/28';
+        };
+        
+        itemElement.appendChild(itemImg);
+        itemsContainer.appendChild(itemElement);
+        
+        // 更新棋盤數據
+        if (!boardChampions[index].items) {
+            boardChampions[index].items = [];
+        }
+        boardChampions[index].items.push(selectedItem);
+        
+        // 更新英雄狀態顯示（如果需要）
+        updateChampionStats(index);
     }
 }
 
