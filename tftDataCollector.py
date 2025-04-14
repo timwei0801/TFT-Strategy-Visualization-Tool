@@ -12,7 +12,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # API設定
-api_key = os.getenv("RIOT_API_KEY", "RGAPI-6a3bb895-db2d-4d7a-9182-3723e7a01034")  # 優先使用環境變數
+api_key = os.getenv("RIOT_API_KEY", "RGAPI-96ca7ed8-dec3-40ab-ab9e-8b3d50e5997f")  # 優先使用環境變數
 
 # 擴展伺服器設定 - 增加更多區域
 regions_league = ["tw2", "kr", "jp1", "euw1", "na1", "br1", "la1", "la2", "oc1", "ru", "tr1"]
