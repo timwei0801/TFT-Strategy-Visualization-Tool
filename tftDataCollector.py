@@ -185,6 +185,44 @@ def initialize_database(connection):
     else:
         print("增量更新模式: 保留現有資料表結構")
     
+    # 檢查hacks表是否存在，如果不存在則創建
+    try:
+        cursor.execute("SHOW TABLES LIKE 'hacks'")
+        if not cursor.fetchone():
+            cursor.execute('''
+            CREATE TABLE hacks (
+                hack_id INT AUTO_INCREMENT PRIMARY KEY,
+                match_id VARCHAR(50),
+                hack_type VARCHAR(100),
+                hack_description TEXT,
+                hack_time INT,
+                FOREIGN KEY (match_id) REFERENCES matches(match_id)
+            )
+            ''')
+            print("已建立hacks表")
+    except Exception as e:
+        print(f"檢查或建立hacks表時出錯: {e}")
+
+    # 檢查augments表是否存在，如果不存在則創建
+    try:
+        cursor.execute("SHOW TABLES LIKE 'augments'")
+        if not cursor.fetchone():
+            cursor.execute('''
+            CREATE TABLE augments (
+                augment_id INT AUTO_INCREMENT PRIMARY KEY,
+                player_id INT,
+                match_id VARCHAR(50),
+                augment_name VARCHAR(100),
+                augment_type VARCHAR(50),
+                selection_time INT,
+                FOREIGN KEY (player_id) REFERENCES players(player_id),
+                FOREIGN KEY (match_id) REFERENCES matches(match_id)
+            )
+            ''')
+            print("已建立augments表")
+    except Exception as e:
+        print(f"檢查或建立augments表時出錯: {e}")
+    
     connection.commit()
     return True
 
@@ -329,6 +367,70 @@ def save_match_to_database(match_data, connection, region_code, tier="unknown"):
                 
                 cursor.execute("INSERT INTO units (player_id, match_id, character_id, tier, items) VALUES (%s, %s, %s, %s, %s)", 
                               (player_id, match_id, character_id, tier, items))
+                
+            # 處理增幅裝置資料
+            if 'augments' in participant:
+                for i, augment in enumerate(participant['augments']):
+                    augment_name = augment
+                    augment_type = 'standard'  # 預設值
+                    # 增幅裝置通常在2-1, 3-2, 4-2回合選擇
+                    selection_times = [7, 15, 22]  
+                    selection_time = selection_times[i] if i < len(selection_times) else i * 7
+                    
+                    cursor.execute("INSERT INTO augments (player_id, match_id, augment_name, augment_type, selection_time) VALUES (%s, %s, %s, %s, %s)",
+                                  (player_id, match_id, augment_name, augment_type, selection_time))
+        
+        # 處理駭入系統資料
+        try:
+            # 檢查game_info中可能包含駭入資訊的欄位
+            # 注意：由於API可能沒有明確提供駭入系統資訊，我們需要探索可能的位置
+            
+            # 方法1：直接檢查tft_game_state
+            if 'tft_game_state' in match_data['info'] and isinstance(match_data['info']['tft_game_state'], dict):
+                game_state = match_data['info']['tft_game_state']
+                if 'hacks' in game_state and isinstance(game_state['hacks'], list):
+                    for hack in game_state['hacks']:
+                        hack_type = hack.get('type', 'unknown')
+                        hack_description = hack.get('description', '')
+                        hack_time = hack.get('time', 0)
+                        
+                        cursor.execute("INSERT INTO hacks (match_id, hack_type, hack_description, hack_time) VALUES (%s, %s, %s, %s)",
+                                      (match_id, hack_type, hack_description, hack_time))
+            
+            # 方法2：檢查tft_set_data
+            if 'tft_set_data' in match_data['info'] and isinstance(match_data['info']['tft_set_data'], dict):
+                set_data = match_data['info']['tft_set_data']
+                if 'hacks' in set_data and isinstance(set_data['hacks'], list):
+                    for hack in set_data['hacks']:
+                        hack_type = hack.get('type', 'unknown')
+                        hack_description = hack.get('description', '')
+                        hack_time = hack.get('round', 0)
+                        
+                        cursor.execute("INSERT INTO hacks (match_id, hack_type, hack_description, hack_time) VALUES (%s, %s, %s, %s)",
+                                      (match_id, hack_type, hack_description, hack_time))
+            
+            # 方法3：檢查tft_hacks專門欄位
+            if 'tft_hacks' in match_data['info'] and isinstance(match_data['info']['tft_hacks'], list):
+                for hack in match_data['info']['tft_hacks']:
+                    hack_type = hack.get('type', 'unknown')
+                    hack_description = hack.get('description', '')
+                    hack_time = hack.get('time', 0)
+                    
+                    cursor.execute("INSERT INTO hacks (match_id, hack_type, hack_description, hack_time) VALUES (%s, %s, %s, %s)",
+                                  (match_id, hack_type, hack_description, hack_time))
+                                  
+            # 將完整的match_data保存到日誌，以便後續分析找出駭入資訊
+            if random.random() < 0.05:  # 隨機保存5%的match資料用於分析
+                try:
+                    with open(f"match_data_{match_id}.json", "w", encoding="utf-8") as f:
+                        json.dump(match_data, f, ensure_ascii=False, indent=2)
+                        print(f"已保存match_id {match_id}的完整資料以供分析")
+                except Exception as e:
+                    print(f"保存match資料時出錯: {e}")
+                    
+        except Exception as e:
+            print(f"處理駭入系統資料時出錯: {e}")
+            # 不要因為駭入系統資料處理錯誤而中斷整個處理流程
         
         connection.commit()
         return True
@@ -361,11 +463,62 @@ def get_match_stats(connection):
         print(f"獲取統計資料時出錯: {e}")
         return {"total_matches": 0, "total_players": 0, "recent_matches": 0}
 
+def get_hack_stats(connection):
+    """獲取資料庫中駭入系統的統計資料"""
+    cursor = connection.cursor()
+    try:
+        # 檢查hacks表是否存在
+        cursor.execute("SHOW TABLES LIKE 'hacks'")
+        if cursor.fetchone():
+            cursor.execute("""
+                SELECT 
+                    hack_type, 
+                    COUNT(*) as count 
+                FROM hacks 
+                GROUP BY hack_type 
+                ORDER BY count DESC 
+                LIMIT 10
+            """)
+            hack_stats = cursor.fetchall()
+        else:
+            hack_stats = []
+        
+        # 檢查augments表是否存在
+        cursor.execute("SHOW TABLES LIKE 'augments'")
+        if cursor.fetchone():
+            cursor.execute("""
+                SELECT 
+                    augment_name, 
+                    COUNT(*) as count,
+                    AVG(p.placement) as avg_placement
+                FROM augments a
+                JOIN players p ON a.player_id = p.player_id
+                GROUP BY augment_name
+                HAVING count >= 10
+                ORDER BY count DESC
+                LIMIT 20
+            """)
+            augment_stats = cursor.fetchall()
+        else:
+            augment_stats = []
+        
+        return {
+            "hack_stats": hack_stats,
+            "augment_stats": augment_stats
+        }
+    except Exception as e:
+        print(f"獲取駭入系統統計資料時出錯: {e}")
+        return {"hack_stats": [], "augment_stats": []}
+
 def main():
     print("=========================================")
-    print("TFT資料收集器 - 增強版啟動中...")
+    print("TFT資料收集器 - S14機動魔都版本啟動中...")
     print(f"時間: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print("=========================================")
+    
+    # 設置增量更新模式，確保不刪除現有資料
+    os.environ["INCREMENTAL_UPDATE"] = "True"
+    print("已設置增量更新模式，不會刪除現有資料")
     
     # 增量更新模式檢查
     incremental_mode = os.getenv("INCREMENTAL_UPDATE", "False").lower() in ["true", "1", "yes"]
@@ -516,6 +669,29 @@ def main():
         # 每處理10個玩家，顯示一次進度
         if (i + 1) % 10 == 0:
             print(f"\n已處理 {i+1}/{len(all_players)} 位玩家，已收集 {total_new_matches} 場新比賽")
+    
+    # 顯示駭入系統統計資料
+    try:
+        hack_stats = get_hack_stats(connection)
+        
+        print("\n駭入系統與增幅裝置統計資料:")
+        print("========================")
+        
+        if hack_stats["hack_stats"]:
+            print("熱門駭入類型：")
+            for hack_type, count in hack_stats["hack_stats"]:
+                print(f"  {hack_type}: {count}次")
+        else:
+            print("目前尚未收集到駭入資料")
+        
+        if hack_stats["augment_stats"]:
+            print("\n熱門增幅裝置：")
+            for augment_name, count, avg_placement in hack_stats["augment_stats"]:
+                print(f"  {augment_name}: 出現{count}次，平均名次{avg_placement:.2f}")
+        else:
+            print("目前尚未收集到增幅裝置資料")
+    except Exception as e:
+        print(f"顯示駭入系統統計資料時出錯: {e}")
     
     # 關閉資料庫連接
     connection.close()
