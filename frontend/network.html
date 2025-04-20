@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TFT S14「機動魔都」戰術推薦系統</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>TFT S14「機動魔都」戰術推薦視覺化系統</h1>
+        </header>
+        
+        <div class="hero-selection">
+            <h2>選擇當前擁有的英雄</h2>
+            <div class="search-box">
+                <input type="text" id="hero-search" placeholder="搜尋英雄...">
+                <button id="add-hero">添加</button>
+            </div>
+            <div class="selected-heroes"></div>
+            <button id="recommend-btn">推薦陣容</button>
+        </div>
+        
+        <div class="visualization-container">
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="network">羈絆網絡圖</button>
+                <button class="tab-btn" data-tab="recommendations">陣容推薦</button>
+            </div>
+            
+            <div class="tab-content">
+                <div id="network" class="tab-pane active">
+                    <div class="controls">
+                        <select id="trait-filter">
+                            <option value="all">全部羈絆</option>
+                            <!-- 羈絆選項會動態添加 -->
+                        </select>
+                    </div>
+                    <div id="network-chart"></div>
+                </div>
+                
+                <div id="recommendations" class="tab-pane">
+                    <div id="comp-recommendations"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="assets/js/network.js"></script>
+    <script src="assets/js/recommendations.js"></script>
+    <script src="assets/js/app.js"></script>
+</body>
+</html>
