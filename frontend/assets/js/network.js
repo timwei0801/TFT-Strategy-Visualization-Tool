@@ -17,6 +17,10 @@ class NetworkChart {
             'TFT14_HyperTech': '#6a0572',       // 極限科技
             'TFT14_OracleCorp': '#1a535c',      // 神諭集團
             'TFT14_BehemothSquad': '#f72585',   // 百獸特攻隊
+            'TFT14_Decoders': '#6c757d',        // 破譯師
+            'TFT14_Burnout': '#ff9a3c',         // 爆燃戰隊
+            'TFT14_BigShot': '#ffc107',         // 開運金牛
+            'TFT14_CrimeSyndicate': '#dc3545',  // 罪惡集團
             'Unknown': '#aaaaaa'
         };
         this.init();
@@ -74,6 +78,10 @@ class NetworkChart {
             'TFT14_HyperTech': '極限科技',
             'TFT14_OracleCorp': '神諭集團',
             'TFT14_BehemothSquad': '百獸特攻隊',
+            'TFT14_Decoders': '破譯師',
+            'TFT14_Burnout': '爆燃戰隊',
+            'TFT14_BigShot': '開運金牛',
+            'TFT14_CrimeSyndicate': '罪惡集團',
             'Unknown': '未知'
         };
         
@@ -122,13 +130,28 @@ class NetworkChart {
             'TFT14_StreetPunk': '街頭狂魔',
             'TFT14_HyperTech': '極限科技',
             'TFT14_OracleCorp': '神諭集團',
-            'TFT14_BehemothSquad': '百獸特攻隊'
+            'TFT14_BehemothSquad': '百獸特攻隊',
+            'TFT14_Decoders': '破譯師',
+            'TFT14_Burnout': '爆燃戰隊',
+            'TFT14_BigShot': '開運金牛',
+            'TFT14_CrimeSyndicate': '罪惡集團',
+            'TFT14_Bruiser': '蠻勇打手',
+            'TFT14_Bastion': '堡壘衛士',
+            'TFT14_Strategist': '戰略軍師',
+            'TFT14_Gunner': '射手',
+            'TFT14_Spellweaver': '技師',
+            'TFT14_Executioner': '處刑者',
+            'TFT14_Vanguard': '先鋒戰士',
+            'TFT14_Generator': '發電機',
+            'TFT14_Rapidfire': '速射',
+            'TFT14_SoulReaper': '靈魂殺手',
+            'TFT14_Juggernaut': '主宰'
         };
         
         Array.from(allTraits).sort().forEach(trait => {
             const option = document.createElement('option');
             option.value = trait;
-            option.textContent = traitNames[trait] || trait;
+            option.textContent = traitNames[trait] || trait.replace('TFT14_', '');
             traitFilter.appendChild(option);
         });
         
@@ -211,7 +234,38 @@ class NetworkChart {
             
         // 添加提示框
         this.node.append('title')
-            .text(d => `${d.name}\n勝率: ${(d.win_rate * 100).toFixed(1)}%\n平均名次: ${d.avg_placement.toFixed(2)}\n羈絆: ${d.traits.map(t => t.replace('TFT14_', '')).join(', ')}`);
+            .text(d => {
+                // 轉換羈絆名稱為中文
+                const traitNames = {
+                    'TFT14_CyberOverlords': '賽博霸主',
+                    'TFT14_AMP': 'A.M.P.',
+                    'TFT14_StreetPunk': '街頭狂魔',
+                    'TFT14_HyperTech': '極限科技',
+                    'TFT14_OracleCorp': '神諭集團',
+                    'TFT14_BehemothSquad': '百獸特攻隊',
+                    'TFT14_Decoders': '破譯師',
+                    'TFT14_Burnout': '爆燃戰隊',
+                    'TFT14_BigShot': '開運金牛',
+                    'TFT14_CrimeSyndicate': '罪惡集團',
+                    'TFT14_Bruiser': '蠻勇打手',
+                    'TFT14_Bastion': '堡壘衛士',
+                    'TFT14_Strategist': '戰略軍師',
+                    'TFT14_Gunner': '射手',
+                    'TFT14_Spellweaver': '技師',
+                    'TFT14_Executioner': '處刑者',
+                    'TFT14_Vanguard': '先鋒戰士',
+                    'TFT14_Generator': '發電機',
+                    'TFT14_Rapidfire': '速射',
+                    'TFT14_SoulReaper': '靈魂殺手',
+                    'TFT14_Juggernaut': '主宰'
+                };
+                
+                const traits = d.traits.map(t => {
+                    return traitNames[t] || t.replace('TFT14_', '');
+                }).join(', ');
+                
+                return `${d.name}\n勝率: ${(d.win_rate * 100).toFixed(1)}%\n平均名次: ${d.avg_placement.toFixed(2)}\n羈絆: ${traits}`;
+            });
             
         // 模擬更新
         this.simulation.on('tick', () => {

@@ -10,7 +10,6 @@ class TFTDataProcessor:
         
     def _load_hero_trait_mapping(self):
         # S14「機動魔都」英雄與羈絆對應關係
-        # 這裡可以擴充為從檔案或資料庫讀取
         mapping = {
             # 賽博霸主 (Cyber Overlords)
             "TFT14_Poppy": ["TFT14_CyberOverlords", "TFT14_Bastion"],
@@ -31,8 +30,63 @@ class TFTDataProcessor:
             "TFT14_Ekko": ["TFT14_StreetPunk", "TFT14_Strategist"],
             "TFT14_Jhin": ["TFT14_StreetPunk", "TFT14_Gunner"],
             "TFT14_Rengar": ["TFT14_StreetPunk", "TFT14_Executioner"],
+            "TFT14_Brand": ["TFT14_StreetPunk", "TFT14_Spellweaver"],
+            "TFT14_Nilah": ["TFT14_StreetPunk", "TFT14_Strategist"],
             
-            # 更多英雄對應可以添加...
+            # 百獸特攻隊 (Behemoth Squad)
+            "TFT14_Seraphine": ["TFT14_BehemothSquad", "TFT14_Spellweaver"],
+            "TFT14_Sylas": ["TFT14_BehemothSquad", "TFT14_Vanguard"],
+            "TFT14_Irelia": ["TFT14_BehemothSquad", "TFT14_Bastion"],
+            "TFT14_Wukong": ["TFT14_BehemothSquad", "TFT14_Executioner"],
+            "TFT14_Yuumi": ["TFT14_BehemothSquad", "TFT14_AMP", "TFT14_Strategist"],
+            "TFT14_Leona": ["TFT14_BehemothSquad", "TFT14_Vanguard"],
+            "TFT14_Xayah": ["TFT14_BehemothSquad", "TFT14_Gunner"],
+            "TFT14_Aurelia": ["TFT14_BehemothSquad", "TFT14_Generator"],
+            
+            # 極限科技 (Hyper Tech)
+            "TFT14_Jax": ["TFT14_HyperTech", "TFT14_Bastion"],
+            "TFT14_Ashe": ["TFT14_HyperTech", "TFT14_Generator", "TFT14_Gunner"],
+            "TFT14_Nami": ["TFT14_HyperTech", "TFT14_AMP"],
+            "TFT14_Mordekaiser": ["TFT14_HyperTech", "TFT14_Bruiser", "TFT14_Spellweaver"],
+            "TFT14_Pantheon": ["TFT14_HyperTech", "TFT14_Executioner"],
+            "TFT14_Sejuani": ["TFT14_HyperTech", "TFT14_Bastion"],
+            "TFT14_Jhin": ["TFT14_HyperTech", "TFT14_Rapidfire"],
+            
+            # 神諭集團 (Oracle Corp)
+            "TFT14_Morgana": ["TFT14_OracleCorp", "TFT14_Generator"],
+            "TFT14_Hecarim": ["TFT14_OracleCorp", "TFT14_Vanguard"],
+            "TFT14_Gragas": ["TFT14_OracleCorp", "TFT14_Bruiser"],
+            "TFT14_Senna": ["TFT14_OracleCorp", "TFT14_Executioner"],
+            "TFT14_Vex": ["TFT14_OracleCorp", "TFT14_Executioner"],
+            "TFT14_Renekton": ["TFT14_OracleCorp", "TFT14_Bastion", "TFT14_Juggernaut"],
+            
+            # 破譯師 (Decoders)
+            "TFT14_Fiora": ["TFT14_Decoders", "TFT14_Vanguard"],
+            "TFT14_Leblanc": ["TFT14_Decoders", "TFT14_Strategist"],
+            "TFT14_Draven": ["TFT14_Decoders", "TFT14_Rapidfire"],
+            "TFT14_Galio": ["TFT14_Decoders", "TFT14_Bastion"],
+            "TFT14_Zed": ["TFT14_Decoders", "TFT14_Rapidfire"],
+            
+            # 爆燃戰隊 (Burnout)
+            "TFT14_Kha": ["TFT14_Burnout", "TFT14_Rapidfire", "TFT14_Gunner"],
+            "TFT14_Nidalee": ["TFT14_Burnout", "TFT14_AMP"],
+            "TFT14_Shyvana": ["TFT14_Burnout", "TFT14_Bastion", "TFT14_Spellweaver"],
+            "TFT14_Illaoi": ["TFT14_Burnout", "TFT14_Generator"],
+            
+            # 開運金牛 (Big Shot)
+            "TFT14_Alistar": ["TFT14_BigShot", "TFT14_Bruiser"],
+            "TFT14_Graves": ["TFT14_BigShot", "TFT14_Executioner"],
+            "TFT14_JarvanIV": ["TFT14_BigShot"], 
+            "TFT14_Annie": ["TFT14_BigShot", "TFT14_AMP"],
+            "TFT14_Aphelios": ["TFT14_BigShot", "TFT14_Gunner"],
+            "TFT14_Virgo": ["TFT14_BigShot", "TFT14_SoulReaper"],
+            
+            # 罪惡集團 (Crime Syndicate)
+            "TFT14_Shaco": ["TFT14_CrimeSyndicate", "TFT14_Executioner"],
+            "TFT14_Darius": ["TFT14_CrimeSyndicate", "TFT14_Bruiser"],
+            "TFT14_TwistedFate": ["TFT14_CrimeSyndicate", "TFT14_Rapidfire"],
+            "TFT14_Braum": ["TFT14_CrimeSyndicate", "TFT14_Vanguard"],
+            "TFT14_MissFortune": ["TFT14_CrimeSyndicate", "TFT14_Generator"]
         }
         return mapping
     
@@ -177,8 +231,6 @@ class TFTDataProcessor:
     
     def _get_hero_chinese_name(self, hero_id):
         """獲取英雄的中文名稱"""
-        # 這裡應該實現英雄ID轉換為中文名的邏輯
-        # 範例映射
         hero_names = {
             "TFT14_Poppy": "波比",
             "TFT14_Veigar": "維迦",
@@ -188,7 +240,59 @@ class TFTDataProcessor:
             "TFT14_Yuumi": "悠咪",
             "TFT14_Annie": "安妮",
             "TFT14_Samira": "煞蜜拉",
-            # 其他英雄名稱可以添加...
+            "TFT14_DrMundo": "蒙多醫生",
+            "TFT14_Jinx": "吉茵珂絲",
+            "TFT14_Ekko": "艾克",
+            "TFT14_Jhin": "燼",
+            "TFT14_Rengar": "雷葛爾",
+            "TFT14_Brand": "布蘭德",
+            "TFT14_Nilah": "妮可",
+            "TFT14_Seraphine": "瑟菈紛",
+            "TFT14_Sylas": "賽勒斯",
+            "TFT14_Irelia": "伊羅旖",
+            "TFT14_Wukong": "汎",
+            "TFT14_Leona": "雷歐娜",
+            "TFT14_Xayah": "剎雅",
+            "TFT14_Aurelia": "歐羅拉",
+            "TFT14_Jax": "賈克斯",
+            "TFT14_Ashe": "燼",
+            "TFT14_Nami": "娜菲芮",
+            "TFT14_Mordekaiser": "魔鬥凱薩",
+            "TFT14_Pantheon": "法洛士",
+            "TFT14_Sejuani": "史瓦妮",
+            "TFT14_Morgana": "魔甘娜",
+            "TFT14_Hecarim": "勒哈斯特",
+            "TFT14_Gragas": "古拉格斯",
+            "TFT14_Senna": "姍娜",
+            "TFT14_Vex": "薇可絲",
+            "TFT14_Renekton": "雷尼克頓",
+            "TFT14_Fiora": "菲艾",
+            "TFT14_Leblanc": "勒布朗",
+            "TFT14_Draven": "達瑞文",
+            "TFT14_Galio": "加里歐",
+            "TFT14_Zed": "劫",
+            "TFT14_Kha": "鏡爪",
+            "TFT14_Shyvana": "希瓦娜",
+            "TFT14_Illaoi": "伊莉絲",
+            "TFT14_Alistar": "亞歷斯塔",
+            "TFT14_Graves": "葛雷夫",
+            "TFT14_JarvanIV": "嘉文四世",
+            "TFT14_Aphelios": "亞菲利歐",
+            "TFT14_Virgo": "維爾戈",
+            "TFT14_Shaco": "薩科",
+            "TFT14_Darius": "達瑞斯",
+            "TFT14_TwistedFate": "逆命",
+            "TFT14_Braum": "布郎姆",
+            "TFT14_MissFortune": "好運姐",
+            "TFT14_Vayne": "汎",
+            "TFT14_Rhaast": "雷尼克頓",
+            "TFT14_Senna": "姍娜",
+            "TFT14_Jarvan": "嘉文四世",
+            "TFT14_Zed": "劫",
+            "TFT14_Leona": "雷歐娜",
+            "TFT14_Jax": "賈克斯",
+            "TFT14_Naafiri": "納菲瑞",
+            "TFT14_Varus": "維爾戈"
         }
         return hero_names.get(hero_id, hero_id)
     
@@ -261,8 +365,6 @@ class TFTDataProcessor:
     
     def _get_hero_id(self, hero_name):
         """從中文名稱獲取英雄ID"""
-        # 這裡應該實現中文名轉換為英雄ID的邏輯
-        # 範例映射
         hero_ids = {
             "波比": "TFT14_Poppy",
             "維迦": "TFT14_Veigar",
@@ -272,6 +374,49 @@ class TFTDataProcessor:
             "悠咪": "TFT14_Yuumi",
             "安妮": "TFT14_Annie",
             "煞蜜拉": "TFT14_Samira",
-            # 其他英雄名稱可以添加...
+            "蒙多醫生": "TFT14_DrMundo",
+            "吉茵珂絲": "TFT14_Jinx",
+            "艾克": "TFT14_Ekko",
+            "燼": "TFT14_Jhin",
+            "雷葛爾": "TFT14_Rengar",
+            "布蘭德": "TFT14_Brand",
+            "妮可": "TFT14_Nilah",
+            "瑟菈紛": "TFT14_Seraphine",
+            "賽勒斯": "TFT14_Sylas",
+            "伊羅旖": "TFT14_Irelia",
+            "汎": "TFT14_Wukong",
+            "雷歐娜": "TFT14_Leona",
+            "剎雅": "TFT14_Xayah",
+            "歐羅拉": "TFT14_Aurelia",
+            "賈克斯": "TFT14_Jax",
+            "娜菲芮": "TFT14_Nami",
+            "魔鬥凱薩": "TFT14_Mordekaiser",
+            "法洛士": "TFT14_Pantheon",
+            "史瓦妮": "TFT14_Sejuani",
+            "魔甘娜": "TFT14_Morgana",
+            "勒哈斯特": "TFT14_Hecarim",
+            "古拉格斯": "TFT14_Gragas",
+            "姍娜": "TFT14_Senna",
+            "薇可絲": "TFT14_Vex",
+            "雷尼克頓": "TFT14_Renekton",
+            "菲艾": "TFT14_Fiora",
+            "勒布朗": "TFT14_Leblanc",
+            "達瑞文": "TFT14_Draven",
+            "加里歐": "TFT14_Galio",
+            "劫": "TFT14_Zed",
+            "鏡爪": "TFT14_Kha",
+            "希瓦娜": "TFT14_Shyvana",
+            "伊莉絲": "TFT14_Illaoi",
+            "亞歷斯塔": "TFT14_Alistar",
+            "葛雷夫": "TFT14_Graves",
+            "嘉文四世": "TFT14_JarvanIV",
+            "亞菲利歐": "TFT14_Aphelios",
+            "維爾戈": "TFT14_Virgo",
+            "薩科": "TFT14_Shaco",
+            "達瑞斯": "TFT14_Darius",
+            "逆命": "TFT14_TwistedFate",
+            "布郎姆": "TFT14_Braum",
+            "好運姐": "TFT14_MissFortune",
+            "納菲瑞": "TFT14_Naafiri"
         }
         return hero_ids.get(hero_name, hero_name)

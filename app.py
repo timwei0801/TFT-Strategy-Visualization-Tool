@@ -1,25 +1,40 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, send_from_directory
 from flask_cors import CORS
 from tftDataProcessor import TFTDataProcessor
+import os
 
 app = Flask(__name__)
-CORS(app)  # 允許跨域請求
+CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 # 資料庫配置
 db_config = {
     'host': 'localhost',
-    'user': 'your_username',
-    'password': 'your_password',
-    'database': 'TFT_db'
+    'user': 'root',  # 修改為您的MySQL用戶名
+    'password': 'Tim0986985588=',  # 修改為您的MySQL密碼
+    'database': 'TFT_db'  # 修改為您的資料庫名稱
 }
 
 # 初始化資料處理器
 data_processor = TFTDataProcessor(db_config)
 
+# 定義靜態文件路由，使它們可以從任何目錄結構中訪問
+@app.route('/assets/js/<path:filename>')
+def serve_js(filename):
+    return send_from_directory(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'frontend/assets/js'), filename)
+
+@app.route('/assets/css/<path:filename>')
+def serve_css(filename):
+    return send_from_directory(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'frontend/assets/css'), filename)
+
 @app.route('/')
 def index():
     """首頁"""
-    return render_template('index.html')
+    return render_template('network.html')
+
+@app.route('/network')
+def network():
+    """網絡圖頁面"""
+    return render_template('network.html')
 
 @app.route('/api/synergy_network', methods=['GET'])
 def get_synergy_network():
@@ -41,4 +56,7 @@ def get_recommendations():
     return jsonify(recommendations)
 
 if __name__ == '__main__':
+    # 明確設定模板和靜態文件夾路徑
+    app.template_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'frontend')
+    app.static_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'frontend/assets')
     app.run(debug=True, port=5000)

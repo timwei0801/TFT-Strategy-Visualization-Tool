@@ -54,6 +54,7 @@ header h1 {
 .search-box {
     display: flex;
     margin-bottom: 15px;
+    position: relative;
 }
 
 .search-box input {
@@ -212,15 +213,23 @@ header h1 {
 }
 
 .trait-tag[data-level="1"] {
-    background-color: #B87333;
+    background-color: #cd7f32;
+    color: white;
 }
 
 .trait-tag[data-level="2"] {
-    background-color: #C0C0C0;
+    background-color: #c0c0c0;
+    color: #333;
 }
 
 .trait-tag[data-level="3"] {
-    background-color: #FFD700;
+    background-color: #ffd700;
+    color: #333;
+}
+
+.trait-tag[data-level="4"] {
+    background-color: #9d4edd;
+    color: white;
 }
 
 .rec-content {
@@ -259,7 +268,8 @@ header h1 {
     z-index: 99;
     top: 100%;
     left: 0;
-    right: 0;
+    right: 78px;
+    background-color: white;
 }
 
 .autocomplete-items div {
@@ -273,8 +283,11 @@ header h1 {
     background-color: #e9e9e9;
 }
 
-.search-box {
-    position: relative;
+.no-results {
+    text-align: center;
+    padding: 20px;
+    font-size: 16px;
+    color: #666;
 }
 
 /* 響應式設計 */
