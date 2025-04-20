@@ -10,34 +10,27 @@ class NetworkChart {
         this.svg = null;
         this.link = null;
         this.node = null;
-        this.traitColors = {
-            'TFT14_Cyberboss': '#ff6b6b',       // 賽博霸主
-            'TFT14_A.M.P.': '#4ecdc4',          // A.M.P.
-            'TFT14_Stree Demon': '#ffe66d',      // 街頭狂魔
-            'TFT14_Exotech': '#6a0572',         // 極限科技
-            'TFT14_Divinicorp': '#1a535c',      // 神諭集團
-            'TFT14_Anima Squad': '#f72585',     // 百獸特攻隊
-            'TFT14_Ctpher': '#6c757d',          // 破譯師
-            'TFT14_Nitro': '#ff9a3c',           // 爆燃戰隊
-            'TFT14_Golden Ox': '#ffc107',       // 開運金牛
-            'TFT14_Syndicate': '#dc3545',       // 罪惡集團
-            'TFT14_BoomBot': '#17a2b8',         // 末日機器人
-            'TFT14_Virus': '#7209b7',           // 病毒
-            'TFT14_Soul Killer': '#560bad',     // 靈魂殺手
-            'TFT14_Overlord': '#3a0ca3',        // 主宰
-            'TFT14_God of the Net': '#4361ee',  // 網路之神
-            'TFT14_Bruiser': '#a48e5c',         // 蠻勇鬥士
-            'TFT14_Bastion': '#4b9263',         // 堡壘衛士
-            'TFT14_Strategist': '#9c6644',      // a  戰略軍師
-            'TFT14_Marksman': '#e63946',        // 射手
-            'TFT14_Techie': '#2a9d8f',          // 技師
-            'TFT14_Executioner': '#e76f51',     // 處刑者
-            'TFT14_Vanguar': '#457b9d',         // 先鋒戰士
-            'TFT14_Dynamo': '#80b918',          // 發電機
-            'TFT14_Rapidfire': '#fb8500',       // 速射
-            'TFT14_Slayer': '#d00000',          // 殺戮者
-        };
+        // 使用 TFTUtils 獲取顏色，而不是直接定義
+        this.traitColors = {};
+        this.initTraitColors();
         this.init();
+    }
+    
+    initTraitColors() {
+        // 為所有羈絆初始化顏色對象
+        const traits = [
+            'Cyberboss', 'A.M.P.', 'Street Demon', 'Exotech', 'Divinicorp',
+            'Anima Squad', 'Cypher', 'Nitro', 'Golden Ox', 'Syndicate',
+            'BoomBot', 'Virus', 'Soul Killer', 'Overlord', 'God of the Net',
+            'Bruiser', 'Bastion', 'Strategist', 'Marksman', 'Techie',
+            'Executioner', 'Vanguar', 'Dynamo', 'Rapidfire', 'Slayer'
+        ];
+        
+        traits.forEach(trait => {
+            // 使用TFTUtils獲取顏色
+            const traitId = `TFT14_${trait}`;
+            this.traitColors[traitId] = TFTUtils.getTraitColor(trait);
+        });
     }
     
     init() {
@@ -85,33 +78,6 @@ class NetworkChart {
             .style('font-weight', 'bold');
             
         const traits = Object.keys(this.traitColors);
-        const traitNames = {
-            'TFT14_Cyberboss': '賽博霸主',
-            'TFT14_A.M.P.': 'A.M.P.',
-            'TFT14_Stree Demon': '街頭狂魔',
-            'TFT14_Exotech': '極限科技',
-            'TFT14_Divinicorp': '神諭集團',
-            'TFT14_Anima Squad': '百獸特攻隊',
-            'TFT14_Ctpher': '破譯師',
-            'TFT14_Nitro': '爆燃戰隊',
-            'TFT14_Golden Ox': '開運金牛',
-            'TFT14_Syndicate': '罪惡集團',
-            'TFT14_Bruiser': '蠻勇鬥士',
-            'TFT14_Bastion': '堡壘衛士',
-            'TFT14_Strategist': '戰略軍師',
-            'TFT14_Marksman': '射手',
-            'TFT14_Techie': '技師',
-            'TFT14_Executioner': '處刑者',
-            'TFT14_Vanguar': '先鋒戰士',
-            'TFT14_Dynamo': '發電機',
-            'TFT14_Rapidfire': '速射',
-            'TFT14_Soul Killer': '靈魂殺手',
-            'TFT14_Overlord': '主宰',
-            'TFT14_BoomBot': '末日機器人',
-            'TFT14_Virus': '病毒',
-            'TFT14_God of the Net': '網路之神',
-            'TFT14_Slayer': '殺戮者',
-        };
         
         traits.forEach((trait, i) => {
             const traitGroup = legend.append('g')
@@ -121,10 +87,12 @@ class NetworkChart {
                 .attr('r', 8)
                 .attr('fill', this.traitColors[trait]);
                 
+            // 使用TFTUtils獲取中文名稱
+            const traitName = TFTUtils.getTraitChineseName(trait);
             traitGroup.append('text')
                 .attr('x', 15)
                 .attr('y', 4)
-                .text(traitNames[trait] || trait.replace('TFT14_', ''));
+                .text(traitName);
         });
     }
     
@@ -151,39 +119,11 @@ class NetworkChart {
             }
         });
         
-        // 添加羈絆選項
-        const traitNames = {
-            'TFT14_Cyberboss': '賽博霸主',
-            'TFT14_A.M.P.': 'A.M.P.',
-            'TFT14_Stree Demon': '街頭狂魔',
-            'TFT14_Exotech': '極限科技',
-            'TFT14_Divinicorp': '神諭集團',
-            'TFT14_Anima Squad': '百獸特攻隊',
-            'TFT14_Ctpher': '破譯師',
-            'TFT14_Nitro': '爆燃戰隊',
-            'TFT14_Golden Ox': '開運金牛',
-            'TFT14_Syndicate': '罪惡集團',
-            'TFT14_Bruiser': '蠻勇鬥士',
-            'TFT14_Bastion': '堡壘衛士',
-            'TFT14_Strategist': '戰略軍師',
-            'TFT14_Marksman': '射手',
-            'TFT14_Techie': '技師',
-            'TFT14_Executioner': '處刑者',
-            'TFT14_Vanguar': '先鋒戰士',
-            'TFT14_Dynamo': '發電機',
-            'TFT14_Rapidfire': '速射',
-            'TFT14_Soul Killer': '靈魂殺手',
-            'TFT14_Overlord': '主宰',
-            'TFT14_BoomBot': '末日機器人',
-            'TFT14_Virus': '病毒',
-            'TFT14_God of the Net': '網路之神',
-            'TFT14_Slayer': '殺戮者'
-        };
-        
+        // 使用 TFTUtils 獲取羈絆中文名稱
         Array.from(allTraits).sort().forEach(trait => {
             const option = document.createElement('option');
             option.value = trait;
-            option.textContent = traitNames[trait] || trait.replace('TFT14_', '');
+            option.textContent = TFTUtils.getTraitChineseName(trait);
             traitFilter.appendChild(option);
         });
         
@@ -282,7 +222,7 @@ class NetworkChart {
             
         const circles = this.node.append('circle')
             .attr('r', d => 15 + d.usage_count / 30)
-            .attr('fill', d => this.traitColors[d.primary_trait] || this.traitColors.Unknown)
+            .attr('fill', d => this.traitColors[d.primary_trait] || '#ccc')
             .call(d3.drag()
                 .on('start', this.dragstarted.bind(this))
                 .on('drag', this.dragged.bind(this))
@@ -299,38 +239,8 @@ class NetworkChart {
         // 添加提示框
         this.node.append('title')
             .text(d => {
-                // 轉換羈絆名稱為中文
-                const traitNames = {
-                    'TFT14_Cyberboss': '賽博霸主',
-                    'TFT14_A.M.P.': 'A.M.P.',
-                    'TFT14_Stree Demon': '街頭狂魔',
-                    'TFT14_Exotech': '極限科技',
-                    'TFT14_Divinicorp': '神諭集團',
-                    'TFT14_Anima Squad': '百獸特攻隊',
-                    'TFT14_Ctpher': '破譯師',
-                    'TFT14_Nitro': '爆燃戰隊',
-                    'TFT14_Golden Ox': '開運金牛',
-                    'TFT14_Syndicate': '罪惡集團',
-                    'TFT14_Bruiser': '蠻勇鬥士',
-                    'TFT14_Bastion': '堡壘衛士',
-                    'TFT14_Strategist': '戰略軍師',
-                    'TFT14_Marksman': '射手',
-                    'TFT14_Techie': '技師',
-                    'TFT14_Executioner': '處刑者',
-                    'TFT14_Vanguar': '先鋒戰士',
-                    'TFT14_Dynamo': '發電機',
-                    'TFT14_Rapidfire': '速射',
-                    'TFT14_Soul Killer': '靈魂殺手',
-                    'TFT14_Overlord': '主宰',
-                    'TFT14_BoomBot': '末日機器人',
-                    'TFT14_Virus': '病毒',
-                    'TFT14_God of the Net': '網路之神',
-                    'TFT14_Slayer': '殺戮者'
-                };
-                
-                const traits = d.traits.map(t => {
-                    return traitNames[t] || t.replace('TFT14_', '');
-                }).join(', ');
+                // 使用TFTUtils獲取羈絆中文名稱
+                const traits = d.traits.map(t => TFTUtils.getTraitChineseName(t)).join(', ');
                 
                 return `${d.name}\n勝率: ${(d.win_rate * 100).toFixed(1)}%\n平均名次: ${d.avg_placement.toFixed(2)}\n羈絆: ${traits}`;
             });

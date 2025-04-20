@@ -1,0 +1,1024 @@
+{
+    "season": "S14",
+    "update_date": "2025-04-21",
+    "patch": "14.1",
+    "meta_info": {
+      "theme": "機動魔都",
+      "version": "14.1"
+    },
+    "comps": [
+      {
+        "comp_name": "賽博霸主 維迦",
+        "score": 81,
+        "avg_placement": 2.54,
+        "top4_rate": 33.82,
+        "top1_rate": 86.65,
+        "pick_rate": 1.07,
+        "difficulty": "Normal",
+        "popularity": "Popular",
+        "pickcard_level": 6,
+        "positioning": "前排放置波比、希瓦娜、艾克、妮可跟魔鬥凱薩，柯布柯入場後放第二排。後排維迦為主C位，希格斯為副C",
+        "early_game": [
+          "波比",
+          "維迦",
+          "艾克",
+          "魔鬥凱薩"
+        ],
+        "mid_game": [
+          "波比",
+          "維迦",
+          "艾克",
+          "魔鬥凱薩",
+          "希格斯",
+          "妮可"
+        ],
+        "comp_tips": [
+          "多餘魔功裝備給布蘭德，多餘坦裝給魔鬥凱薩或是希瓦娜",
+          "此陣先決條件：拿到賽博霸主專屬強化 or 有維迦裝備 or 增幅選擇到繁星夜空/烏龍商店",
+          "在六等時，卡著50塊利息抽出三星維迦，最晚4-2要抽到三星"
+        ],
+        "heroes": [
+          {
+            "name": "波比",
+            "position": "frontline",
+            "main_items": [],
+            "other_items": [],
+            "core": "core",
+            "trait": [
+              "賽博霸主 4"
+            ]
+          },
+          {
+            "name": "艾克",
+            "position": "frontline",
+            "main_items": [],
+            "other_items": [],
+            "core": "core",
+            "trait": [
+              "戰略軍師 3"
+            ],
+            "description": "多餘魔功裝備給布蘭德，多餘坦裝給魔鬥凱薩或是希瓦娜"
+          },
+          {
+            "name": "維迦(3★)",
+            "position": "backline",
+            "main_items": [
+              "藍BUFF",
+              "納什之牙"
+            ],
+            "other_items": [
+              "海克斯科技槍刃",
+              "寶石手套",
+              "巨人殺手"
+            ],
+            "core": "carry",
+            "trait": [
+              "技師 4"
+            ]
+          },
+          {
+            "name": "希瓦娜",
+            "position": "frontline",
+            "main_items": [],
+            "other_items": [],
+            "core": "core",
+            "trait": [
+              "堡壘衛士 2"
+            ],
+            "description": "此陣先決條件：拿到賽博霸主專屬強化 or 有維迦裝備 or 增幅選擇到繁星夜空/烏龍商店"
+          },
+          {
+            "name": "魔鬥凱薩",
+            "position": "frontline",
+            "main_items": [],
+            "other_items": [],
+            "core": "core",
+            "trait": [
+              "蠻勇鬥士 2"
+            ]
+          },
+          {
+            "name": "布蘭德",
+            "position": "backline",
+            "main_items": [],
+            "other_items": [],
+            "core": "core",
+            "trait": [
+              "街頭狂魔 3"
+            ],
+            "description": "在六等時，卡著50塊利息抽出三星維迦，最晚4-2要抽到三星"
+          },
+          {
+            "name": "柯布柯",
+            "position": "frontline",
+            "main_items": [
+              "日炎斗篷",
+              "離子星火"
+            ],
+            "other_items": [
+              "石像鬼磐核",
+              "好戰者鎧甲",
+              "竊賊手套"
+            ],
+            "core": "tank",
+            "trait": []
+          },
+          {
+            "name": "妮可",
+            "position": "frontline",
+            "main_items": [
+              "日炎斗篷",
+              "離子星火"
+            ],
+            "other_items": [
+              "石像鬼磐核",
+              "好戰者鎧甲",
+              "竊賊手套"
+            ],
+            "core": "tank",
+            "trait": []
+          },
+          {
+            "name": "希格斯",
+            "position": "backline",
+            "main_items": [
+              "精進之矛",
+              "寶石手套"
+            ],
+            "other_items": [
+              "破防者",
+              "巨人殺手"
+            ],
+            "core": "secondary",
+            "trait": []
+          }
+        ]
+      },
+      {
+        "comp_name": "先鋒戰士 汎",
+        "score": 72,
+        "avg_placement": 3.19,
+        "top4_rate": 21.02,
+        "top1_rate": 76.19,
+        "pick_rate": 1.32,
+        "difficulty": "Normal",
+        "popularity": "Popular",
+        "pickcard_level": 6,
+        "positioning": "前排放置勒哈斯特、嘉文四世、雷歐娜、劫跟賽勒斯，雷尼克頓入場後放第四排吃姍娜。後排汎為主C位",
+        "early_game": [
+          "汎",
+          "賽勒斯",
+          "勒哈斯特",
+          "菲艾"
+        ],
+        "mid_game": [
+          "汎",
+          "賽勒斯",
+          "勒哈斯特",
+          "菲艾",
+          "嘉文四世",
+          "姍娜",
+          "劫"
+        ],
+        "comp_tips": [
+          "多餘物功裝備給雷尼克頓，多餘坦裝給勒哈斯特或是五費卡",
+          "此陣先決條件：前期先鋒角色多 or 鬼索開局 or 增幅選擇到五級颶風",
+          "在六等時，卡著50塊利息抽出三星汎，最晚4-2要抽到三星"
+        ],
+        "heroes": [
+          {
+            "name": "賽勒斯",
+            "position": "frontline",
+            "main_items": [],
+            "other_items": [],
+            "core": "core",
+            "trait": [
+              "主宰 1"
+            ]
+          },
+          {
+            "name": "汎(3★)",
+            "position": "backline",
+            "main_items": [
+              "鬼索的狂暴之刃",
+              "鬼索的狂暴之刃"
+            ],
+            "other_items": [
+              "鬼索的狂暴之刃",
+              "瑞蘭颶風箭",
+              "無盡之刃"
+            ],
+            "core": "carry",
+            "trait": [
+              "神諭集團 3"
+            ],
+            "description": "多餘物功裝備給雷尼克頓，多餘坦裝給勒哈斯特或是五費卡"
+          },
+          {
+            "name": "勒哈斯特",
+            "position": "frontline",
+            "main_items": [],
+            "other_items": [],
+            "core": "core",
+            "trait": [
+              "先鋒戰士 4"
+            ]
+          },
+          {
+            "name": "姍娜",
+            "position": "backline",
+            "main_items": [],
+            "other_items": [],
+            "core": "core",
+            "trait": [
+              "殺戮者 4"
+            ],
+            "description": "此陣先決條件：前期先鋒角色多 or 鬼索開局 or 增幅選擇到五級颶風"
+          },
+          {
+            "name": "嘉文四世",
+            "position": "frontline",
+            "main_items": [
+              "日炎斗篷",
+              "贖罪神石"
+            ],
+            "other_items": [
+              "均等法衣",
+              "好戰者鎧甲"
+            ],
+            "core": "tank",
+            "trait": [
+              "百獸特攻隊 3"
+            ]
+          },
+          {
+            "name": "劫",
+            "position": "frontline",
+            "main_items": [
+              "無盡之刃",
+              "夜色緣界"
+            ],
+            "other_items": [
+              "正義手套",
+              "嗜血者"
+            ],
+            "core": "secondary",
+            "trait": [],
+            "description": "在六等時，卡著50塊利息抽出三星汎，最晚4-2要抽到三星"
+          },
+          {
+            "name": "雷歐娜",
+            "position": "frontline",
+            "main_items": [
+              "日炎斗篷",
+              "贖罪神石"
+            ],
+            "other_items": [
+              "均等法衣",
+              "好戰者鎧甲"
+            ],
+            "core": "tank",
+            "trait": []
+          },
+          {
+            "name": "雷尼克頓",
+            "position": "backline",
+            "main_items": [],
+            "other_items": [],
+            "core": "flex",
+            "trait": []
+          }
+        ]
+      },
+      {
+        "comp_name": "街頭狂魔 布蘭德",
+        "score": 87,
+        "avg_placement": 3.43,
+        "top4_rate": 18.17,
+        "top1_rate": 71.96,
+        "pick_rate": 1,
+        "difficulty": "Normal",
+        "popularity": "Popular",
+        "pickcard_level": 8,
+        "positioning": "前排放置艾克、雷葛爾、妮可、柯布柯和蒙多醫生。後排布蘭德為主C位，希格斯、煞蜜拉為副C",
+        "early_game": [
+          "枷蘿",
+          "蒙多醫生",
+          "艾克",
+          "雷格爾"
+        ],
+        "mid_game": [
+          "枷蘿",
+          "蒙多醫生",
+          "艾克",
+          "雷格爾",
+          "妮可",
+          "布蘭德"
+        ],
+        "comp_tips": [
+          "多餘魔功裝備給希格斯，多餘坦裝給柯布柯，多餘物功裝備給煞蜜拉",
+          "此陣先決條件：魔功裝多"
+        ],
+        "heroes": [
+          {
+            "name": "枷蘿",
+            "position": "frontline",
+            "main_items": [],
+            "other_items": [],
+            "core": "core",
+            "trait": [
+              "街頭狂魔 7"
+            ]
+          },
+          {
+            "name": "蒙多醫生",
+            "position": "frontline",
+            "main_items": [],
+            "other_items": [],
+            "core": "core",
+            "trait": [
+              "戰略軍師 3"
+            ],
+            "description": "多餘魔功裝備給希格斯，多餘坦裝給柯布柯或，多餘物功裝備給煞蜜拉"
+          },
+          {
+            "name": "艾克",
+            "position": "backline",
+            "main_items": [],
+            "other_items": [],
+            "core": "core",
+            "trait": [
+              "技師 2"
+            ]
+          },
+          {
+            "name": "雷葛爾",
+            "position": "frontline",
+            "main_items": [],
+            "other_items": [],
+            "core": "core",
+            "trait": [
+              "賽博霸主 2"
+            ],
+            "description": "此陣先決條件：魔功裝多"
+          },
+          {
+            "name": "布蘭德",
+            "position": "frontline",
+            "main_items": [
+              "適性神盔",
+              "寶石手套",
+              "破防者"
+            ],
+            "other_items": [
+              "精進之矛",
+              "死亡之帽"
+            ],
+            "core": "carry",
+            "trait": [
+              "蠻勇鬥士 2"
+            ]
+          },
+          {
+            "name": "希格斯",
+            "position": "backline",
+            "main_items": [
+              "適性神盔",
+              "寶石手套"
+            ],
+            "other_items": [
+              "精進之矛",
+              "破防者",
+              "史堤克彈簧刀"
+            ],
+            "core": "secondary",
+            "trait": []
+          },
+          {
+            "name": "妮可",
+            "position": "frontline",
+            "main_items": [
+              "日炎斗篷",
+              "離子星火"
+            ],
+            "other_items": [
+              "石像鬼磐核",
+              "好戰者鎧甲",
+              "贖罪神石"
+            ],
+            "core": "tank",
+            "trait": []
+          },
+          {
+            "name": "柯布柯",
+            "position": "frontline",
+            "main_items": [],
+            "other_items": [],
+            "core": "tank",
+            "trait": []
+          },
+          {
+            "name": "煞蜜拉",
+            "position": "backline",
+            "main_items": [
+              "無盡之刃",
+              "最後耳語"
+            ],
+            "other_items": [
+              "正義手套"
+            ],
+            "core": "secondary",
+            "trait": []
+          }
+        ]
+      },
+      {
+        "comp_name": "百獸特攻隊 剎雅",
+        "score": 84,
+        "avg_placement": 3.51,
+        "top4_rate": 16.14,
+        "top1_rate": 70.28,
+        "pick_rate": 0.77,
+        "difficulty": "Normal",
+        "popularity": "Popular",
+        "pickcard_level": 8,
+        "positioning": "前排放置雷尼克頓、伊羅旖、雷歐娜和賽勒斯，雷尼克頓入場後放第二排吃伊羅旖。後排剎雅為主C位，歐羅拉為副C",
+        "early_game": [
+          "瑟菈芬",
+          "賽勒斯",
+          "伊羅旖",
+          "汎",
+          "悠咪"
+        ],
+        "mid_game": [
+          "瑟菈芬",
+          "賽勒斯",
+          "伊羅旖",
+          "汎",
+          "悠咪",
+          "剎雅",
+          "雷歐娜"
+        ],
+        "comp_tips": [
+          "多餘魔功裝備給歐羅拉，多餘坦裝給伊羅旖或雷尼克頓，多餘物功裝備給雷尼克頓",
+          "百獸推薦選擇：UwU炮、百獸地雷、機關槍、滅絕者",
+          "此陣先決條件：前期3百獸順順玩"
+        ],
+        "heroes": [
+          {
+            "name": "賽勒斯",
+            "position": "frontline",
+            "main_items": [],
+            "other_items": [],
+            "core": "core",
+            "trait": [
+              "主宰 1"
+            ]
+          },
+          {
+            "name": "汎",
+            "position": "backline",
+            "main_items": [],
+            "other_items": [],
+            "core": "core",
+            "trait": [
+              "神諭集團 1"
+            ],
+            "description": "多餘魔功裝備給歐羅拉，多餘坦裝給伊羅旖或雷尼克頓，多餘物功裝備給雷尼克頓"
+          },
+          {
+            "name": "伊羅旖",
+            "position": "frontline",
+            "main_items": [],
+            "other_items": [],
+            "core": "core",
+            "trait": [
+              "先鋒戰士 2"
+            ],
+            "description": "百獸推薦選擇：UwU炮、百獸地雷、機關槍、滅絕者"
+          },
+          {
+            "name": "燼",
+            "position": "backline",
+            "main_items": [],
+            "other_items": [],
+            "core": "core",
+            "trait": [
+              "堡壘衛士 2"
+            ]
+          },
+          {
+            "name": "悠咪",
+            "position": "backline",
+            "main_items": [],
+            "other_items": [],
+            "core": "core",
+            "trait": [
+              "百獸特攻隊 7"
+            ],
+            "description": "此陣先決條件：前期3百獸順順玩"
+          },
+          {
+            "name": "剎雅",
+            "position": "backline",
+            "main_items": [
+              "精進之矛",
+              "無盡之刃"
+            ],
+            "other_items": [
+              "最後耳語",
+              "巨人殺手",
+              "破防者"
+            ],
+            "core": "carry",
+            "trait": [
+              "射手 2"
+            ]
+          },
+          {
+            "name": "雷歐娜",
+            "position": "frontline",
+            "main_items": [
+              "日炎斗篷",
+              "好戰者鎧甲",
+              "均等法衣"
+            ],
+            "other_items": [
+              "保衛者之誓",
+              "贖罪神石",
+              "龍之爪"
+            ],
+            "core": "tank",
+            "trait": [
+              "發電機 2"
+            ]
+          },
+          {
+            "name": "雷尼克頓",
+            "position": "frontline",
+            "main_items": [
+              "嗜血者",
+              "泰坦的決意"
+            ],
+            "other_items": [],
+            "core": "secondary",
+            "trait": [
+              " "
+            ]
+          },
+          {
+            "name": "歐羅拉",
+            "position": "backline",
+            "main_items": [
+              "精進之矛",
+              "寶石手套"
+            ],
+            "other_items": [
+              "史堤克彈簧刀",
+              "黑魔禁書"
+            ],
+            "core": "secondary",
+            "trait": []
+          }
+        ]
+      },
+      {
+        "comp_name": "殺戮者 薩科",
+        "score": 57,
+        "avg_placement": 4.05,
+        "top4_rate": 10.44,
+        "top1_rate": 59.51,
+        "pick_rate": 1.31,
+        "difficulty": "Easy",
+        "popularity": "Popular",
+        "pickcard_level": 5,
+        "positioning": "前排放置布朗姆、薩科、嘉文四世、劫、達瑞斯、蒙多醫生。前排薩科為主C位，劫、姍娜/汎為副C",
+        "early_game": [
+          "薩科",
+          "蒙多醫生",
+          "達瑞斯",
+          "布朗姆"
+        ],
+        "mid_game": [
+          "薩科",
+          "蒙多醫生",
+          "達瑞斯",
+          "布朗姆",
+          "姍娜",
+          "嘉文四世",
+          "劫"
+        ],
+        "comp_tips": [
+          "多餘物功裝備給雷尼克頓/姍娜/汎，多餘坦裝給布朗姆",
+          "優先製作好薩科和劫的裝備，多餘再給姍娜或是（三星）汎",
+          "此陣先決條件：2-2前就有2星薩科並且有物功裝備",
+          "在五等時，卡著50塊利息抽出三星薩科，最晚3-7要抽到三星"
+        ],
+        "heroes": [
+          {
+            "name": "薩科(3★)",
+            "position": "frontline",
+            "main_items": [
+              "無盡之刃",
+              "夜色緣界、嗜血者"
+            ],
+            "other_items": [
+              "正義手套"
+            ],
+            "core": "carry",
+            "trait": [
+              "殺戮者 6"
+            ]
+          },
+          {
+            "name": "蒙多醫生",
+            "position": "frontline",
+            "main_items": [],
+            "other_items": [],
+            "core": "core",
+            "trait": [
+              "神諭集團 1"
+            ],
+            "description": "多餘物功裝備給雷尼克頓/姍娜/汎，多餘坦裝給布朗姆"
+          },
+          {
+            "name": "汎",
+            "position": "backline",
+            "main_items": [
+              "鬼索的狂暴之刃",
+              "鬼索的狂暴之刃"
+            ],
+            "other_items": [
+              "鬼索的狂暴之刃",
+              "瑞蘭颶風箭",
+              "無盡之刃"
+            ],
+            "core": "secondary",
+            "trait": [
+              "先鋒戰士 2"
+            ],
+            "description": "優先製作好薩科和劫的裝備，多餘再給姍娜或是（三星）汎"
+          },
+          {
+            "name": "達瑞斯",
+            "position": "frontline",
+            "main_items": [],
+            "other_items": [],
+            "core": "core",
+            "trait": [
+              "罪惡集團 3"
+            ]
+          },
+          {
+            "name": "布朗姆",
+            "position": "frontline",
+            "main_items": [
+              "適性神盔",
+              "石像鬼磐核"
+            ],
+            "other_items": [],
+            "core": "core",
+            "trait": [
+              "蠻勇鬥士 2"
+            ],
+            "description": "此陣先決條件：2-2前就有2星薩科並且有物功裝備"
+          },
+          {
+            "name": "姍娜",
+            "position": "backline",
+            "main_items": [
+              "最後耳語",
+              "紅Buff"
+            ],
+            "other_items": [
+              "鬼索的狂暴之刃",
+              "瑞蘭颶風箭",
+              "無盡之刃"
+            ],
+            "core": "secondary",
+            "trait": []
+          },
+          {
+            "name": "嘉文四世",
+            "position": "frontline",
+            "main_items": [
+              "適性神盔",
+              "日炎斗篷"
+            ],
+            "other_items": [
+              "石像鬼磐核",
+              "好戰者鎧甲",
+              "贖罪神石"
+            ],
+            "core": "core",
+            "trait": [],
+            "description": "在五等時，卡著50塊利息抽出三星薩科，最晚3-7要抽到三星"
+          },
+          {
+            "name": "劫",
+            "position": "frontline",
+            "main_items": [
+              "無盡之刃",
+              "夜色緣界、嗜血者"
+            ],
+            "other_items": [
+              "正義手套"
+            ],
+            "core": "secondary",
+            "trait": []
+          },
+          {
+            "name": "雷尼克頓",
+            "position": "frontline",
+            "main_items": [],
+            "other_items": [],
+            "core": "core",
+            "trait": []
+          }
+        ]
+      },
+      {
+        "comp_name": "極限科技 婕莉",
+        "score": 81,
+        "avg_placement": 3.33,
+        "top4_rate": 16.25,
+        "top1_rate": 75.34,
+        "pick_rate": 0.37,
+        "difficulty": "Normal",
+        "popularity": "Popular",
+        "pickcard_level": 8,
+        "positioning": "前排放置賈克斯、柯布柯、魔鬥凱薩、娜菲芮、史瓦妮。後排婕莉為主C位，燼為副C",
+        "early_game": [
+          "賈克斯",
+          "娜菲芮",
+          "燼",
+          "魔鬥凱薩"
+        ],
+        "mid_game": [
+          "賈克斯",
+          "娜菲芮",
+          "燼",
+          "魔鬥凱薩",
+          "法洛士",
+          "婕莉"
+        ],
+        "comp_tips": [
+          "多餘物功裝備給燼，多餘坦裝給魔鬥凱薩、加里歐、柯布柯，多魔功裝就給柯布柯",
+          "此陣先決條件：有脈衝穩定器、或是湧動電容器就可以玩"
+        ],
+        "heroes": [
+          {
+            "name": "賈克斯",
+            "position": "frontline",
+            "main_items": [],
+            "other_items": [],
+            "core": "core",
+            "trait": [
+              "殺戮者 6"
+            ]
+          },
+          {
+            "name": "鏡爪",
+            "position": "backline",
+            "main_items": [],
+            "other_items": [],
+            "core": "core",
+            "trait": [
+              "神諭集團 1"
+            ],
+            "description": "多餘物功裝備給燼，多餘坦裝給魔鬥凱薩、加里歐、柯布柯，多魔功裝就給柯布柯"
+          },
+          {
+            "name": "燼",
+            "position": "backline",
+            "main_items": [
+              "最後耳語",
+              "無盡之刃"
+            ],
+            "other_items": [
+              "精進之矛、超頻利牙"
+            ],
+            "core": "secondary",
+            "trait": [
+              "先鋒戰士 2"
+            ]
+          },
+          {
+            "name": "娜菲芮",
+            "position": "frontline",
+            "main_items": [],
+            "other_items": [],
+            "core": "core",
+            "trait": [
+              "罪惡集團 3"
+            ],
+            "description": "此陣先決條件：有脈衝穩定器、或是湧動電容器就可以玩"
+          },
+          {
+            "name": "法洛士",
+            "position": "backline",
+            "main_items": [],
+            "other_items": [],
+            "core": "core",
+            "trait": [
+              "蠻勇鬥士 2"
+            ]
+          },
+          {
+            "name": "魔鬥凱薩",
+            "position": "frontline",
+            "main_items": [
+              "日炎斗篷",
+              "均等法衣"
+            ],
+            "other_items": [
+              "賽博繩索"
+            ],
+            "core": "tank",
+            "trait": []
+          },
+          {
+            "name": "史瓦妮",
+            "position": "frontline",
+            "main_items": [
+              "保衛者之誓",
+              "贖罪神石"
+            ],
+            "other_items": [
+              "龍之爪",
+              "懸浮燈籠",
+              "破損機身"
+            ],
+            "core": "tank",
+            "trait": []
+          },
+          {
+            "name": "婕莉",
+            "position": "backline",
+            "main_items": [
+              "鬼索的狂暴之刃",
+              "鬼索的狂暴之刃"
+            ],
+            "other_items": [
+              "脈衝穩定器",
+              "湧動電容器",
+              "海克斯科技槍刃"
+            ],
+            "core": "carry",
+            "trait": []
+          },
+          {
+            "name": "柯布柯",
+            "position": "frontline",
+            "main_items": [],
+            "other_items": [],
+            "core": "core",
+            "trait": []
+          }
+        ]
+      },
+      {
+        "comp_name": "罪惡集團 逆命",
+        "score": 63,
+        "avg_placement": 3.9,
+        "top4_rate": 9.24,
+        "top1_rate": 64.4,
+        "pick_rate": 0.53,
+        "difficulty": "Easy",
+        "popularity": "Popular",
+        "pickcard_level": 6,
+        "positioning": "前排放置布朗姆、勒哈斯特（寇格魔 後排）、古拉格斯（史加納）、達瑞斯、薩科。後排逆命為主C位，好運姐為副C",
+        "early_game": [
+          "薩科",
+          "達瑞斯",
+          "逆命",
+          "勒哈斯特"
+        ],
+        "mid_game": [
+          "薩科",
+          "達瑞斯",
+          "逆命",
+          "勒哈斯特",
+          "古拉格斯",
+          "布朗姆"
+        ],
+        "comp_tips": [
+          "多餘物功裝備給好運姐，多餘坦裝給布朗姆",
+          "優先製作好逆命裝備再來坦裝、再來好運姐",
+          "勒哈斯特、古拉格斯可替換成寇格魔以及史加納",
+          "此陣先決條件：前期逆命、達瑞斯多 or 裝備適合（反曲弓、巨型魔棒）",
+          "在六等時，卡著50塊利息抽出三星逆命，最晚4-3要抽到三星"
+        ],
+        "heroes": [
+          {
+            "name": "薩科",
+            "position": "frontline",
+            "main_items": [],
+            "other_items": [],
+            "core": "core",
+            "trait": [
+              "罪惡集團 5"
+            ]
+          },
+          {
+            "name": "達瑞斯(3★)",
+            "position": "frontline",
+            "main_items": [],
+            "other_items": [],
+            "core": "core",
+            "trait": [
+              "先鋒戰士 2"
+            ],
+            "description": "多餘物功裝備給好運姐，多餘坦裝給布朗姆"
+          },
+          {
+            "name": "逆命(3★)",
+            "position": "backline",
+            "main_items": [
+              "鬼索的狂暴之刃",
+              "鬼索的狂暴之刃"
+            ],
+            "other_items": [
+              "海克斯科技槍刃",
+              "寶石手套",
+              "死亡之帽"
+            ],
+            "core": "carry",
+            "trait": [
+              "神諭集團 2"
+            ],
+            "description": "優先製作好逆命裝備再來坦裝、再來好運姐"
+          },
+          {
+            "name": "勒哈斯特",
+            "position": "frontline",
+            "main_items": [],
+            "other_items": [],
+            "core": "core",
+            "trait": [
+              "速射 2"
+            ],
+            "description": "勒哈斯特、古拉格斯可替換成寇格魔以及史加納"
+          },
+          {
+            "name": "達瑞斯",
+            "position": "frontline",
+            "main_items": [
+              "日炎斗篷",
+              "好戰者鎧甲",
+              "石像鬼鎧甲"
+            ],
+            "other_items": [
+              "保衛者之誓",
+              "龍之爪"
+            ],
+            "core": "tank",
+            "trait": [
+              "蠻勇鬥士 2"
+            ],
+            "description": "此陣先決條件：前期逆命、達瑞斯多 or 裝備適合（反曲弓、巨型魔棒）"
+          },
+          {
+            "name": "古拉格斯",
+            "position": "frontline",
+            "main_items": [],
+            "other_items": [],
+            "core": "core",
+            "trait": []
+          },
+          {
+            "name": "布朗姆",
+            "position": "frontline",
+            "main_items": [],
+            "other_items": [],
+            "core": "core",
+            "trait": []
+          },
+          {
+            "name": "好運姐",
+            "position": "backline",
+            "main_items": [
+              "精進之矛",
+              "無盡之刃"
+            ],
+            "other_items": [
+              "最後耳語",
+              "巨人殺手",
+              "破防者"
+            ],
+            "core": "secondary",
+            "trait": [],
+            "description": "在六等時，卡著50塊利息抽出三星逆命，最晚4-3要抽到三星"
+          },
+          {
+            "name": "婕莉",
+            "position": "backline",
+            "main_items": [],
+            "other_items": [],
+            "core": "core",
+            "trait": []
+          }
+        ]
+      }
+    ]
+  }

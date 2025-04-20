@@ -1,17 +1,20 @@
 from flask import Flask, request, jsonify, render_template, send_from_directory
 from flask_cors import CORS
 from tftDataProcessor import TFTDataProcessor
+from dotenv import load_dotenv
 import os
 
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "*"}})
 
+load_dotenv()  # 載入.env文件中的環境變數
+
 # 資料庫配置
 db_config = {
-    'host': 'localhost',
-    'user': 'root',  # 修改為您的MySQL用戶名
-    'password': 'Tim0986985588=',  # 修改為您的MySQL密碼
-    'database': 'TFT_db'  # 修改為您的資料庫名稱
+    'host': os.getenv('DB_HOST', 'localhost'),
+    'user': os.getenv('DB_USER', 'root'),
+    'password': os.getenv('DB_PASSWORD', ''),
+    'database': os.getenv('DB_NAME', 'TFT_db')
 }
 
 # 初始化資料處理器
@@ -57,6 +60,7 @@ def get_recommendations():
 
 if __name__ == '__main__':
     # 明確設定模板和靜態文件夾路徑
-    app.template_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'frontend')
-    app.static_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'frontend/assets')
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    app.template_folder = os.path.join(current_dir, 'frontend')
+    app.static_folder = os.path.join(current_dir, 'frontend/assets')
     app.run(debug=True, port=5000)
