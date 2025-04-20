@@ -185,7 +185,7 @@ const traitData = [
     { id: 'BoomBot', name: '末日機器人', levels: [2, 4] },
     { id: 'Exotech', name: '極限科技', levels: [3, 5, 7, 10] },
     { id: 'Dynamo', name: '發電機', levels: [2, 3, 4] },
-    { id: 'Ctpher', name: '破譯師', levels: [3, 4, 5] },
+    { id: 'Cypher', name: '破譯師', levels: [3, 4, 5] },
     { id: 'Syndicate', name: '罪惡集團', levels: [3, 5, 7] },
     { id: 'Cyberboss', name: '賽博霸主', levels: [2, 3, 4] },
     { id: 'Golden Ox', name: '開運金牛', levels: [2, 4, 6] },

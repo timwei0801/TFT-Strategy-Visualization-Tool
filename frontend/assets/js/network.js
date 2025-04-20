@@ -11,17 +11,31 @@ class NetworkChart {
         this.link = null;
         this.node = null;
         this.traitColors = {
-            'TFT14_CyberOverlords': '#ff6b6b',  // 賽博霸主
-            'TFT14_AMP': '#4ecdc4',             // A.M.P.
-            'TFT14_StreetPunk': '#ffe66d',       // 街頭狂魔
-            'TFT14_HyperTech': '#6a0572',       // 極限科技
-            'TFT14_OracleCorp': '#1a535c',      // 神諭集團
-            'TFT14_BehemothSquad': '#f72585',   // 百獸特攻隊
-            'TFT14_Decoders': '#6c757d',        // 破譯師
-            'TFT14_Burnout': '#ff9a3c',         // 爆燃戰隊
-            'TFT14_BigShot': '#ffc107',         // 開運金牛
-            'TFT14_CrimeSyndicate': '#dc3545',  // 罪惡集團
-            'Unknown': '#aaaaaa'
+            'TFT14_Cyberboss': '#ff6b6b',       // 賽博霸主
+            'TFT14_A.M.P.': '#4ecdc4',          // A.M.P.
+            'TFT14_Stree Demon': '#ffe66d',      // 街頭狂魔
+            'TFT14_Exotech': '#6a0572',         // 極限科技
+            'TFT14_Divinicorp': '#1a535c',      // 神諭集團
+            'TFT14_Anima Squad': '#f72585',     // 百獸特攻隊
+            'TFT14_Ctpher': '#6c757d',          // 破譯師
+            'TFT14_Nitro': '#ff9a3c',           // 爆燃戰隊
+            'TFT14_Golden Ox': '#ffc107',       // 開運金牛
+            'TFT14_Syndicate': '#dc3545',       // 罪惡集團
+            'TFT14_BoomBot': '#17a2b8',         // 末日機器人
+            'TFT14_Virus': '#7209b7',           // 病毒
+            'TFT14_Soul Killer': '#560bad',     // 靈魂殺手
+            'TFT14_Overlord': '#3a0ca3',        // 主宰
+            'TFT14_God of the Net': '#4361ee',  // 網路之神
+            'TFT14_Bruiser': '#a48e5c',         // 蠻勇鬥士
+            'TFT14_Bastion': '#4b9263',         // 堡壘衛士
+            'TFT14_Strategist': '#9c6644',      // a  戰略軍師
+            'TFT14_Marksman': '#e63946',        // 射手
+            'TFT14_Techie': '#2a9d8f',          // 技師
+            'TFT14_Executioner': '#e76f51',     // 處刑者
+            'TFT14_Vanguar': '#457b9d',         // 先鋒戰士
+            'TFT14_Dynamo': '#80b918',          // 發電機
+            'TFT14_Rapidfire': '#fb8500',       // 速射
+            'TFT14_Slayer': '#d00000',          // 殺戮者
         };
         this.init();
     }
@@ -72,17 +86,31 @@ class NetworkChart {
             
         const traits = Object.keys(this.traitColors);
         const traitNames = {
-            'TFT14_CyberOverlords': '賽博霸主',
-            'TFT14_AMP': 'A.M.P.',
-            'TFT14_StreetPunk': '街頭狂魔',
-            'TFT14_HyperTech': '極限科技',
-            'TFT14_OracleCorp': '神諭集團',
-            'TFT14_BehemothSquad': '百獸特攻隊',
-            'TFT14_Decoders': '破譯師',
-            'TFT14_Burnout': '爆燃戰隊',
-            'TFT14_BigShot': '開運金牛',
-            'TFT14_CrimeSyndicate': '罪惡集團',
-            'Unknown': '未知'
+            'TFT14_Cyberboss': '賽博霸主',
+            'TFT14_A.M.P.': 'A.M.P.',
+            'TFT14_Stree Demon': '街頭狂魔',
+            'TFT14_Exotech': '極限科技',
+            'TFT14_Divinicorp': '神諭集團',
+            'TFT14_Anima Squad': '百獸特攻隊',
+            'TFT14_Ctpher': '破譯師',
+            'TFT14_Nitro': '爆燃戰隊',
+            'TFT14_Golden Ox': '開運金牛',
+            'TFT14_Syndicate': '罪惡集團',
+            'TFT14_Bruiser': '蠻勇鬥士',
+            'TFT14_Bastion': '堡壘衛士',
+            'TFT14_Strategist': '戰略軍師',
+            'TFT14_Marksman': '射手',
+            'TFT14_Techie': '技師',
+            'TFT14_Executioner': '處刑者',
+            'TFT14_Vanguar': '先鋒戰士',
+            'TFT14_Dynamo': '發電機',
+            'TFT14_Rapidfire': '速射',
+            'TFT14_Soul Killer': '靈魂殺手',
+            'TFT14_Overlord': '主宰',
+            'TFT14_BoomBot': '末日機器人',
+            'TFT14_Virus': '病毒',
+            'TFT14_God of the Net': '網路之神',
+            'TFT14_Slayer': '殺戮者',
         };
         
         traits.forEach((trait, i) => {
@@ -96,7 +124,7 @@ class NetworkChart {
             traitGroup.append('text')
                 .attr('x', 15)
                 .attr('y', 4)
-                .text(traitNames[trait] || trait);
+                .text(traitNames[trait] || trait.replace('TFT14_', ''));
         });
     }
     
@@ -125,27 +153,31 @@ class NetworkChart {
         
         // 添加羈絆選項
         const traitNames = {
-            'TFT14_CyberOverlords': '賽博霸主',
-            'TFT14_AMP': 'A.M.P.',
-            'TFT14_StreetPunk': '街頭狂魔',
-            'TFT14_HyperTech': '極限科技',
-            'TFT14_OracleCorp': '神諭集團',
-            'TFT14_BehemothSquad': '百獸特攻隊',
-            'TFT14_Decoders': '破譯師',
-            'TFT14_Burnout': '爆燃戰隊',
-            'TFT14_BigShot': '開運金牛',
-            'TFT14_CrimeSyndicate': '罪惡集團',
-            'TFT14_Bruiser': '蠻勇打手',
+            'TFT14_Cyberboss': '賽博霸主',
+            'TFT14_A.M.P.': 'A.M.P.',
+            'TFT14_Stree Demon': '街頭狂魔',
+            'TFT14_Exotech': '極限科技',
+            'TFT14_Divinicorp': '神諭集團',
+            'TFT14_Anima Squad': '百獸特攻隊',
+            'TFT14_Ctpher': '破譯師',
+            'TFT14_Nitro': '爆燃戰隊',
+            'TFT14_Golden Ox': '開運金牛',
+            'TFT14_Syndicate': '罪惡集團',
+            'TFT14_Bruiser': '蠻勇鬥士',
             'TFT14_Bastion': '堡壘衛士',
             'TFT14_Strategist': '戰略軍師',
-            'TFT14_Gunner': '射手',
-            'TFT14_Spellweaver': '技師',
+            'TFT14_Marksman': '射手',
+            'TFT14_Techie': '技師',
             'TFT14_Executioner': '處刑者',
-            'TFT14_Vanguard': '先鋒戰士',
-            'TFT14_Generator': '發電機',
+            'TFT14_Vanguar': '先鋒戰士',
+            'TFT14_Dynamo': '發電機',
             'TFT14_Rapidfire': '速射',
-            'TFT14_SoulReaper': '靈魂殺手',
-            'TFT14_Juggernaut': '主宰'
+            'TFT14_Soul Killer': '靈魂殺手',
+            'TFT14_Overlord': '主宰',
+            'TFT14_BoomBot': '末日機器人',
+            'TFT14_Virus': '病毒',
+            'TFT14_God of the Net': '網路之神',
+            'TFT14_Slayer': '殺戮者'
         };
         
         Array.from(allTraits).sort().forEach(trait => {
@@ -190,24 +222,56 @@ class NetworkChart {
         this.svg.selectAll('.links').remove();
         this.svg.selectAll('.nodes').remove();
         
-        // 建立模擬
+        // 建立更有結構的模擬
         this.simulation = d3.forceSimulation(this.filteredData.nodes)
             .force('link', d3.forceLink(this.filteredData.links)
                 .id(d => d.id)
-                .distance(100))
-            .force('charge', d3.forceManyBody().strength(-300))
+                .distance(150))  // 增加距離
+            .force('charge', d3.forceManyBody().strength(-800))  // 增強排斥力
             .force('center', d3.forceCenter(this.width / 2, this.height / 2))
-            .force('collide', d3.forceCollide(d => 30));
+            .force('collide', d3.forceCollide(d => 40))  // 增加碰撞半徑
+            .force('x', d3.forceX().strength(0.05))  // 添加x方向力
+            .force('y', d3.forceY().strength(0.05));  // 添加y方向力
             
+        // 篩選連線 - 只顯示重要的協同關係
+        const filteredLinks = this.filteredData.links.filter(link => 
+            link.value > 5  // 只顯示協同強度較高的連線
+        );
+        
         // 繪製連線
         this.link = this.svg.append('g')
             .attr('class', 'links')
             .selectAll('line')
-            .data(this.filteredData.links)
+            .data(filteredLinks)  // 使用篩選後的連線
             .enter().append('line')
-            .attr('stroke-width', d => Math.max(1, Math.min(10, d.value / 10)))
-            .attr('stroke', d => d.type === 'same_trait' ? '#999' : '#ddd')
+            .attr('stroke-width', d => Math.max(1, Math.min(6, d.value / 20)))  // 更合理的線寬
+            .attr('stroke', d => d.type === 'same_trait' ? '#666' : '#ddd')  // 更明顯的顏色對比
+            .attr('stroke-opacity', 0.6)  // 降低透明度提高可讀性
             .attr('stroke-dasharray', d => d.type === 'same_trait' ? '0' : '3,3');
+            
+        // 繪製節點分組
+        const traitGroups = {};
+        this.filteredData.nodes.forEach(node => {
+            const trait = node.primary_trait;
+            if (!traitGroups[trait]) {
+                traitGroups[trait] = [];
+            }
+            traitGroups[trait].push(node);
+        });
+        
+        // 為每個羈絆分組應用特定的力
+        Object.keys(traitGroups).forEach((trait, i) => {
+            const angle = (i / Object.keys(traitGroups).length) * 2 * Math.PI;
+            const radius = Math.min(this.width, this.height) * 0.35;
+            const x = this.width/2 + radius * Math.cos(angle);
+            const y = this.height/2 + radius * Math.sin(angle);
+            
+            traitGroups[trait].forEach(node => {
+                // 添加羈絆分組的引力
+                this.simulation.force(`${trait}-x`, d3.forceX(x).strength(0.1));
+                this.simulation.force(`${trait}-y`, d3.forceY(y).strength(0.1));
+            });
+        });
             
         // 繪製節點
         this.node = this.svg.append('g')
@@ -237,27 +301,31 @@ class NetworkChart {
             .text(d => {
                 // 轉換羈絆名稱為中文
                 const traitNames = {
-                    'TFT14_CyberOverlords': '賽博霸主',
-                    'TFT14_AMP': 'A.M.P.',
-                    'TFT14_StreetPunk': '街頭狂魔',
-                    'TFT14_HyperTech': '極限科技',
-                    'TFT14_OracleCorp': '神諭集團',
-                    'TFT14_BehemothSquad': '百獸特攻隊',
-                    'TFT14_Decoders': '破譯師',
-                    'TFT14_Burnout': '爆燃戰隊',
-                    'TFT14_BigShot': '開運金牛',
-                    'TFT14_CrimeSyndicate': '罪惡集團',
-                    'TFT14_Bruiser': '蠻勇打手',
+                    'TFT14_Cyberboss': '賽博霸主',
+                    'TFT14_A.M.P.': 'A.M.P.',
+                    'TFT14_Stree Demon': '街頭狂魔',
+                    'TFT14_Exotech': '極限科技',
+                    'TFT14_Divinicorp': '神諭集團',
+                    'TFT14_Anima Squad': '百獸特攻隊',
+                    'TFT14_Ctpher': '破譯師',
+                    'TFT14_Nitro': '爆燃戰隊',
+                    'TFT14_Golden Ox': '開運金牛',
+                    'TFT14_Syndicate': '罪惡集團',
+                    'TFT14_Bruiser': '蠻勇鬥士',
                     'TFT14_Bastion': '堡壘衛士',
                     'TFT14_Strategist': '戰略軍師',
-                    'TFT14_Gunner': '射手',
-                    'TFT14_Spellweaver': '技師',
+                    'TFT14_Marksman': '射手',
+                    'TFT14_Techie': '技師',
                     'TFT14_Executioner': '處刑者',
-                    'TFT14_Vanguard': '先鋒戰士',
-                    'TFT14_Generator': '發電機',
+                    'TFT14_Vanguar': '先鋒戰士',
+                    'TFT14_Dynamo': '發電機',
                     'TFT14_Rapidfire': '速射',
-                    'TFT14_SoulReaper': '靈魂殺手',
-                    'TFT14_Juggernaut': '主宰'
+                    'TFT14_Soul Killer': '靈魂殺手',
+                    'TFT14_Overlord': '主宰',
+                    'TFT14_BoomBot': '末日機器人',
+                    'TFT14_Virus': '病毒',
+                    'TFT14_God of the Net': '網路之神',
+                    'TFT14_Slayer': '殺戮者'
                 };
                 
                 const traits = d.traits.map(t => {
