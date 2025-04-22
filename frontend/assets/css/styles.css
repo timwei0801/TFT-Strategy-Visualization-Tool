@@ -6,6 +6,11 @@
     --light-bg: #f7fff7;
     --text-color: #262626;
     --light-text: #f7fff7;
+    --cost-1: #969696;
+    --cost-2: #0e8a48;
+    --cost-3: #1a75ff;
+    --cost-4: #c741e0;
+    --cost-5: #ffb81c;
 }
 
 * {
@@ -183,11 +188,29 @@ header h1 {
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
 }
 
+.api-recommendation {
+    border-left: 4px solid var(--primary-color);
+}
+
 .rec-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
+}
+
+.comp-stats {
+    display: flex;
+    gap: 15px;
+    font-size: 12px;
+}
+
+.comp-score {
+    background-color: #ffd700;
+    color: #333;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-weight: bold;
 }
 
 .placement {
@@ -196,6 +219,20 @@ header h1 {
     padding: 3px 8px;
     border-radius: 4px;
     font-size: 12px;
+}
+
+.difficulty {
+    background-color: #eee;
+    padding: 3px 8px;
+    border-radius: 4px;
+}
+
+.comp-description {
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: #555;
+    padding: 5px 0;
+    border-bottom: 1px solid #eee;
 }
 
 .traits-container {
@@ -210,31 +247,38 @@ header h1 {
     padding: 3px 8px;
     border-radius: 4px;
     font-size: 12px;
+    border: 1px solid;
 }
 
 .trait-tag[data-level="1"] {
-    background-color: #cd7f32;
-    color: white;
+    background-color: #cd7f3233;
+    border-color: #cd7f32;
 }
 
 .trait-tag[data-level="2"] {
-    background-color: #c0c0c0;
-    color: #333;
+    background-color: #c0c0c033;
+    border-color: #c0c0c0;
 }
 
 .trait-tag[data-level="3"] {
-    background-color: #ffd700;
-    color: #333;
+    background-color: #ffd70033;
+    border-color: #ffd700;
 }
 
 .trait-tag[data-level="4"] {
-    background-color: #9d4edd;
-    color: white;
+    background-color: #9d4edd33;
+    border-color: #9d4edd;
+}
+
+.trait-tag[data-level="5"], .trait-tag[data-level="6"], .trait-tag[data-level="7"] {
+    background-color: #ff45a433;
+    border-color: #ff45a4;
 }
 
 .rec-content {
     display: flex;
     gap: 20px;
+    margin-bottom: 15px;
 }
 
 .current-heroes, .recommended-heroes {
@@ -258,6 +302,64 @@ header h1 {
 
 .recommended-hero {
     background-color: var(--secondary-color);
+    display: flex;
+    flex-direction: column;
+    min-width: 80px;
+}
+
+.hero-name {
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+
+.hero-items {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* 英雄費用顏色 */
+.cost-1 {
+    background-color: var(--cost-1);
+}
+
+.cost-2 {
+    background-color: var(--cost-2);
+}
+
+.cost-3 {
+    background-color: var(--cost-3);
+}
+
+.cost-4 {
+    background-color: var(--cost-4);
+}
+
+.cost-5 {
+    background-color: var(--cost-5);
+}
+
+/* 英雄角色樣式 */
+.core-carry {
+    border: 2px solid gold;
+}
+
+.core-tank {
+    border: 2px solid #48cae4;
+}
+
+.core-secondary {
+    border: 2px solid #adb5bd;
+}
+
+.comp-positioning {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+.comp-positioning h4 {
+    margin-bottom: 5px;
 }
 
 /* 自動完成 */

@@ -29,6 +29,10 @@ def serve_js(filename):
 def serve_css(filename):
     return send_from_directory(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'frontend/assets/css'), filename)
 
+@app.route('/assets/data/<path:filename>')
+def serve_data(filename):
+    return send_from_directory(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'frontend/assets/data'), filename)
+
 @app.route('/')
 def index():
     """首頁"""

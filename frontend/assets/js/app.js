@@ -1,18 +1,19 @@
-// app.js
+// app.js - 負責基本UI互動
+
 document.addEventListener('DOMContentLoaded', () => {
     // 頁籤切換
-    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabButtons = document.querySelectorAll('.tab-btn');
     const tabPanes = document.querySelectorAll('.tab-pane');
     
-    tabBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
+    tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
             // 移除所有活躍狀態
-            tabBtns.forEach(b => b.classList.remove('active'));
-            tabPanes.forEach(p => p.classList.remove('active'));
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            tabPanes.forEach(pane => pane.classList.remove('active'));
             
-            // 設置當前活躍
-            btn.classList.add('active');
-            const tabId = btn.getAttribute('data-tab');
+            // 激活選中的頁籤
+            button.classList.add('active');
+            const tabId = button.getAttribute('data-tab');
             document.getElementById(tabId).classList.add('active');
         });
     });
