@@ -158,6 +158,11 @@ header h1 {
     display: block;
 }
 
+#comp-recommendations {
+    min-height: 200px;
+    padding: 20px;
+}
+
 /* 網絡圖表 */
 #network-chart {
     width: 100%;

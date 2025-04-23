@@ -167,11 +167,20 @@ class RecommendationSystem {
         // 遍歷所有預設陣容
         this.compData.comps.forEach(comp => {
             // 獲取陣容中的英雄
-            const compHeroes = comp.units.map(unit => {
-                // 移除星級標記，例如"維迦(3★)" => "維迦"
-                const heroName = unit.hero_name.replace(/\([^\)]+\)/g, '').trim();
-                return TFTUtils.getHeroId(heroName);
-            });
+            let compHeroes = [];
+                if (comp.units && Array.isArray(comp.units)) {
+                    compHeroes = comp.units.map(unit => {
+                        // 移除星級標記，例如"維迦(3★)" => "維迦"
+                        const heroName = unit.hero_name.replace(/\([^\)]+\)/g, '').trim();
+                        return TFTUtils.getHeroId(heroName);
+                    });
+                } else if (comp.heroes && Array.isArray(comp.heroes)) {
+                    compHeroes = comp.heroes.map(hero => {
+                        // 移除星級標記，例如"維迦(3★)" => "維迦"
+                        const heroName = hero.name.replace(/\([^\)]+\)/g, '').trim();
+                        return TFTUtils.getHeroId(heroName);
+                    });
+                }
             
             // 檢查選定的英雄是否在這個陣容中
             const matchCount = selectedHeroesIds.filter(hero => 
@@ -265,19 +274,37 @@ class RecommendationSystem {
             
             // 推薦英雄HTML - 過濾掉已選英雄
             const selectedHeroesSet = new Set(this.selectedHeroes);
-            const recommendedHeroes = comp.units
-                .map(unit => {
-                    // 移除星級標記
-                    const heroName = unit.hero_name.replace(/\([^\)]+\)/g, '').trim();
-                    return {
-                        name: heroName,
-                        cost: TFTUtils.getHeroCost(TFTUtils.getHeroId(heroName)),
-                        position: unit.position,
-                        core: unit.core,
-                        items: unit.main_items
-                    };
-                })
-                .filter(hero => !selectedHeroesSet.has(hero.name));
+            let recommendedHeroes = [];
+
+            if (comp.units && Array.isArray(comp.units)) {
+                recommendedHeroes = comp.units
+                    .map(unit => {
+                        // 移除星級標記
+                        const heroName = unit.hero_name.replace(/\([^\)]+\)/g, '').trim();
+                        return {
+                            name: heroName,
+                            cost: TFTUtils.getHeroCost(TFTUtils.getHeroId(heroName)),
+                            position: unit.position,
+                            core: unit.core,
+                            items: unit.main_items
+                        };
+                    })
+                    .filter(hero => !selectedHeroesSet.has(hero.name));
+            } else if (comp.heroes && Array.isArray(comp.heroes)) {
+                recommendedHeroes = comp.heroes
+                    .map(hero => {
+                        // 移除星級標記
+                        const heroName = hero.name.replace(/\([^\)]+\)/g, '').trim();
+                        return {
+                            name: heroName,
+                            cost: TFTUtils.getHeroCost(TFTUtils.getHeroId(heroName)),
+                            position: hero.position,
+                            core: hero.core,
+                            items: hero.main_items || []
+                        };
+                    })
+                    .filter(hero => !selectedHeroesSet.has(hero.name));
+            }
                 
             const recommendedHeroesHTML = recommendedHeroes.map(hero => {
                 const costClass = `cost-${hero.cost}`;
@@ -339,19 +366,47 @@ class RecommendationSystem {
         const traitCount = {};
         
         // 遍歷所有英雄的特質
-        comp.units.forEach(unit => {
-            if (unit.trait) {
-                const traits = unit.trait.split(' ');
-                traits.forEach(traitInfo => {
-                    // 格式可能是 "賽博霸主 4"，需要分離
-                    const match = traitInfo.match(/(.+)\s+(\d+)/);
-                    if (match) {
-                        const [_, traitName, level] = match;
-                        traitCount[traitName] = parseInt(level);
+        if (comp.units && Array.isArray(comp.units)) {
+            comp.units.forEach(unit => {
+                if (unit.trait) {
+                    const traits = unit.trait.split(' ');
+                    traits.forEach(traitInfo => {
+                        // 格式可能是 "賽博霸主 4"，需要分離
+                        const match = traitInfo.match(/(.+)\s+(\d+)/);
+                        if (match) {
+                            const [_, traitName, level] = match;
+                            traitCount[traitName] = parseInt(level);
+                        }
+                    });
+                }
+            });
+        } else if (comp.heroes && Array.isArray(comp.heroes)) {
+            comp.heroes.forEach(hero => {
+                if (hero.trait) {
+                    // 處理陣列形式的特質
+                    if (Array.isArray(hero.trait)) {
+                        hero.trait.forEach(traitInfo => {
+                            // 格式可能是 "賽博霸主 4"，需要分離
+                            const match = traitInfo.match(/(.+)\s+(\d+)/);
+                            if (match) {
+                                const [_, traitName, level] = match;
+                                traitCount[traitName] = parseInt(level);
+                            }
+                        });
+                    } else {
+                        // 處理字符串形式的特質
+                        const traits = hero.trait.split(' ');
+                        traits.forEach(traitInfo => {
+                            const match = traitInfo.match(/(.+)\s+(\d+)/);
+                            if (match) {
+                                const [_, traitName, level] = match;
+                                traitCount[traitName] = parseInt(level);
+                            }
+                        });
                     }
-                });
-            }
-        });
+                }
+            });
+        }
         
         // 轉換為陣列格式
         return Object.entries(traitCount).map(([name, level]) => ({

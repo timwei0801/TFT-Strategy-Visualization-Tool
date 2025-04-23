@@ -1,5 +1,3 @@
-// app.js - 負責基本UI互動
-
 document.addEventListener('DOMContentLoaded', () => {
     // 頁籤切換
     const tabButtons = document.querySelectorAll('.tab-btn');
@@ -15,6 +13,18 @@ document.addEventListener('DOMContentLoaded', () => {
             button.classList.add('active');
             const tabId = button.getAttribute('data-tab');
             document.getElementById(tabId).classList.add('active');
+            
+            // 調試信息
+            console.log(`切換到頁籤: ${tabId}`);
+            console.log(`找到頁面元素: ${document.getElementById(tabId) ? '是' : '否'}`);
         });
+    });
+    
+    // 檢查HTML結構是否正確
+    console.log('--- 頁籤結構檢查 ---');
+    tabButtons.forEach(btn => {
+        const tabId = btn.getAttribute('data-tab');
+        const tabElement = document.getElementById(tabId);
+        console.log(`頁籤 ${tabId}: ${tabElement ? '找到對應元素' : '未找到對應元素！'}`);
     });
 });
