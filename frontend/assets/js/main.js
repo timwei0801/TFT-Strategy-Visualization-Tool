@@ -819,6 +819,11 @@ const augmentData = [
     { id: 'hk', name: '模控機械批量 III', tier: 3, description: '裝備一件道具的英雄增加500生命。' },
 ];
 
+// 新增: 定義全局變數
+const selectedHeroes = []; // 存儲選中的英雄名稱
+let compData = null; // 全局陣容數據
+let hasInitialized = false; // 初始化標記，防止重複初始化
+
 // 當前選擇的標籤和過濾條件
 let selectedItem = null;
 let selectedItemType = null;
@@ -832,8 +837,57 @@ const boardChampions = Array(28).fill(null);
 // 特質計數
 const traitCounter = {};
 
+// 檢查圖片是否可用
+function isImageAvailable(type, id) {
+    return availableImages[type] && availableImages[type].includes(id);
+}
+
+// 統一的模態窗口管理函數
+function getOrCreateModal(id, title) {
+    let modal = document.getElementById(id);
+    
+    if (!modal) {
+        const modalHTML = `
+            <div id="${id}" class="modal">
+                <div class="modal-content">
+                    <span class="close-modal">&times;</span>
+                    <h2 id="${id}-title">${title}</h2>
+                    <div id="${id}-container"></div>
+                </div>
+            </div>
+        `;
+        
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
+        modal = document.getElementById(id);
+        
+        // 添加關閉功能
+        modal.querySelector('.close-modal').addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+        
+        // 點擊外部關閉
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    } else {
+        // 更新標題
+        document.getElementById(`${id}-title`).textContent = title;
+    }
+    
+    return {
+        modal: modal,
+        container: document.getElementById(`${id}-container`)
+    };
+}
+
 // DOM加載完成後執行
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
+    // 防止重複初始化
+    if (hasInitialized) return;
+    hasInitialized = true;
+    
     // 生成六角形棋盤
     generateHexagonBoard();
     
@@ -848,6 +902,23 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 初始化事件監聽器
     initEventListeners();
+    
+    // 初始化推薦區域的頁籤
+    initializeRecommendationTabs();
+    
+    // 初始化視覺化標籤頁
+    initializeVisualizationTab();
+    
+    // 創建模態視窗容器
+    createModalContainer();
+    
+    // 加載陣容數據
+    try {
+        compData = await loadCompData();
+    } catch (error) {
+        console.error('加載陣容數據失敗:', error);
+        compData = { comps: [] }; // 使用空數據作為後備
+    }
 });
 
 // 選擇項目函數
@@ -868,10 +939,11 @@ function selectItem(item, type) {
     });
 }
 
-
 // 生成六角形棋盤
 function generateHexagonBoard() {
     const board = document.getElementById('hexagon-board');
+    if (!board) return;
+    
     board.innerHTML = '';
     
     for (let i = 0; i < 28; i++) {
@@ -917,6 +989,8 @@ function generateHexagonBoard() {
 // 初始化標籤切換
 function initTabSwitching() {
     const tabs = document.querySelectorAll('.menu-tab');
+    if (!tabs.length) return;
+    
     tabs.forEach(tab => {
         tab.addEventListener('click', function() {
             tabs.forEach(t => t.classList.remove('active'));
@@ -924,7 +998,11 @@ function initTabSwitching() {
             currentTab = this.dataset.tab;
             loadGridItems(currentTab);
             updateFilterButtons(currentTab);
-            document.getElementById('search-input').placeholder = `搜尋${tabNameToChinese(currentTab)}`;
+            
+            const searchInput = document.getElementById('search-input');
+            if (searchInput) {
+                searchInput.placeholder = `搜尋${tabNameToChinese(currentTab)}`;
+            }
         });
     });
 }
@@ -934,7 +1012,8 @@ function tabNameToChinese(tab) {
     const mapping = {
         'champions': '英雄',
         'items': '道具',
-        'augments': '增幅裝置'
+        'augments': '增幅裝置',
+        'visualizations': '視覺化'
     };
     return mapping[tab] || tab;
 }
@@ -942,6 +1021,8 @@ function tabNameToChinese(tab) {
 // 根據當前標籤更新過濾按鈕
 function updateFilterButtons(tab) {
     const filterContainer = document.getElementById('filter-buttons');
+    if (!filterContainer) return;
+    
     filterContainer.innerHTML = '';
     
     let filters = [];
@@ -969,46 +1050,66 @@ function updateFilterButtons(tab) {
 // 初始化事件監聽器
 function initEventListeners() {
     // 清除棋盤按鈕
-    document.getElementById('clear-board').addEventListener('click', function() {
-        clearBoard();
-    });
+    const clearBtn = document.getElementById('clear-board');
+    if (clearBtn) {
+        clearBtn.addEventListener('click', function() {
+            clearBoard();
+        });
+    }
     
     // 儲存圖像按鈕
-    document.getElementById('save-image').addEventListener('click', function() {
-        alert('儲存圖像功能將在完整版中實現');
-    });
+    const saveBtn = document.getElementById('save-image');
+    if (saveBtn) {
+        saveBtn.addEventListener('click', function() {
+            alert('儲存圖像功能將在完整版中實現');
+        });
+    }
     
     // 搜尋框
-    document.getElementById('search-input').addEventListener('input', function() {
-        currentSearch = this.value.toLowerCase();
-        loadGridItems(currentTab);
-    });
+    const searchInput = document.getElementById('search-input');
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            currentSearch = this.value.toLowerCase();
+            loadGridItems(currentTab);
+        });
+    }
     
     // 清除過濾按鈕
-    document.getElementById('clear-filter').addEventListener('click', function() {
-        document.querySelectorAll('.filter-button').forEach(button => {
-            button.classList.remove('active');
+    const clearFilterBtn = document.getElementById('clear-filter');
+    if (clearFilterBtn) {
+        clearFilterBtn.addEventListener('click', function() {
+            document.querySelectorAll('.filter-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            if (searchInput) {
+                searchInput.value = '';
+            }
+            
+            currentFilter = '';
+            currentSearch = '';
+            loadGridItems(currentTab);
         });
-        document.getElementById('search-input').value = '';
-        currentFilter = '';
-        currentSearch = '';
-        loadGridItems(currentTab);
-    });
+    }
 
     const boardContainer = document.querySelector('.board-container');
-    boardContainer.addEventListener('dragenter', function(event) {
-        event.preventDefault();
-    });
-    
-    boardContainer.addEventListener('dragover', function(event) {
-        event.preventDefault();
-    });
+    if (boardContainer) {
+        boardContainer.addEventListener('dragenter', function(event) {
+            event.preventDefault();
+        });
+        
+        boardContainer.addEventListener('dragover', function(event) {
+            event.preventDefault();
+        });
+    }
 }
 
 
 // 載入網格項目函數
 function loadGridItems(tab) {
     const grid = document.getElementById('items-grid');
+    if (!grid) return;
+    
     grid.innerHTML = '';
     
     // 改變容器樣式以適應水平分組
@@ -1101,6 +1202,41 @@ function loadGridItems(tab) {
                 grid.appendChild(championsRow);
             }
         }
+    } else if (tab === 'visualizations') {
+        // 視覺化標籤處理
+        grid.style.display = 'grid';
+        grid.style.flexDirection = 'unset';
+        
+        // 創建視覺化選項
+        const visualOptions = [
+            { id: 'network', name: '羈絆網絡圖', description: '顯示英雄間的羈絆關係' },
+            { id: 'heatmap', name: '協同熱力圖', description: '分析英雄協同效果' },
+            { id: 'strength', name: '強度時間曲線', description: '陣容在不同階段的強度' },
+            { id: 'matrix', name: '裝備推薦矩陣', description: '最佳裝備配置分析' }
+        ];
+        
+        visualOptions.forEach(option => {
+            const card = document.createElement('div');
+            card.className = 'grid-item visual-card';
+            card.innerHTML = `
+                <img src="/api/placeholder/40/40" alt="${option.name}" />
+                <div class="item-name">${option.name}</div>
+            `;
+            
+            card.addEventListener('click', function() {
+                openVisualization(option.id);
+            });
+            
+            card.addEventListener('mouseenter', function(event) {
+                showTooltip(event, option, 'visualization');
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                hideTooltip();
+            });
+            
+            grid.appendChild(card);
+        });
     } else {
         // 恢復原始網格樣式
         grid.style.display = 'grid';
@@ -1153,22 +1289,57 @@ function getCostColor(cost) {
     }
 }
 
+// 根據費用獲取背景顏色
+function getCostBackgroundColor(cost) {
+    switch (cost) {
+        case 1: return '#2A2A2A'; // 灰色背景 - 一費
+        case 2: return '#213824'; // 深綠色背景 - 二費
+        case 3: return '#1A2940'; // 深藍色背景 - 三費
+        case 4: return '#2A1A33'; // 深紫色背景 - 四費
+        case 5: return '#332B1A'; // 深金色背景 - 五費
+        default: return '#2A2A3A';
+    }
+}
+
+// 根據費用獲取文字顏色
+function getCostTextColor(cost) {
+    switch (cost) {
+        case 1: return '#BBBBBB'; // 灰色文字 - 一費
+        case 2: return '#7FC97F'; // 綠色文字 - 二費
+        case 3: return '#386CB0'; // 藍色文字 - 三費
+        case 4: return '#F0027F'; // 紫色文字 - 四費
+        case 5: return '#FFD700'; // 金色文字 - 五費
+        default: return '#FFFFFF';
+    }
+}
+
 // 創建英雄網格項目的輔助函數
 function createChampionGridItem(champion) {
     const gridItem = document.createElement('div');
     gridItem.className = 'grid-item';
     gridItem.dataset.id = champion.id;
     
+    // 添加背景顏色以反映英雄費用
+    gridItem.style.backgroundColor = getCostBackgroundColor(champion.cost);
+    gridItem.style.boxShadow = `0 0 5px ${getCostColor(champion.cost)}`;
+    
     const img = document.createElement('img');
     img.src = isImageAvailable('champions', champion.id) ? `images/champions/${champion.id}.png` : '/api/placeholder/40/40';
     img.alt = champion.name;
     img.title = champion.name;
+    
+    // 設置錯誤處理
+    img.onerror = function() {
+        this.src = '/api/placeholder/40/40';
+        this.onerror = null; // 防止無限循環
+    };
     
     gridItem.appendChild(img);
     
     const name = document.createElement('div');
     name.className = 'item-name';
     name.textContent = champion.name;
+    name.style.color = getCostTextColor(champion.cost);
     gridItem.appendChild(name);
     
     // 添加點擊事件
@@ -1183,6 +1354,17 @@ function createChampionGridItem(champion) {
     
     gridItem.addEventListener('mouseleave', function() {
         hideTooltip();
+    });
+    
+    // 啟用拖曳功能
+    gridItem.draggable = true;
+    gridItem.addEventListener('dragstart', function(event) {
+        event.dataTransfer.setData('application/json', JSON.stringify({
+            id: champion.id,
+            type: 'champions',
+            data: champion
+        }));
+        selectItem(champion, 'champions');
     });
     
     return gridItem;
@@ -1211,6 +1393,8 @@ function createItemGridItem(item, type) {
         img.src = isImageAvailable('items', item.id) ? `images/items/${item.id}.png` : '/api/placeholder/40/40';
     } else if (type === 'augments') {
         img.src = isImageAvailable('augments', item.id) ? `images/augments/${item.id}.png` : '/api/placeholder/40/40';
+    } else if (type === 'visualization') {
+        img.src = '/api/placeholder/40/40'; // 視覺化使用佔位符
     }
     img.alt = item.name;
     img.title = item.name;
@@ -1252,7 +1436,12 @@ function placeSelectedItem(index) {
     const hexagon = hexagons[index];
     
     if (selectedItemType === 'champions') {
-        // 如果是英雄，直接放置
+        // 更新選中英雄數組
+        if (!selectedHeroes.includes(selectedItem.name)) {
+            selectedHeroes.push(selectedItem.name);
+        }
+        
+        // 原有的英雄放置邏輯保持不變
         hexagon.innerHTML = '';
         const imgContainer = document.createElement('div');
         imgContainer.className = 'hex-img-container';
@@ -1272,6 +1461,7 @@ function placeSelectedItem(index) {
         // 設置錯誤處理函數
         img.onerror = function() {
             this.src = '/api/placeholder/40/40';
+            this.onerror = null; // 防止無限循環
         };
         
         imgContainer.appendChild(img);
@@ -1296,50 +1486,56 @@ function placeSelectedItem(index) {
         
         // 更新特質顯示
         updateTraitDisplay();
+        
+        // 觸發棋盤更新事件
+        document.dispatchEvent(new CustomEvent('boardUpdated'));
+        
+        // 檢查是否顯示陣容推薦頁籤
+        const compsTab = document.querySelector('.rec-tab[data-tab="comps"]');
+        if (compsTab && compsTab.classList.contains('active')) {
+            updateCompSuggestions();
+        }
     } else if (selectedItemType === 'items' && boardChampions[index]) {
-        // 如果是道具且該位置有英雄，則為英雄添加道具
+        // 原有的道具放置邏輯保持不變...
         
-        // 檢查英雄是否已經有3件裝備
-        const itemsContainer = hexagon.querySelector('.champion-items');
-        
-        if (!itemsContainer) return;
-        
-        if (boardChampions[index].items && boardChampions[index].items.length >= 3) {
-            alert(`${boardChampions[index].name} 已經裝備了3件道具，無法再添加更多`);
-            return;
+        // 如果單元上有英雄，則嘗試放置道具
+        if (boardChampions[index].items.length < 3) {
+            // 添加道具到英雄
+            boardChampions[index].items.push(selectedItem);
+            
+            // 更新視覺顯示
+            const itemsContainer = hexagon.querySelector('.champion-items');
+            if (itemsContainer) {
+                const itemElem = document.createElement('div');
+                itemElem.className = 'champion-item';
+                
+                const itemImg = document.createElement('img');
+                itemImg.src = isImageAvailable('items', selectedItem.id) 
+                    ? `images/items/${selectedItem.id}.png` 
+                    : '/api/placeholder/20/20';
+                
+                itemImg.onerror = function() {
+                    this.src = '/api/placeholder/20/20';
+                    this.onerror = null;
+                };
+                
+                itemElem.appendChild(itemImg);
+                itemsContainer.appendChild(itemElem);
+            }
+            
+            // 更新英雄狀態顯示（如果需要）
+            updateChampionStats(index);
+            
+            // 觸發棋盤更新事件
+            document.dispatchEvent(new CustomEvent('boardUpdated'));
         }
-        
-        // 創建裝備元素
-        const itemElement = document.createElement('div');
-        itemElement.className = 'champion-item';
-        
-        const itemImg = document.createElement('img');
-        if (isImageAvailable('items', selectedItem.id)) {
-            itemImg.src = `images/items/${selectedItem.id}.png`;
-        } else {
-            itemImg.src = '/api/placeholder/28/28';
-        }
-        
-        itemImg.alt = selectedItem.name;
-        itemImg.title = selectedItem.name;
-        
-        // 設置錯誤處理函數
-        itemImg.onerror = function() {
-            this.src = '/api/placeholder/28/28';
-        };
-        
-        itemElement.appendChild(itemImg);
-        itemsContainer.appendChild(itemElement);
-        
-        // 更新棋盤數據
-        if (!boardChampions[index].items) {
-            boardChampions[index].items = [];
-        }
-        boardChampions[index].items.push(selectedItem);
-        
-        // 更新英雄狀態顯示（如果需要）
-        updateChampionStats(index);
     }
+}
+
+// 更新英雄狀態顯示
+function updateChampionStats(index) {
+    // 在此處添加英雄狀態變化的邏輯
+    // 例如基於裝備更新生命值、攻擊力等
 }
 
 // 更新特質顯示
@@ -1363,6 +1559,8 @@ function updateTraitDisplay() {
     
     // 更新特質顯示
     const traitsContainer = document.getElementById('traits-container');
+    if (!traitsContainer) return;
+    
     traitsContainer.innerHTML = '';
     
     for (const [traitId, count] of Object.entries(traitCounter)) {
@@ -1422,6 +1620,8 @@ function updateRecommendations() {
     // 現在只是模擬顯示一些推薦
     
     const coreContainer = document.getElementById('core-recommendations');
+    if (!coreContainer) return;
+    
     coreContainer.innerHTML = '<p>基於您當前的陣容，推薦添加：</p>';
     
     // 找出當前陣容中最多的特質
@@ -1458,6 +1658,8 @@ function updateRecommendations() {
     
     // 更新增幅推薦
     const augmentContainer = document.getElementById('augment-recommendations');
+    if (!augmentContainer) return;
+    
     augmentContainer.innerHTML = '<p>推薦增幅選項：</p>';
     
     const list = document.createElement('ul');
@@ -1466,7 +1668,7 @@ function updateRecommendations() {
     
     augmentData.slice(0, 3).forEach(augment => {
         const item = document.createElement('li');
-        item.textContent = `${augment.name} (${augment.tier}級)`;
+        item.textContent = `${augment.name} (${augment.tier === 1 ? '銀級' : augment.tier === 2 ? '金級' : '彩級'})`;
         list.appendChild(item);
     });
     
@@ -1486,8 +1688,14 @@ function clearBoard() {
         boardChampions[i] = null;
     }
     
+    // 清空選中英雄
+    selectedHeroes.length = 0;
+    
     // 更新特質顯示
     updateTraitDisplay();
+    
+    // 觸發棋盤更新事件
+    document.dispatchEvent(new CustomEvent('boardUpdated'));
 }
 
 // 提示框相關函數
@@ -1496,6 +1704,8 @@ let tooltipTimeout;
 
 // 設置提示框內容和顯示位置
 function showTooltip(event, item, type) {
+    if (!tooltip) return;
+    
     // 清除任何可能的懸停延遲
     if (tooltipTimeout) clearTimeout(tooltipTimeout);
     
@@ -1506,6 +1716,12 @@ function showTooltip(event, item, type) {
     const tooltipStats = tooltip.querySelector('.tooltip-stats');
     const tooltipAbility = tooltip.querySelector('.tooltip-ability');
     const tooltipDescription = tooltip.querySelector('.tooltip-description');
+    
+    if (!tooltipIcon || !tooltipTitle || !tooltipCost || !tooltipTraits || 
+        !tooltipStats || !tooltipAbility || !tooltipDescription) {
+        console.error('提示框元素缺失');
+        return;
+    }
     
     // 重置提示框內容
     tooltipTraits.innerHTML = '';
@@ -1595,6 +1811,15 @@ function showTooltip(event, item, type) {
         } else {
             tooltipDescription.textContent = `${item.name}是一個${tierText}增幅裝置，可在對戰中提供特殊效果。`;
         }
+    } else if (type === 'visualization') {
+        // 視覺化工具提示
+        tooltipIcon.src = '/api/placeholder/40/40';
+        tooltipIcon.alt = item.name;
+        
+        tooltipCost.textContent = '視覺化工具';
+        tooltipCost.style.color = '#1E90FF';
+        
+        tooltipDescription.textContent = item.description || `${item.name}是一個視覺化工具，可幫助分析陣容。`;
     }
     
     // 設置提示框位置
@@ -1624,140 +1849,580 @@ function showTooltip(event, item, type) {
 
 // 隱藏提示框
 function hideTooltip() {
+    if (!tooltip) return;
+    
     tooltipTimeout = setTimeout(() => {
         tooltip.style.display = 'none';
     }, 100); // 略微延遲以實現更平滑的過渡
 }
 
-// 獲取物品的屬性加成
-function getItemStats(item) {
-    if (item.stats) {
-        return item.stats;
+// 初始化推薦區域的頁籤
+function initializeRecommendationTabs() {
+    const recommendationContent = document.querySelector('.recommendation-content');
+    if (!recommendationContent) return;
+    
+    // 保存原始內容
+    const originalContent = recommendationContent.innerHTML;
+    
+    // 添加頁籤按鈕
+    const tabsHTML = `
+        <div class="rec-tabs">
+            <button class="rec-tab active" data-tab="original">核心英雄</button>
+            <button class="rec-tab" data-tab="synergy">羈絆分析</button>
+            <button class="rec-tab" data-tab="comps">陣容推薦</button>
+        </div>
+        <div class="tab-content-container">
+            <div id="original-content" class="rec-content-tab active">${originalContent}</div>
+            <div id="synergy-content" class="rec-content-tab"></div>
+            <div id="comps-content" class="rec-content-tab"></div>
+        </div>
+    `;
+    
+    // 替換內容
+    recommendationContent.innerHTML = tabsHTML;
+    
+    // 處理頁籤切換
+    document.querySelectorAll('.rec-tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+            // 切換活動狀態
+            document.querySelectorAll('.rec-tab').forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            
+            // 隱藏所有內容
+            document.querySelectorAll('.rec-content-tab').forEach(c => c.classList.remove('active'));
+            
+            // 顯示選中頁籤內容
+            const tabId = this.getAttribute('data-tab');
+            document.getElementById(`${tabId}-content`).classList.add('active');
+            
+            // 如果是首次載入，初始化內容
+            if (tabId === 'synergy' && document.getElementById('synergy-content').innerHTML === '') {
+                initializeSynergyContent();
+            } else if (tabId === 'comps' && document.getElementById('comps-content').innerHTML === '') {
+                initializeCompsContent();
+            }
+        });
+    });
+}
+
+// 初始化羈絆分析內容
+function initializeSynergyContent() {
+    const content = document.getElementById('synergy-content');
+    if (!content) return;
+    
+    content.innerHTML = `
+        <p>基於當前選擇的英雄，分析羈絆關係：</p>
+        <div class="mini-synergy-chart" id="mini-synergy-chart"></div>
+        <button class="open-visual-btn" onclick="openVisualization('network')">
+            開啟完整羈絆網絡圖
+        </button>
+    `;
+    
+    // 創建簡易羈絆圖
+    createMiniSynergyChart();
+}
+
+// 創建小型羈絆圖
+function createMiniSynergyChart() {
+    const container = document.getElementById('mini-synergy-chart');
+    if (!container) return;
+    
+    // 提取當前棋盤上的英雄特質
+    const activeTraits = {};
+    boardChampions.forEach(champion => {
+        if (champion) {
+            champion.traits.forEach(trait => {
+                activeTraits[trait] = (activeTraits[trait] || 0) + 1;
+            });
+        }
+    });
+    
+    // 創建簡易圖表
+    let html = '<div class="synergy-bars">';
+    
+    for (const [trait, count] of Object.entries(activeTraits)) {
+        if (count > 0) {
+            const traitObj = traitData.find(t => t.name === trait);
+            if (traitObj) {
+                // 計算激活等級
+                let level = 0;
+                for (let i = 0; i < traitObj.levels.length; i++) {
+                    if (count >= traitObj.levels[i]) {
+                        level = i + 1;
+                    } else {
+                        break;
+                    }
+                }
+                
+                // 顏色設置
+                const color = getTierColor(level);
+                
+                // 生成進度條
+                let nextLevel = level < traitObj.levels.length ? traitObj.levels[level] : 999;
+                let progress = level > 0 ? 100 : Math.floor((count / traitObj.levels[0]) * 100);
+                if (level > 0 && level < traitObj.levels.length) {
+                    progress = Math.floor(((count - traitObj.levels[level-1]) / (nextLevel - traitObj.levels[level-1])) * 100);
+                }
+                
+                html += `
+                    <div class="synergy-bar">
+                        <div class="trait-name">${trait} (${count})</div>
+                        <div class="progress-container">
+                            <div class="progress-bar" style="width: ${progress}%; background-color: ${color};"></div>
+                        </div>
+                        <div class="trait-levels">
+                            ${traitObj.levels.map(l => `<span class="${count >= l ? 'active' : ''}">${l}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+        }
     }
     
-    // 如果沒有定義屬性，則返回預設值
-    return {
-        physicalAttack: 0,
-        magicAttack: 0,
-        attackSpeed: 0,
-        abilityPower: 0,
-        physicalDefense: 0,
-        magicDefense: 0,
-        health: 0,
-        critChance: 0
+    html += '</div>';
+    container.innerHTML = html;
+}
+
+// 初始化陣容推薦內容
+function initializeCompsContent() {
+    const content = document.getElementById('comps-content');
+    if (!content) return;
+    
+    content.innerHTML = `
+        <p>基於當前棋盤英雄的推薦陣容：</p>
+        <div id="mini-comp-recommendations"></div>
+        <button class="open-visual-btn" onclick="openVisualization('comps')">
+            查看更多推薦陣容
+        </button>
+    `;
+    
+    // 創建簡易推薦
+    updateCompSuggestions();
+}
+
+// 更新陣容推薦
+async function updateCompSuggestions() {
+    const container = document.getElementById('mini-comp-recommendations');
+    if (!container) return;
+    
+    // 顯示載入中提示
+    container.innerHTML = '<p>載入推薦陣容中...</p>';
+    
+    try {
+        // 獲取匹配的陣容
+        const matchedComps = await findMatchingComps();
+        
+        if (!matchedComps || matchedComps.length === 0) {
+            container.innerHTML = '<p class="no-results">添加更多英雄以獲取推薦</p>';
+            return;
+        }
+        
+        // 只顯示最佳推薦
+        const bestRec = matchedComps[0];
+        
+        // 提取羈絆
+        const traits = extractTraitsFromComp(bestRec.comp);
+        
+        // 生成羈絆標籤
+        const traitTags = traits.map(trait => 
+            `<span class="mini-trait-tag">${trait.name} (${trait.level})</span>`
+        ).join('');
+        
+        // 生成推薦英雄
+        const selectedHeroesSet = new Set(selectedHeroes);
+        let recommendedHeroes = [];
+        
+        if (bestRec.comp.units && Array.isArray(bestRec.comp.units)) {
+            recommendedHeroes = bestRec.comp.units
+                .map(unit => {
+                    const heroName = unit.hero_name ? unit.hero_name.replace(/\([^\)]+\)/g, '').trim() : '';
+                    return heroName;
+                })
+                .filter(hero => hero && !selectedHeroesSet.has(hero))
+                .slice(0, 3); // 只顯示前3個
+        } else if (bestRec.comp.heroes && Array.isArray(bestRec.comp.heroes)) {
+            recommendedHeroes = bestRec.comp.heroes
+                .map(hero => {
+                    const heroName = hero.name ? hero.name.replace(/\([^\)]+\)/g, '').trim() : '';
+                    return heroName;
+                })
+                .filter(hero => hero && !selectedHeroesSet.has(hero))
+                .slice(0, 3); // 只顯示前3個
+        }
+        
+        const heroList = recommendedHeroes.map(hero => 
+            `<div class="mini-hero">${hero}</div>`
+        ).join('');
+        
+        container.innerHTML = `
+            <div class="mini-comp-card">
+                <div class="mini-comp-header">
+                    ${bestRec.comp.comp_name || '推薦陣容'}
+                </div>
+                <div class="mini-traits">${traitTags}</div>
+                <div class="mini-heroes-title">添加這些英雄：</div>
+                <div class="mini-heroes-list">${heroList}</div>
+            </div>
+        `;
+    } catch (error) {
+        console.error('更新陣容推薦時發生錯誤:', error);
+        container.innerHTML = '<p class="error">獲取推薦時發生錯誤，請稍後再試</p>';
+    }
+}
+
+// 初始化視覺化標籤頁
+function initializeVisualizationTab() {
+    // 在底部選單中添加視覺化標籤
+    const menuTabs = document.querySelector('.menu-tabs');
+    if (!menuTabs) return;
+    
+    const newTab = document.createElement('div');
+    newTab.className = 'menu-tab';
+    newTab.setAttribute('data-tab', 'visualizations');
+    newTab.innerHTML = `
+        <img src="/api/placeholder/18/18" alt="視覺化圖示" /> 視覺化
+    `;
+    
+    menuTabs.appendChild(newTab);
+    
+    // 更新標籤切換監聽器
+    menuTabs.querySelectorAll('.menu-tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+            menuTabs.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            currentTab = this.getAttribute('data-tab');
+            loadGridItems(currentTab);
+            
+            // 更新搜索提示
+            const searchInput = document.getElementById('search-input');
+            if (searchInput) {
+                searchInput.placeholder = `搜尋${tabNameToChinese(currentTab)}`;
+            }
+        });
+    });
+}
+
+// 創建模態視窗容器
+function createModalContainer() {
+    // 使用統一的模態窗口管理函數
+    getOrCreateModal('visualization-modal', '視覺化');
+}
+
+// 打開視覺化視窗
+function openVisualization(type) {
+    let title = '視覺化';
+    switch(type) {
+        case 'network': title = '羈絆網絡圖'; break;
+        case 'heatmap': title = '協同熱力圖'; break;
+        case 'strength': title = '強度時間曲線'; break;
+        case 'matrix': title = '裝備推薦矩陣'; break;
+        case 'comps': title = '陣容推薦'; break;
+    }
+    
+    const { modal, container } = getOrCreateModal('visualization-modal', title);
+    
+    // 清空容器
+    container.innerHTML = '<div class="loading">載入中...</div>';
+    
+    // 顯示模態視窗
+    modal.style.display = 'block';
+    
+    // 載入視覺化內容
+    setTimeout(() => {
+        if (type === 'network') {
+            createNetworkGraph(container);
+        } else if (type === 'heatmap') {
+            createHeatmap(container);
+        } else if (type === 'strength') {
+            createStrengthTimeline(container);
+        } else if (type === 'matrix') {
+            createEquipmentMatrix(container);
+        } else if (type === 'comps') {
+            createCompRecommendations(container);
+        }
+    }, 300);
+}
+
+// 創建網絡圖
+function createNetworkGraph(container) {
+    container.innerHTML = '<div id="network-chart" style="width:100%;height:500px;"><p>羈絆網絡圖開發中...</p></div>';
+    // 這裡將來會實現網絡圖的代碼...
+}
+
+// 創建熱力圖
+function createHeatmap(container) {
+    container.innerHTML = '<div id="heatmap-chart" style="width:100%;height:500px;"><p>協同熱力圖開發中...</p></div>';
+    // 這裡實現熱力圖的代碼...
+}
+
+// 創建強度時間曲線
+function createStrengthTimeline(container) {
+    container.innerHTML = '<div id="strength-chart" style="width:100%;height:500px;"><p>強度時間曲線開發中...</p></div>';
+    // 這裡實現時間曲線的代碼...
+}
+
+// 創建裝備推薦矩陣
+function createEquipmentMatrix(container) {
+    container.innerHTML = '<div id="matrix-chart" style="width:100%;height:500px;"><p>裝備推薦矩陣開發中...</p></div>';
+    // 這裡實現裝備矩陣的代碼...
+}
+
+// 創建完整陣容推薦
+function createCompRecommendations(container) {
+    container.innerHTML = '<div id="full-comp-recommendations" style="width:100%;"><p>載入中...</p></div>';
+    
+    // 使用 setTimeout 模擬異步加載
+    setTimeout(async () => {
+        const recContainer = document.getElementById('full-comp-recommendations');
+        if (!recContainer) return;
+        
+        try {
+            // 獲取推薦陣容
+            const recommendations = await findMatchingComps();
+            
+            if (!recommendations || recommendations.length === 0) {
+                recContainer.innerHTML = '<p class="no-results">沒有找到合適的推薦陣容，請添加更多英雄</p>';
+                return;
+            }
+            
+            // 顯示所有推薦
+            let html = '';
+            recommendations.forEach((rec, index) => {
+                const comp = rec.comp;
+                
+                // 提取羈絆
+                const traits = extractTraitsFromComp(comp);
+                
+                // 羈絆標籤
+                const traitTags = traits.map(trait => {
+                    const traitColor = TFTUtils && TFTUtils.getTraitColor ? 
+                        TFTUtils.getTraitColor(trait.name) : '#ccc';
+                    return `<span class="trait-tag" style="background-color: ${traitColor}22; border-color: ${traitColor}">${trait.name} (${trait.level})</span>`;
+                }).join('');
+                
+                // 當前英雄
+                const currentHeroesHTML = selectedHeroes.map(h => 
+                    `<div class="comp-current-hero">${h}</div>`
+                ).join('');
+                
+                // 推薦英雄
+                const selectedHeroesSet = new Set(selectedHeroes);
+                let recommendedHeroes = [];
+                
+                if (comp.units && Array.isArray(comp.units)) {
+                    recommendedHeroes = comp.units
+                        .map(unit => {
+                            if (!unit || !unit.hero_name) return null;
+                            const heroName = unit.hero_name.replace(/\([^\)]+\)/g, '').trim();
+                            const heroId = TFTUtils && TFTUtils.getHeroId ? 
+                                TFTUtils.getHeroId(heroName) : heroName;
+                            const cost = TFTUtils && TFTUtils.getHeroCost ? 
+                                TFTUtils.getHeroCost(heroId) : 1;
+                            return {
+                                name: heroName,
+                                cost: cost,
+                                items: unit.main_items || []
+                            };
+                        })
+                        .filter(hero => hero && !selectedHeroesSet.has(hero.name));
+                } else if (comp.heroes && Array.isArray(comp.heroes)) {
+                    recommendedHeroes = comp.heroes
+                        .map(hero => {
+                            if (!hero || !hero.name) return null;
+                            const heroName = hero.name.replace(/\([^\)]+\)/g, '').trim();
+                            const heroId = TFTUtils && TFTUtils.getHeroId ? 
+                                TFTUtils.getHeroId(heroName) : heroName;
+                            const cost = TFTUtils && TFTUtils.getHeroCost ? 
+                                TFTUtils.getHeroCost(heroId) : 1;
+                            return {
+                                name: heroName,
+                                cost: cost,
+                                items: hero.items || []
+                            };
+                        })
+                        .filter(hero => hero && !selectedHeroesSet.has(hero.name));
+                }
+                
+                const recommendedHeroesHTML = recommendedHeroes.map(hero => {
+                    if (!hero) return '';
+                    
+                    const costClass = `cost-${hero.cost}`;
+                    const itemsHTML = hero.items && hero.items.length > 0 ? 
+                        `<div class="hero-items">${hero.items.join(', ')}</div>` : '';
+                    
+                    return `<div class="comp-recommended-hero ${costClass}">
+                        <div class="hero-name">${hero.name}</div>
+                        ${itemsHTML}
+                    </div>`;
+                }).join('');
+                
+                // 創建卡片內容
+                html += `
+                    <div class="comp-card">
+                        <div class="comp-header">
+                            <h3>${comp.comp_name || `推薦陣容 #${index + 1}`}</h3>
+                            <div class="comp-stats">
+                                <span class="comp-score">評分: ${comp.score || '未評分'}</span>
+                                <span class="placement">平均名次: ${comp.avg_placement || '未知'}</span>
+                            </div>
+                        </div>
+                        <div class="comp-description">
+                            <p>${comp.prerequisites || '這是一個基於您當前選擇的推薦陣容。'}</p>
+                        </div>
+                        <div class="comp-traits">
+                            ${traitTags}
+                        </div>
+                        <div class="comp-heroes">
+                            <div class="comp-current">
+                                <h4>當前英雄</h4>
+                                <div class="comp-heroes-list">${currentHeroesHTML}</div>
+                            </div>
+                            <div class="comp-recommended">
+                                <h4>推薦添加</h4>
+                                <div class="comp-heroes-list">${recommendedHeroesHTML}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            recContainer.innerHTML = html;
+        } catch (error) {
+            console.error('加載陣容推薦時發生錯誤:', error);
+            recContainer.innerHTML = '<p class="error">加載陣容推薦時發生錯誤</p>';
+        }
+    }, 500);
+}
+
+// 顯示陣容詳情
+function showCompDetail(compJson) {
+    try {
+        // 解析陣容數據
+        const comp = JSON.parse(decodeURIComponent(compJson));
+        
+        // 獲取模態窗口
+        const { modal, container } = getOrCreateModal('comp-detail-modal', '陣容詳情');
+        
+        // 提取羈絆信息
+        const traits = extractTraitsFromComp(comp);
+        
+        // 獲取英雄列表
+        let heroes = [];
+        if (comp.units && Array.isArray(comp.units)) {
+            heroes = comp.units.map(unit => {
+                if (!unit || !unit.hero_name) return null;
+                const heroName = unit.hero_name.replace(/\([^\)]+\)/g, '').trim();
+                return {
+                    name: heroName,
+                    items: unit.main_items || [],
+                    cost: getCostByHeroName(heroName)
+                };
+            }).filter(hero => hero);
+        } else if (comp.heroes && Array.isArray(comp.heroes)) {
+            heroes = comp.heroes.map(hero => {
+                if (!hero || !hero.name) return null;
+                const heroName = hero.name.replace(/\([^\)]+\)/g, '').trim();
+                return {
+                    name: heroName,
+                    items: hero.items || [],
+                    cost: getCostByHeroName(heroName)
+                };
+            }).filter(hero => hero);
+        }
+        
+        // 創建詳情HTML
+        let html = `
+            <div class="comp-detail">
+                <div class="comp-traits-section">
+                    <h3>核心羈絆</h3>
+                    <div class="detailed-traits">
+                        ${traits.map(trait => `
+                            <div class="detailed-trait">
+                                <span class="trait-name">${trait.name}</span>
+                                <span class="trait-level">(${trait.level})</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                
+                <div class="comp-heroes-section">
+                    <h3>陣容英雄</h3>
+                    <div class="detailed-heroes">
+                        ${heroes.map(hero => `
+                            <div class="detailed-hero cost-${hero.cost || 1}">
+                                <div class="hero-name">${hero.name}</div>
+                                <div class="hero-items">
+                                    ${hero.items.map(item => `<span class="item-tag">${item}</span>`).join('')}
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        container.innerHTML = html;
+        
+        // 顯示模態窗口
+        modal.style.display = 'block';
+    } catch (error) {
+        console.error('顯示陣容詳情時發生錯誤:', error);
+        alert('顯示陣容詳情時發生錯誤，請稍後再試');
+    }
+}
+
+// 根據英雄名稱獲取費用
+function getCostByHeroName(heroName) {
+    // 費用對應表
+    const costMap = {
+        // 1費英雄
+        "亞歷斯塔": 1, "奈德麗": 1, "寇格魔": 1, "枷蘿": 1, "波比": 1, 
+        "瑟菈紛": 1, "菲艾": 1, "蒙多醫生": 1, "薩科": 1, "賈克斯": 1, 
+        "賽勒斯": 1, "鏡爪": 1, "魔甘娜": 1,
+        
+        // 2費英雄
+        "伊羅旖": 2, "勒哈斯特": 2, "勒布朗": 2, "娜菲芮": 2, "希瓦娜": 2,
+        "汎": 2, "燼": 2, "維迦": 2, "艾克": 2, "葛雷夫": 2,
+        "逆命": 2, "達瑞斯": 2,
+        
+        // 3費英雄
+        "伊莉絲": 3, "加里歐": 3, "古拉格斯": 3, "吉茵珂絲": 3, "嘉文四世": 3,
+        "姍娜": 3, "布朗姆": 3, "悠咪": 3, "法洛士": 3, "達瑞文": 3,
+        "雷葛爾": 3, "魔鬥凱薩": 3,
+        
+        // 4費英雄
+        "亞菲利歐": 4, "剎雅": 4, "劫": 4, "史瓦妮": 4, "好運姐": 4,
+        "妮可": 4, "婕莉": 4, "安妮": 4, "布蘭德": 4, "希格斯": 4,
+        "薇可斯": 4, "雷歐娜": 4,
+        
+        // 5費英雄
+        "札克": 5, "柯布柯": 5, "歐羅拉": 5, "煞蜜拉": 5, "維爾戈": 5,
+        "蓋倫": 5, "雷尼克頓": 5
     };
-}
-
-function getItemDescription(item) {
-    return item.description || `${item.name}是一件${item.type}類型的裝備。`;
-}
-
-// 獲取物品的功能描述
-function getItemDescription(item) {
-    // 這是一個示例函數，應該根據實際的物品數據來實現
-    // 在實際使用中，描述應該定義在物品數據中
     
-    switch(item.id) {
-        case 'Infinity Edge':
-            return '增加暴擊傷害50%，並提高暴擊率。普通攻擊有25%機率造成175%傷害。';
-        case "Rabadon's Deathcap":
-            return '增加40%法術強度。';
-        case "Warmog's Armor":
-            return '每秒恢復2%最大生命值。';
-        case 'Bloodthirster':
-            return '攻擊會恢復33%傷害的生命值。落到30%生命值以下時，獲得一個持續4秒的護盾。';
-        case 'Statikk Shiv':
-            return '每第三次攻擊會發射一道鏈狀閃電，對3個敵人造成70魔法傷害，並減少敵人40%魔法抗性5秒。';
-        case "Dragon's Claw":
-            return '增加魔法抗性，並在戰鬥開始時獲得一個吸收400魔法傷害的護盾。';
-        case 'Titan\'s Resolve':
-            return '每次被擊中或攻擊時，獲得2%攻擊和2%法術強度，最多堆疊25次。滿層時，增加25點護甲和魔抗。';
-        default:
-            return `${item.name}是一件${item.type}類型的裝備，提供獨特的戰鬥能力。裝備在英雄身上可以增強其能力，並且某些裝備組合可以產生更強大的效果。`;
+    return costMap[heroName] || 1;
+}
+
+// 從陣容中提取羈絆信息
+function extractTraitsFromComp(comp) {
+    const traitInfo = [];
+    
+    if (comp.traits) {
+        // 如果直接有traits屬性
+        for (const [traitName, level] of Object.entries(comp.traits)) {
+            traitInfo.push({ name: traitName, level });
+        }
+    } else if (comp.trait_counts) {
+        // 另一種可能的格式
+        for (const [traitName, level] of Object.entries(comp.trait_counts)) {
+            traitInfo.push({ name: traitName, level });
+        }
+    } else if (comp.active_traits && Array.isArray(comp.active_traits)) {
+        // 又一種可能的格式
+        comp.active_traits.forEach(trait => {
+            traitInfo.push({ name: trait.name, level: trait.tier_current });
+        });
     }
-}
-
-// 獲取增幅的描述
-function getAugmentDescription(item) {
-    // 示例函數，實際應該從增幅數據中獲取
-    switch(item.id) {
-        case 'Ones Twos Three':
-            return '在每個玩家階段開始時，獲得1個1費單位、1個2費單位和1個3費單位。';
-        case 'One Two Five!':
-            return '在每個玩家階段開始時，獲得1個1費單位、1個2費單位和1個5費單位。';
-        case 'Find Your Center':
-            return '你的英雄們獲得10%生命值和5%攻擊力。';
-        default:
-            return `${item.name}是一個${item.tier === 1 ? '銀級' : item.tier === 2 ? '金級' : '彩級'}增幅裝置，提供強大的戰鬥加成或特殊效果，幫助你在對戰中取得優勢。`;
-    }
-}
-
-// 隱藏提示框
-function hideTooltip() {
-    tooltipTimeout = setTimeout(() => {
-        tooltip.style.display = 'none';
-    }, 100); // 略微延遲以實現更平滑的過渡
-}
-
-function createChampionGridItem(champion) {
-    const gridItem = document.createElement('div');
-    gridItem.className = 'grid-item';
-    gridItem.dataset.id = champion.id;
     
-    // 添加背景顏色以反映英雄費用
-    gridItem.style.backgroundColor = getCostBackgroundColor(champion.cost);
-    gridItem.style.boxShadow = `0 0 5px ${getCostColor(champion.cost)}`;
-    
-    const img = document.createElement('img');
-    img.src = isImageAvailable('champions', champion.id) ? `images/champions/${champion.id}.png` : '/api/placeholder/40/40';
-    img.alt = champion.name;
-    img.title = champion.name;
-    
-    gridItem.appendChild(img);
-    
-    const name = document.createElement('div');
-    name.className = 'item-name';
-    name.textContent = champion.name;
-    name.style.color = getCostTextColor(champion.cost);
-    gridItem.appendChild(name);
-    
-    // 添加點擊事件
-    gridItem.addEventListener('click', function() {
-        selectItem(champion, 'champions');
-    });
-    
-    // 添加滑鼠懸停事件
-    gridItem.addEventListener('mouseenter', function(event) {
-        showTooltip(event, champion, 'champions');
-    });
-    
-    gridItem.addEventListener('mouseleave', function() {
-        hideTooltip();
-    });
-    
-    return gridItem;
-}
-
-// 根據費用獲取背景顏色
-function getCostBackgroundColor(cost) {
-    switch (cost) {
-        case 1: return '#2A2A2A'; // 灰色背景 - 一費
-        case 2: return '#213824'; // 深綠色背景 - 二費
-        case 3: return '#1A2940'; // 深藍色背景 - 三費
-        case 4: return '#2A1A33'; // 深紫色背景 - 四費
-        case 5: return '#332B1A'; // 深金色背景 - 五費
-        default: return '#2A2A3A';
-    }
-}
-
-// 根據費用獲取文字顏色
-function getCostTextColor(cost) {
-    switch (cost) {
-        case 1: return '#BBBBBB'; // 灰色文字 - 一費
-        case 2: return '#7FC97F'; // 綠色文字 - 二費
-        case 3: return '#386CB0'; // 藍色文字 - 三費
-        case 4: return '#F0027F'; // 紫色文字 - 四費
-        case 5: return '#FFD700'; // 金色文字 - 五費
-        default: return '#FFFFFF';
-    }
+    return traitInfo;
 }

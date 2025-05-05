@@ -551,3 +551,491 @@ body {
     align-items: center;
     overflow: hidden;
 }
+
+/* 推薦區域頁籤 */
+.rec-tabs {
+    display: flex;
+    border-bottom: 1px solid #333;
+    margin-bottom: 10px;
+}
+
+.rec-tab {
+    background: none;
+    border: none;
+    color: #AAA;
+    padding: 5px 10px;
+    margin-right: 5px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.rec-tab.active {
+    color: #E8E6E3;
+    border-bottom: 2px solid #876A3B;
+}
+
+.rec-content-tab {
+    display: none;
+}
+
+.rec-content-tab.active {
+    display: block;
+}
+
+/* 視覺化卡片 */
+.visual-card {
+    transition: transform 0.2s;
+}
+
+.visual-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(135, 106, 59, 0.4);
+}
+
+/* 模態視窗 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+}
+
+.modal-content {
+    background-color: #1E1E2E;
+    margin: 5% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 1200px;
+    max-height: 80vh;
+    overflow: auto;
+}
+
+.close-modal {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-modal:hover {
+    color: #E8E6E3;
+}
+
+#visualization-container {
+    width: 100%;
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #1A1A28;
+    border-radius: 5px;
+}
+
+/* 羈絆進度條 */
+.synergy-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.synergy-bar {
+    background-color: #1A1A28;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.trait-name {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.progress-container {
+    width: 100%;
+    height: 10px;
+    background-color: #2A2A3A;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    transition: width 0.3s;
+}
+
+.trait-levels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+    font-size: 12px;
+}
+
+.trait-levels span {
+    color: #888;
+}
+
+.trait-levels span.active {
+    color: #E8E6E3;
+}
+
+/* 迷你推薦卡片 */
+.mini-comp-card {
+    background-color: #1A1A28;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.mini-comp-header {
+    font-weight: bold;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 5px;
+}
+
+.mini-traits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.mini-trait-tag {
+    background-color: #2A2A3A;
+    padding: 3px 6px;
+    border-radius: 12px;
+    font-size: 11px;
+}
+
+.mini-heroes-title {
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.mini-heroes-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.mini-hero {
+    background-color: #2A2A3A;
+    padding: 5px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.open-visual-btn {
+    margin-top: 15px;
+    padding: 8px 12px;
+    background-color: #876A3B;
+    color: #E8E6E3;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    width: 100%;
+}
+
+.open-visual-btn:hover {
+    background-color: #9D7B44;
+}
+
+/* 完整陣容推薦 */
+.comp-card {
+    background-color: #1A1A28;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.comp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.comp-header h3 {
+    margin: 0;
+}
+
+.comp-stats {
+    display: flex;
+    gap: 15px;
+    font-size: 12px;
+}
+
+.comp-score {
+    color: #FFD700;
+}
+
+.comp-description {
+    font-size: 14px;
+    color: #AAA;
+    margin-bottom: 15px;
+}
+
+.comp-traits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.trait-tag {
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    border: 1px solid;
+}
+
+.comp-heroes {
+    display: flex;
+    gap: 20px;
+}
+
+.comp-current, .comp-recommended {
+    flex: 1;
+}
+
+.comp-heroes h4 {
+    margin-bottom: 10px;
+}
+
+.comp-heroes-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.comp-current-hero {
+    background-color: #2A2A3A;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+.comp-recommended-hero {
+    background-color: #2A2A3A;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+.comp-recommended-hero .hero-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.comp-recommended-hero .hero-items {
+    font-size: 11px;
+    color: #AAA;
+}
+
+/* 費用顏色 */
+.cost-1 {
+    background-color: #2A2A2A;
+}
+
+.cost-2 {
+    background-color: #213824;
+}
+
+.cost-3 {
+    background-color: #1A2940;
+}
+
+.cost-4 {
+    background-color: #2A1A33;
+}
+
+.cost-5 {
+    background-color: #332B1A;
+}
+
+/* 頁籤樣式 */
+.rec-tabs {
+    display: flex;
+    border-bottom: 1px solid #333;
+    margin-bottom: 10px;
+}
+
+.rec-tab {
+    padding: 8px 12px;
+    background: none;
+    border: none;
+    color: #AAA;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+}
+
+.rec-tab.active {
+    color: #E8E6E3;
+    border-bottom: 2px solid #876A3B;
+}
+
+.rec-content-tab {
+    display: none;
+}
+
+.rec-content-tab.active {
+    display: block;
+}
+
+/* 陣容卡片樣式 */
+.comp-card {
+    background-color: #1A1A28;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.comp-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.comp-name {
+    font-weight: bold;
+}
+
+.match-score {
+    color: #876A3B;
+    font-size: 12px;
+}
+
+.comp-traits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.trait-tag {
+    background-color: #2A2A3A;
+    padding: 3px 6px;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+.section-title {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 5px;
+}
+
+.heroes-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.hero-tag {
+    background-color: #333;
+    padding: 3px 6px;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+.view-comp-detail {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #876A3B;
+    color: #E8E6E3;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    width: 100%;
+}
+
+/* 模態窗口樣式 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+}
+
+.modal-content {
+    background-color: #1E1E2E;
+    margin: 5% auto;
+    padding: 20px;
+    width: 80%;
+    max-width: 800px;
+    border-radius: 5px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.close-modal {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.detailed-traits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.detailed-trait {
+    background-color: #2A2A3A;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.trait-level {
+    color: #876A3B;
+    margin-left: 5px;
+}
+
+.detailed-heroes {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+    margin: 15px 0;
+}
+
+.detailed-hero {
+    background-color: #2A2A3A;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.hero-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.cost-1 .hero-name { color: #9E9E9E; }
+.cost-2 .hero-name { color: #7FC97F; }
+.cost-3 .hero-name { color: #386CB0; }
+.cost-4 .hero-name { color: #F0027F; }
+.cost-5 .hero-name { color: #FFD700; }
+
+.hero-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+}
+
+.item-tag {
+    background-color: #444;
+    padding: 2px 4px;
+    border-radius: 2px;
+    font-size: 11px;
+}

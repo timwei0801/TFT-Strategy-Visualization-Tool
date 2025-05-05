@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TFT S14「機動魔都」戰術推薦視覺化系統</title>
+    <link rel="stylesheet" href="assets/css/integrated.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- 頂部資訊欄 -->
+        <header class="top-info">
+            <h1>TFT S14「機動魔都」戰術推薦視覺化系統</h1>
+            <div class="version-info">版本: 14.0</div>
+        </header>
+        
+        <!-- 主選單頁籤 -->
+        <div class="main-tabs">
+            <button class="tab-btn active" data-tab="board">棋盤編輯</button>
+            <button class="tab-btn" data-tab="analysis">羈絆分析</button>
+            <button class="tab-btn" data-tab="recommendations">陣容推薦</button>
+            <button class="tab-btn" data-tab="data">數據統計</button>
+        </div>
+        
+        <!-- 主要內容區 -->
+        <div class="tab-content">
+            <!-- 棋盤編輯頁籤 -->
+            <div id="board" class="tab-pane active">
+                <div class="board-layout">
+                    <!-- 左側陣容資訊 -->
+                    <div class="team-info">
+                        <h3>陣容</h3>
+                        <div class="team-info-content">
+                            <p>放置英雄以激活羈絆作用。</p>
+                            <div class="traits-container" id="traits-container">
+                                <!-- 特質會動態添加在這裡 -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 中間棋盤區域 -->
+                    <div class="board-container">
+                        <div class="board-label">棋盤</div>
+                        <div class="hexagon-board" id="hexagon-board">
+                            <!-- 六角形格子會動態生成 -->
+                        </div>
+                        <div class="board-instructions">
+                            <p>• 拖動或左鍵單擊，將英雄和裝備放置到佈局上。</p>
+                            <p>• 右鍵選擇取消選擇英雄和裝備。</p>
+                        </div>
+                        <div class="board-buttons">
+                            <button id="clear-board"><img src="/api/placeholder/18/18" alt="清除圖示" /> 清除面板</button>
+                            <button id="save-image"><img src="/api/placeholder/18/18" alt="儲存圖示" /> 儲存圖像</button>
+                        </div>
+                    </div>
+                    
+                    <!-- 右側推薦區 -->
+                    <div class="recommendation">
+                        <h3>核心英雄與道具</h3>
+                        <div class="recommendation-content">
+                            <p>從清單中拖動核心冠軍。</p>
+                            <div id="core-recommendations">
+                                <!-- 推薦內容會動態生成 -->
+                            </div>
+                            <h3 style="margin-top: 20px;">增幅裝置</h3>
+                            <p>從下面的增幅表中拖動建議的增幅。</p>
+                            <div id="augment-recommendations">
+                                <!-- 增幅推薦會動態生成 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 底部選單欄 -->
+                <div class="bottom-menu">
+                    <div class="menu-tabs">
+                        <div class="menu-tab active" data-tab="champions">
+                            <img src="/api/placeholder/18/18" alt="英雄圖示" /> 英雄
+                        </div>
+                        <div class="menu-tab" data-tab="items">
+                            <img src="/api/placeholder/18/18" alt="道具圖示" /> 道具
+                        </div>
+                        <div class="menu-tab" data-tab="augments">
+                            <img src="/api/placeholder/18/18" alt="增幅圖示" /> 增幅裝置
+                        </div>
+                    </div>
+                    
+                    <div class="menu-filter">
+                        <div class="filter-box">
+                            <div class="search-box">
+                                <img src="/api/placeholder/16/16" alt="搜尋圖示" />
+                                <input type="text" id="search-input" placeholder="搜尋英雄">
+                            </div>
+                            <div class="filter-buttons" id="filter-buttons">
+                                <!-- 過濾按鈕會根據當前標籤動態生成 -->
+                            </div>
+                        </div>
+                        <button class="clear-button" id="clear-filter">清除</button>
+                    </div>
+                    
+                    <div class="items-grid" id="items-grid">
+                        <!-- 物品格會動態生成 -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 羈絆分析頁籤 -->
+            <div id="analysis" class="tab-pane">
+                <div class="analysis-container">
+                    <div class="analysis-sidebar">
+                        <h3>羈絆篩選</h3>
+                        <select id="trait-filter">
+                            <option value="all">全部羈絆</option>
+                            <!-- 羈絆選項會動態添加 -->
+                        </select>
+                        
+                        <h3 class="mt-20">選擇分析視圖</h3>
+                        <div class="view-selector">
+                            <button class="view-btn active" data-view="network">羈絆網絡圖</button>
+                            <button class="view-btn" data-view="heatmap">協同熱力圖</button>
+                            <button class="view-btn" data-view="strength">強度時間曲線</button>
+                        </div>
+                        
+                        <div class="selected-heroes-box">
+                            <h3>當前選擇的英雄</h3>
+                            <div class="selected-heroes" id="analysis-selected-heroes">
+                                <!-- 選擇的英雄會動態添加 -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-content">
+                        <div id="network-chart" class="analysis-view active"></div>
+                        <div id="heatmap-chart" class="analysis-view">
+                            <p class="placeholder-text">特質協同熱力圖開發中...</p>
+                        </div>
+                        <div id="strength-chart" class="analysis-view">
+                            <p class="placeholder-text">陣容強度時間曲線開發中...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 陣容推薦頁籤 -->
+            <div id="recommendations" class="tab-pane">
+                <div class="recommendations-container">
+                    <div class="recommendations-header">
+                        <h3>基於您的選擇推薦的陣容</h3>
+                        <div class="hero-selection">
+                            <div class="search-box">
+                                <input type="text" id="hero-search" placeholder="搜尋英雄...">
+                                <button id="add-hero">添加</button>
+                            </div>
+                            <div class="selected-heroes" id="recommendation-selected-heroes"></div>
+                            <button id="recommend-btn">推薦陣容</button>
+                        </div>
+                    </div>
+                    
+                    <div id="comp-recommendations" class="comp-recommendations">
+                        <!-- 陣容推薦會動態生成 -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 數據統計頁籤 -->
+            <div id="data" class="tab-pane">
+                <div class="data-container">
+                    <h3>數據統計與分析</h3>
+                    <p class="placeholder-text">數據統計模塊開發中...</p>
+                    
+                    <!-- 裝備推薦矩陣預留位置 -->
+                    <div class="equipment-matrix">
+                        <h3>裝備推薦矩陣</h3>
+                        <div id="equipment-matrix-chart">
+                            <p class="placeholder-text">裝備推薦矩陣開發中...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 懸停提示框 -->
+        <div id="tooltip" class="tooltip">
+            <div class="tooltip-header">
+                <img src="" alt="" class="tooltip-icon">
+                <div class="tooltip-title"></div>
+                <div class="tooltip-cost"></div>
+            </div>
+            <div class="tooltip-traits"></div>
+            <div class="tooltip-stats"></div>
+            <div class="tooltip-ability"></div>
+            <div class="tooltip-description"></div>
+        </div>
+    </div>
+    
+    <!-- 載入必要的JavaScript文件 -->
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/integrated.js"></script>
+</body>
+</html>
