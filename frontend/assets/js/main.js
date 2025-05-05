@@ -842,6 +842,26 @@ function isImageAvailable(type, id) {
     return availableImages[type] && availableImages[type].includes(id);
 }
 
+function handleMissingIcons() {
+    // 處理選單圖標
+    document.querySelectorAll('.menu-tab img, .board-buttons img').forEach(img => {
+        img.onerror = function() {
+            this.src = '/api/placeholder/18/18';
+            this.onerror = null;
+        };
+    });
+    
+    // 處理搜索圖標
+    const searchIcon = document.querySelector('.search-box img');
+    if (searchIcon) {
+        searchIcon.onerror = function() {
+            this.src = '/api/placeholder/16/16';
+            this.onerror = null;
+        };
+    }
+}
+
+
 // 統一的模態窗口管理函數
 function getOrCreateModal(id, title) {
     let modal = document.getElementById(id);
@@ -911,7 +931,10 @@ document.addEventListener('DOMContentLoaded', async function() {
     
     // 創建模態視窗容器
     createModalContainer();
-    
+
+    // 處理缺失的圖標
+    handleMissingIcons();
+
     // 加載陣容數據
     try {
         compData = await loadCompData();
