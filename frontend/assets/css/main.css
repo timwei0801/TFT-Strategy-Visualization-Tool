@@ -641,7 +641,7 @@ body {
     background-color: #2A2A3A;
     padding: 2px 6px;
     border-radius: 4px;
-    font-size: 12px;
+    font-size: 18px;
 }
 
 .tooltip-stats {
@@ -652,7 +652,7 @@ body {
 }
 
 .tooltip-stat {
-    font-size: 12px;
+    font-size: 16px;
 }
 
 .tooltip-ability {
@@ -667,7 +667,7 @@ body {
 }
 
 .tooltip-description {
-    font-size: 12px;
+    font-size: 18px;
     color: #BBB;
     line-height: 1.4;
 }

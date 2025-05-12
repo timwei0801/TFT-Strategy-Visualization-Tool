@@ -819,6 +819,12 @@ const augmentData = [
     { id: 'hk', name: '模控機械批量 III', tier: 3, description: '裝備一件道具的英雄增加500生命。' },
 ];
 
+const BLANK_IMAGE_40 = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBmaWxsPSIjMzMzIiBzdHJva2U9IiM2NjYiIHN0cm9rZS13aWR0aD0iMSIvPjwvc3ZnPg==';
+const BLANK_IMAGE_24 = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiBmaWxsPSIjMzMzIiBzdHJva2U9IiM2NjYiIHN0cm9rZS13aWR0aD0iMSIvPjwvc3ZnPg==';
+const BLANK_IMAGE_20 = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIiBmaWxsPSIjMzMzIiBzdHJva2U9IiM2NjYiIHN0cm9rZS13aWR0aD0iMSIvPjwvc3ZnPg==';
+const BLANK_IMAGE_18 = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIiBmaWxsPSIjMzMzIiBzdHJva2U9IiM2NjYiIHN0cm9rZS13aWR0aD0iMSIvPjwvc3ZnPg==';
+
+
 // 新增: 定義全局變數
 const selectedHeroes = []; // 存儲選中的英雄名稱
 let compData = null; // 全局陣容數據
@@ -846,7 +852,7 @@ function handleMissingIcons() {
     // 處理選單圖標
     document.querySelectorAll('.menu-tab img, .board-buttons img').forEach(img => {
         img.onerror = function() {
-            this.src = '/api/placeholder/18/18';
+            this.src = BLANK_IMAGE; // 使用空白方框
             this.onerror = null;
         };
     });
@@ -855,12 +861,11 @@ function handleMissingIcons() {
     const searchIcon = document.querySelector('.search-box img');
     if (searchIcon) {
         searchIcon.onerror = function() {
-            this.src = '/api/placeholder/16/16';
+            this.src = BLANK_IMAGE
             this.onerror = null;
         };
     }
 }
-
 
 // 統一的模態窗口管理函數
 function getOrCreateModal(id, title) {
@@ -927,7 +932,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     initializeRecommendationTabs();
     
     // 初始化視覺化標籤頁
-    initializeVisualizationTab();
+    //initializeVisualizationTab();
     
     // 創建模態視窗容器
     createModalContainer();
@@ -1242,7 +1247,7 @@ function loadGridItems(tab) {
             const card = document.createElement('div');
             card.className = 'grid-item visual-card';
             card.innerHTML = `
-                <img src="/api/placeholder/40/40" alt="${option.name}" />
+                <img src=BLANK_IMAGE_40 alt="${option.name}" />
                 <div class="item-name">${option.name}</div>
             `;
             
@@ -1347,13 +1352,13 @@ function createChampionGridItem(champion) {
     gridItem.style.boxShadow = `0 0 5px ${getCostColor(champion.cost)}`;
     
     const img = document.createElement('img');
-    img.src = isImageAvailable('champions', champion.id) ? `images/champions/${champion.id}.png` : '/api/placeholder/40/40';
+    img.src = isImageAvailable('champions', champion.id) ? `images/champions/${champion.id}.png` : BLANK_IMAGE_40;
     img.alt = champion.name;
     img.title = champion.name;
     
     // 設置錯誤處理
     img.onerror = function() {
-        this.src = '/api/placeholder/40/40';
+        this.src = BLANK_IMAGE
         this.onerror = null; // 防止無限循環
     };
     
@@ -1413,18 +1418,18 @@ function createItemGridItem(item, type) {
     const img = document.createElement('img');
     if (type === 'items') {
         // 修改圖片路徑處理
-        img.src = isImageAvailable('items', item.id) ? `images/items/${item.id}.png` : '/api/placeholder/40/40';
+        img.src = isImageAvailable('items', item.id) ? `images/items/${item.id}.png` : BLANK_IMAGE_40;
     } else if (type === 'augments') {
-        img.src = isImageAvailable('augments', item.id) ? `images/augments/${item.id}.png` : '/api/placeholder/40/40';
+        img.src = isImageAvailable('augments', item.id) ? `images/augments/${item.id}.png` : BLANK_IMAGE_40;
     } else if (type === 'visualization') {
-        img.src = '/api/placeholder/40/40'; // 視覺化使用佔位符
+        img.src = BLANK_IMAGE_40; // 視覺化使用佔位符
     }
     img.alt = item.name;
     img.title = item.name;
 
     // 確保錯誤處理使用絕對路徑
     img.onerror = function() {
-        this.src = '/api/placeholder/40/40';
+        this.src = BLANK_IMAGE;
         this.onerror = null; // 防止無限循環
     };
     
@@ -1475,7 +1480,7 @@ function placeSelectedItem(index) {
         if (isImageAvailable('champions', selectedItem.id)) {
             img.src = `images/champions/${selectedItem.id}.png`;
         } else {
-            img.src = '/api/placeholder/40/40';
+            img.src = BLANK_IMAGE_40;
         }
         
         img.alt = selectedItem.name;
@@ -1483,7 +1488,7 @@ function placeSelectedItem(index) {
         
         // 設置錯誤處理函數
         img.onerror = function() {
-            this.src = '/api/placeholder/40/40';
+            this.src = BLANK_IMAGE;
             this.onerror = null; // 防止無限循環
         };
         
@@ -1535,10 +1540,10 @@ function placeSelectedItem(index) {
                 const itemImg = document.createElement('img');
                 itemImg.src = isImageAvailable('items', selectedItem.id) 
                     ? `images/items/${selectedItem.id}.png` 
-                    : '/api/placeholder/20/20';
+                    : BLANK_IMAGE_20;
                 
                 itemImg.onerror = function() {
-                    this.src = '/api/placeholder/20/20';
+                    this.src = BLANK_IMAGE;
                     this.onerror = null;
                 };
                 
@@ -1785,7 +1790,7 @@ function showTooltip(event, item, type) {
         // 設置英雄圖示
         tooltipIcon.src = isImageAvailable('champions', item.id) 
             ? `images/champions/${item.id}.png` 
-            : '/api/placeholder/40/40';
+            : BLANK_IMAGE_40;
         tooltipIcon.alt = item.name;
         
         // 設置英雄費用
@@ -1804,7 +1809,7 @@ function showTooltip(event, item, type) {
         // 設置物品圖示
         tooltipIcon.src = isImageAvailable('items', item.id) 
             ? `images/items/${item.id}.png` 
-            : '/api/placeholder/40/40';
+            : BLANK_IMAGE_40;
         tooltipIcon.alt = item.name;
         
         // 設置物品類型
@@ -1839,7 +1844,7 @@ function showTooltip(event, item, type) {
         // 設置增幅圖示
         tooltipIcon.src = isImageAvailable('augments', item.id) 
             ? `images/augments/${item.id}.png` 
-            : '/api/placeholder/40/40';
+            : BLANK_IMAGE_40;
         tooltipIcon.alt = item.name;
         
         // 設置增幅等級
@@ -1861,7 +1866,7 @@ function showTooltip(event, item, type) {
         }
     } else if (type === 'visualization') {
         // 視覺化工具提示
-        tooltipIcon.src = '/api/placeholder/40/40';
+        tooltipIcon.src = BLANK_IMAGE_40;
         tooltipIcon.alt = item.name;
         
         tooltipCost.textContent = '視覺化工具';
@@ -2128,7 +2133,7 @@ function initializeVisualizationTab() {
     newTab.className = 'menu-tab';
     newTab.setAttribute('data-tab', 'visualizations');
     newTab.innerHTML = `
-        <img src="/api/placeholder/18/18" alt="視覺化圖示" /> 視覺化
+        <img src=BLANK_IMAGE_18 alt="視覺化圖示" /> 視覺化
     `;
     
     menuTabs.appendChild(newTab);
@@ -2624,7 +2629,7 @@ function createCompCard(recommendation) {
         const championData = getTFChampionData(hero);
         return `
             <div class="champion-item">
-                <img src="${championData.imgSrc || '/api/placeholder/40/40'}" alt="${hero}">
+                <img src="${championData.imgSrc || BLANK_IMAGE_40}" alt="${hero}">
                 <div class="champion-name">${hero}</div>
             </div>
         `;
@@ -2668,10 +2673,10 @@ function getTFChampionData(heroName) {
             name: champion.name,
             imgSrc: isImageAvailable('champions', champion.id) 
                 ? `images/champions/${champion.id}.png` 
-                : '/api/placeholder/40/40'
+                : BLANK_IMAGE_40
         };
     }
-    return { name: heroName, imgSrc: '/api/placeholder/40/40' };
+    return { name: heroName, imgSrc: BLANK_IMAGE_40 };
 }
 
 // 頁籤切換功能
