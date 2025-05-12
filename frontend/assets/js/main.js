@@ -182,7 +182,7 @@ const traitData = [
     { id: 'Stree Demon', name: '街頭狂魔', levels: [3, 5, 7, 10] },
     { id: 'A.M.P.', name: 'A.M.P.', levels: [2, 3, 4, 5] },
     { id: 'Marksman', name: '射手', levels: [2, 4] },
-    { id: 'BoomBot', name: '末日機器人', levels: [2, 4] },
+    { id: 'BoomBot', name: '末日機器人', levels: [2, 4, 6] },
     { id: 'Exotech', name: '極限科技', levels: [3, 5, 7, 10] },
     { id: 'Dynamo', name: '發電機', levels: [2, 3, 4] },
     { id: 'Cypher', name: '破譯師', levels: [3, 4, 5] },
@@ -1160,8 +1160,8 @@ function loadGridItems(tab) {
             const championsRow = document.createElement('div');
             championsRow.className = 'champions-row';
             championsRow.style.display = 'grid';
-            championsRow.style.gridTemplateColumns = 'repeat(auto-fill, minmax(55px, 1fr))';
-            championsRow.style.gap = '10px';
+            championsRow.style.gridTemplateColumns = 'repeat(auto-fill, minmax(95px, 1fr))';
+            championsRow.style.gap = '15px';
             
             // 添加英雄
             filteredChampions.forEach(champion => {
@@ -1211,7 +1211,7 @@ function loadGridItems(tab) {
                 const championsRow = document.createElement('div');
                 championsRow.className = 'champions-row';
                 championsRow.style.display = 'grid';
-                championsRow.style.gridTemplateColumns = 'repeat(auto-fill, minmax(55px, 1fr))';
+                championsRow.style.gridTemplateColumns = 'repeat(auto-fill, minmax(95px, 1fr))';
                 championsRow.style.gap = '10px';
                 championsRow.style.marginBottom = '5px';
                 
@@ -1498,7 +1498,7 @@ function placeSelectedItem(index) {
         
         // 為此英雄創建一個裝備容器
         const itemsContainer = document.createElement('div');
-        itemsContainer.className = 'champion-items';
+        itemsContainer.className = 'equipment-items';
         hexagon.appendChild(itemsContainer);
         
         hexagon.classList.add('occupied');
@@ -1626,13 +1626,38 @@ function updateTraitDisplay() {
     updateRecommendations();
 }
 
+
 // 根據特質等級獲取顏色
-function getTierColor(tier) {
+function getTierColor(tier, traitName, currentCount) {
+    // 找到對應的羈絆數據
+    const trait = traitData.find(t => t.name === traitName);
+    if (!trait) return '#555555';
+    
+    // 特殊處理單級羈絆（靈魂殺手、主宰、網路之神、病毒）
+    const singleLevelTraits = ['靈魂殺手', '主宰', '網路之神', '病毒'];
+    if (singleLevelTraits.includes(traitName)) {
+        return tier > 0 ? '#FF6B35' : '#555555'; // 橘色或未激活
+    }
+    
+    // 神諭集團特殊規則
+    if (traitName === '神諭集團') {
+        if (currentCount >= 5) return '#FFD700'; // 金色 (5-7)
+        if (currentCount >= 2) return '#9DA8B0'; // 銀色 (2-4)
+        if (currentCount >= 1) return '#8C6F4C'; // 銅色 (1)
+        return '#555555'; // 未激活
+    }
+    
+    // 檢查是否有10級的羈絆
+    const hasLevel10 = trait.levels.includes(10);
+    
+    if (tier === 0) return '#555555'; // 未激活 - 淺灰色
+    
+    // 根據等級返回對應顏色
     switch(tier) {
         case 1: return '#8C6F4C'; // 銅色
         case 2: return '#9DA8B0'; // 銀色
         case 3: return '#C89B3C'; // 金色
-        case 4: return '#4EB8D5'; // 鉑金色
+        case 4: return hasLevel10 ? '#E3E3E3' : '#4EB8D5'; // 白金色或鉑金色
         default: return '#555555'; // 未激活
     }
 }
@@ -2449,3 +2474,249 @@ function extractTraitsFromComp(comp) {
     
     return traitInfo;
 }
+
+
+// 更新右側面板的羈絆分析
+function updateSynergyAnalysis() {
+    const synergyChart = document.getElementById('synergy-chart');
+    if (!synergyChart) return;
+    
+    synergyChart.innerHTML = '';
+    
+    // 獲取激活的羈絆數據
+    const activeTraits = {};
+    boardChampions.forEach(champion => {
+        if (champion) {
+            champion.traits.forEach(trait => {
+                activeTraits[trait] = (activeTraits[trait] || 0) + 1;
+            });
+        }
+    });
+    
+    // 為每個激活的羈絆創建進度條
+    for (const [traitName, count] of Object.entries(activeTraits)) {
+        if (count > 0) {
+            const trait = traitData.find(t => t.name === traitName);
+            if (trait) {
+                const synergyBar = createSynergyBar(trait, count);
+                synergyChart.appendChild(synergyBar);
+            }
+        }
+    }
+}
+
+// 創建羈絆進度條
+function createSynergyBar(trait, currentCount) {
+    const container = document.createElement('div');
+    container.className = 'synergy-bar';
+    
+    // 計算當前激活級別和進度
+    let currentLevel = 0;
+    let nextLevel = trait.levels[0];
+    
+    for (let i = 0; i < trait.levels.length; i++) {
+        if (currentCount >= trait.levels[i]) {
+            currentLevel = i + 1;
+            nextLevel = trait.levels[i + 1] || trait.levels[i];
+        } else {
+            nextLevel = trait.levels[i];
+            break;
+        }
+    }
+    
+    // 計算進度百分比
+    let progress = 0;
+    if (currentLevel === 0) {
+        progress = (currentCount / trait.levels[0]) * 100;
+    } else if (currentLevel < trait.levels.length) {
+        const prevLevel = trait.levels[currentLevel - 1];
+        progress = ((currentCount - prevLevel) / (nextLevel - prevLevel)) * 100;
+    } else {
+        progress = 100;
+    }
+    
+    // 創建羈絆名稱行
+    const nameRow = document.createElement('div');
+    nameRow.className = 'synergy-name';
+    nameRow.innerHTML = `
+        <span>${trait.name}</span>
+        <span>${currentCount}/${nextLevel}</span>
+    `;
+    
+    // 創建進度條
+    const progressBar = document.createElement('div');
+    progressBar.className = 'progress-bar';
+    
+    const progressFill = document.createElement('div');
+    progressFill.className = 'progress-fill';
+    progressFill.style.width = `${progress}%`;
+    progressFill.style.backgroundColor = getTierColor(currentLevel);
+    progressBar.appendChild(progressFill);
+    
+    // 創建級別指示器
+    const levels = document.createElement('div');
+    levels.className = 'synergy-levels';
+    trait.levels.forEach((level, index) => {
+        const span = document.createElement('span');
+        span.textContent = level;
+        if (currentCount >= level) {
+            span.className = 'active';
+        }
+        levels.appendChild(span);
+    });
+    
+    container.appendChild(nameRow);
+    container.appendChild(progressBar);
+    container.appendChild(levels);
+    
+    return container;
+}
+
+// 更新陣容推薦
+function updateCompRecommendations() {
+    const compList = document.getElementById('comp-recommendations-list');
+    if (!compList) return;
+    
+    // 如果有足夠的英雄，顯示推薦陣容
+    if (selectedHeroes.length >= 2) {
+        findMatchingComps().then(recommendations => {
+            displayCompRecommendations(recommendations);
+        });
+    } else {
+        compList.innerHTML = '<p style="text-align: center; color: #888;">請至少放置2個英雄以獲取陣容推薦</p>';
+    }
+}
+
+// 顯示推薦陣容
+function displayCompRecommendations(recommendations) {
+    const compList = document.getElementById('comp-recommendations-list');
+    compList.innerHTML = '';
+    
+    if (recommendations.length === 0) {
+        compList.innerHTML = '<p style="text-align: center; color: #888;">暫無相關推薦，請嘗試不同的英雄組合</p>';
+        return;
+    }
+    
+    // 顯示前三個推薦
+    recommendations.slice(0, 3).forEach(rec => {
+        const compCard = createCompCard(rec);
+        compList.appendChild(compCard);
+    });
+}
+
+// 創建推薦陣容卡片
+function createCompCard(recommendation) {
+    const card = document.createElement('div');
+    card.className = 'comp-card';
+    
+    const comp = recommendation.comp;
+    const score = Math.round(recommendation.matchScore * 100);
+    
+    // 提取羈絆信息
+    const traits = extractTraitsFromComp(comp);
+    const traitTags = traits.map(trait => {
+        return `<div class="trait-badge ${getTraitTierClass(trait.level)}">${trait.name} (${trait.level})</div>`;
+    }).join('');
+    
+    // 提取推薦英雄
+    const recommendedHeroes = recommendation.remainingHeroes.slice(0, 4);
+    const heroHTML = recommendedHeroes.map(hero => {
+        const championData = getTFChampionData(hero);
+        return `
+            <div class="champion-item">
+                <img src="${championData.imgSrc || '/api/placeholder/40/40'}" alt="${hero}">
+                <div class="champion-name">${hero}</div>
+            </div>
+        `;
+    }).join('');
+    
+    card.innerHTML = `
+        <div class="comp-header">
+            <div class="comp-title">${comp.comp_name || '推薦陣容'}</div>
+            <div class="comp-score">匹配度: ${score}%</div>
+        </div>
+        
+        <div class="comp-traits">
+            ${traitTags}
+        </div>
+        
+        <p style="font-size: 13px; margin-bottom: 10px; color: #AAA;">
+            建議添加以下英雄:
+        </p>
+        
+        <div class="champion-list">
+            ${heroHTML}
+        </div>
+    `;
+    
+    return card;
+}
+
+// 獲取羈絆等級對應的樣式類
+function getTraitTierClass(level) {
+    if (level >= 4) return 'gold';
+    if (level >= 3) return 'silver';
+    if (level >= 2) return 'bronze';
+    return '';
+}
+
+// 獲取英雄數據（可根據實際實現調整）
+function getTFChampionData(heroName) {
+    const champion = championData.find(c => c.name === heroName);
+    if (champion) {
+        return {
+            name: champion.name,
+            imgSrc: isImageAvailable('champions', champion.id) 
+                ? `images/champions/${champion.id}.png` 
+                : '/api/placeholder/40/40'
+        };
+    }
+    return { name: heroName, imgSrc: '/api/placeholder/40/40' };
+}
+
+// 頁籤切換功能
+function initializeTabs() {
+    document.querySelectorAll('.tabs').forEach(tabContainer => {
+        const tabs = tabContainer.querySelectorAll('.tab');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                // 移除所有活動狀態
+                tabs.forEach(t => t.classList.remove('active'));
+                const parentContainer = this.closest('.synergy-analysis, .comp-recommendations');
+                parentContainer.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                // 添加當前頁籤的活動狀態
+                this.classList.add('active');
+                const tabName = this.getAttribute('data-tab');
+                const content = parentContainer.querySelector(`.tab-content.${tabName}`);
+                if (content) {
+                    content.classList.add('active');
+                }
+            });
+        });
+    });
+}
+
+// 更新原有的 updateTraitDisplay 函數，加入對右側面板的更新
+const originalUpdateTraitDisplay = updateTraitDisplay;
+updateTraitDisplay = function() {
+    originalUpdateTraitDisplay.call(this);
+    
+    // 更新右側的羈絆分析
+    updateSynergyAnalysis();
+    
+    // 更新陣容推薦
+    updateCompRecommendations();
+};
+
+// 在 DOM 加載完成後初始化頁籤
+document.addEventListener('DOMContentLoaded', function() {
+    // 原有的初始化代碼...
+    
+    // 初始化新功能
+    initializeTabs();
+    updateSynergyAnalysis();
+    updateCompRecommendations();
+});

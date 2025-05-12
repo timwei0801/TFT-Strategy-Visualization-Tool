@@ -32,82 +32,130 @@
                 </div>
             </div>
             
-            <!-- 中間棋盤區域 -->
-            <div class="board-container">
-                <div class="board-label">棋盤</div>
-                <div class="hexagon-board" id="hexagon-board">
-                    <!-- 六角形格子會動態生成 -->
+            <!-- 主要區域（包含棋盤和選單） -->
+            <div class="main-area">
+                <!-- 棋盤區域 -->
+                <div class="board-container">
+                    <div class="board-label">棋盤</div>
+                    <div class="hexagon-board" id="hexagon-board">
+                        <!-- 六角形格子會動態生成 -->
+                    </div>
+                    <div class="board-instructions">
+                        <p>• 拖動或左鍵單擊，將英雄和裝備放置到佈局上。</p>
+                        <p>• 右鍵選擇取消選擇英雄和裝備。</p>
+                    </div>
+                    <div class="board-buttons">
+                        <button id="clear-board"><img src="/api/placeholder/24/24" alt="清除圖示" /> 清除面板</button>
+                        <button id="save-image"><img src="/api/placeholder/24/24" alt="儲存圖示" /> 儲存圖像</button>
+                    </div>
                 </div>
-                <div class="board-instructions">
-                    <p>• 拖動或左鍵單擊，將英雄和裝備放置到佈局上。</p>
-                    <p>• 右鍵選擇取消選擇英雄和裝備。</p>
-                </div>
-                <div class="board-buttons">
-                    <button id="clear-board"><img src="/api/placeholder/18/18" alt="清除圖示" /> 清除面板</button>
-                    <button id="save-image"><img src="/api/placeholder/18/18" alt="儲存圖示" /> 儲存圖像</button>
+                
+                <!-- 底部選單欄 -->
+                <div class="bottom-menu">
+                    <div class="menu-tabs">
+                        <div class="menu-tab active" data-tab="champions">
+                            <img src="/api/placeholder/24/24" alt="英雄圖示" /> 英雄
+                        </div>
+                        <div class="menu-tab" data-tab="items">
+                            <img src="/api/placeholder/24/24" alt="道具圖示" /> 道具
+                        </div>
+                        <div class="menu-tab" data-tab="augments">
+                            <img src="/api/placeholder/24/24" alt="增幅圖示" /> 增幅裝置
+                        </div>
+                        <div class="menu-tab" data-tab="visualizations">
+                            <img src="/api/placeholder/24/24" alt="視覺化圖示" /> 視覺化
+                        </div>
+                    </div>
+                    
+                    <div class="menu-filter">
+                        <div class="filter-box">
+                            <div class="search-box">
+                                <img src="/api/placeholder/20/20" alt="搜尋圖示" />
+                                <input type="text" id="search-input" placeholder="搜尋英雄">
+                            </div>
+                            <div class="filter-buttons" id="filter-buttons">
+                                <!-- 過濾按鈕會根據當前標籤動態生成 -->
+                            </div>
+                        </div>
+                        <button class="clear-button" id="clear-filter">清除</button>
+                    </div>
+                    
+                    <div class="items-grid" id="items-grid">
+                        <!-- 物品格會動態生成 -->
+                    </div>
                 </div>
             </div>
             
-            <!-- 右側推薦區 -->
-            <div class="recommendation">
-                <h3>核心英雄與道具</h3>
-                <div class="recommendation-content">
-                    <p>從清單中拖動核心冠軍。</p>
-                    <div id="core-recommendations">
-                        <!-- 推薦內容會動態生成 -->
+            <!-- 右側分析區 -->
+            <div class="analysis-area">
+                <!-- 羈絆分析面板 -->
+                <div class="synergy-analysis">
+                    <div class="tabs">
+                        <div class="tab active" data-tab="synergy-basic">羈絆分析</div>
+                        <div class="tab" data-tab="synergy-advanced">協同效果</div>
                     </div>
-                    <h3 style="margin-top: 20px;">增幅裝置</h3>
-                    <p>從下面的增幅表中拖動建議的增幅。</p>
-                    <div id="augment-recommendations">
-                        <!-- 增幅推薦會動態生成 -->
+                    
+                    <div class="tab-content synergy-basic active">
+                        <div class="synergy-chart" id="synergy-chart">
+                            <!-- 羈絆進度條會動態生成 -->
+                        </div>
+                        
+                        <div class="view-details">
+                            <button class="button" onclick="openVisualization('network')">查看完整羈絆網絡圖</button>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content synergy-advanced">
+                        <p>羈絆協同效果分析區域</p>
+                        <!-- 未來可在此添加更詳細的協同分析 -->
+                    </div>
+                </div>
+                
+                <!-- 陣容推薦面板 -->
+                <div class="comp-recommendations">
+                    <div class="tabs">
+                        <div class="tab active" data-tab="comp-list">推薦陣容</div>
+                        <div class="tab" data-tab="comp-items">裝備搭配</div>
+                        <div class="tab" data-tab="comp-augments">增幅建議</div>
+                    </div>
+                    
+                    <div class="tab-content comp-list active">
+                        <div id="comp-recommendations-list">
+                            <!-- 推薦陣容會動態生成 -->
+                        </div>
+                        
+                        <div class="view-details">
+                            <button class="button" onclick="openVisualization('comps')">查看更多推薦陣容</button>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content comp-items">
+                        <div id="item-recommendations">
+                            <!-- 裝備推薦會動態生成 -->
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content comp-augments">
+                        <div id="augment-recommendations">
+                            <!-- 增幅推薦會動態生成 -->
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <!-- 底部選單欄 -->
-        <div class="bottom-menu">
-            <div class="menu-tabs">
-                <div class="menu-tab active" data-tab="champions">
-                    <img src="/api/placeholder/18/18" alt="英雄圖示" /> 英雄
-                </div>
-                <div class="menu-tab" data-tab="items">
-                    <img src="/api/placeholder/18/18" alt="道具圖示" /> 道具
-                </div>
-                <div class="menu-tab" data-tab="augments">
-                    <img src="/api/placeholder/18/18" alt="增幅圖示" /> 增幅裝置
-                </div>
-            </div>
-            
-            <div class="menu-filter">
-                <div class="filter-box">
-                    <div class="search-box">
-                        <img src="/api/placeholder/16/16" alt="搜尋圖示" />
-                        <input type="text" id="search-input" placeholder="搜尋英雄">
-                    </div>
-                    <div class="filter-buttons" id="filter-buttons">
-                        <!-- 過濾按鈕會根據當前標籤動態生成 -->
-                    </div>
-                </div>
-                <button class="clear-button" id="clear-filter">清除</button>
-            </div>
-            
-            <div class="items-grid" id="items-grid">
-                <!-- 物品格會動態生成 -->
-            </div>
 
-            <!-- 懸停提示框 -->
-            <div id="tooltip" class="tooltip">
-                <div class="tooltip-header">
-                    <img src="" alt="" class="tooltip-icon">
-                    <div class="tooltip-title"></div>
-                    <div class="tooltip-cost"></div>
-                </div>
-                <div class="tooltip-traits"></div>
-                <div class="tooltip-stats"></div>
-                <div class="tooltip-ability"></div>
-                <div class="tooltip-description"></div>
+        <!-- 懸停提示框 -->
+        <div id="tooltip" class="tooltip">
+            <div class="tooltip-header">
+                <img src="" alt="" class="tooltip-icon">
+                <div class="tooltip-title"></div>
+                <div class="tooltip-cost"></div>
             </div>
+            <div class="tooltip-traits"></div>
+            <div class="tooltip-stats"></div>
+            <div class="tooltip-ability"></div>
+            <div class="tooltip-description"></div>
+        </div>
         </div>
     </div>
     <script src="assets/js/util.js"></script>
